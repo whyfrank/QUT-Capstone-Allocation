@@ -1,4 +1,13 @@
+previousMenuSelection = null;
 function getApp(app_name) {
+  if (previousMenuSelection	!= null) {
+	previousMenuSelection.setAttribute("style","");
+  }
+
+  loadingDisplay("content");	
+  document.getElementById(app_name).style.background = "gray"
+  previousMenuSelection = document.getElementById(app_name);
+	
   if (window.XMLHttpRequest) {
 	// code for IE7+, Firefox, Chrome, Opera, Safari
 	xmlhttp=new XMLHttpRequest();
@@ -6,11 +15,34 @@ function getApp(app_name) {
 	xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
   }
   xmlhttp.onreadystatechange=function() {
+	// If the response is ready, and OK, then display the results in the contents section.
 	if (this.readyState==4 && this.status==200) {
-	  document.getElementById(app_name).style.background = "gray"
+		
+	  // Does nothing but show the loading screen for debugging purposes.
+	  sleep(2000);
 	  document.getElementById("content").innerHTML=this.responseText;
+	} else if (this.readyState==4 && this.status==404) {
+	  document.getElementById("content").innerHTML="<h2>This resource cannot be found: Error " + this.status + ".</h2>";
+	} else if (this.readyState==4) {
+	  document.getElementById("content").innerHTML="<h2>An error has occured: Error " + this.status + ".</h2>";
 	}
   }
   xmlhttp.open("GET",app_name,true);
   xmlhttp.send();
+}
+
+function loadingDisplay(id) {
+	loadingDisplayHTML = '<div class="spinner"></div>';
+	
+	document.getElementById(id).innerHTML=loadingDisplayHTML;
+}
+
+// Just so I can actually see the loading screen!
+function sleep(milliseconds) {
+  var start = new Date().getTime();
+  for (var i = 0; i < 1e7; i++) {
+    if ((new Date().getTime() - start) > milliseconds){
+      break;
+    }
+  }
 }
