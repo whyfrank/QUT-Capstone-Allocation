@@ -1,0 +1,138 @@
+@import url('https://fonts.googleapis.com/css?family=Open+Sans');
+
+body {
+	margin: 0;
+	background: #dbdbdb;
+}
+
+h1 {
+	color: #555555;
+	font-weight: normal;
+}
+
+.no-shad {
+	box-shadow: none !important;
+	text-shadow: none !important;
+}
+
+#app {
+	display: block;
+	position: absolute;
+	background: white;
+	height: 95%;
+	width: 97.5%;
+	border-radius: 6px;
+    border: 1px solid gray;
+	box-shadow: 0px 0px 5px gray;
+}
+
+#content {
+	position: absolute;
+	left: 240px;
+	padding: 25px;
+	font: 14px 'Open Sans', sans-serif;
+	width: calc(97% - 270px);
+	height: 87%;
+	z-index: -1;
+}
+
+#left-menu {
+	position: fixed;
+	width: 240px;
+	top: 40px;
+	height: calc(100% - 40px);
+	background: radial-gradient(#b3b3b3, #a4a4a4);
+	color: white;
+	box-shadow: 0px 0px 5px grey;
+}
+
+.menu-head {
+	padding-top: 35px;
+	padding-bottom: 5px;
+	display:block;
+	font: 14px 'Open Sans', sans-serif;
+	text-shadow: 1.2px 1.2px 1px #343434;
+	text-align: center;
+	width: 100%;
+	border-bottom: 1px solid gray;
+}
+
+#left-menu a:link, #left-menu a:visited, #left-menu a:hover, #left-menu a:active {
+	color: white;
+	text-decoration: none;
+	font: 20px 'Open Sans', sans-serif;
+	text-shadow: 1.2px 1.2px 1px #343434;
+	display:block;
+	height: 30px;
+	padding-left: 20px;
+	padding-top: 10px;
+	transition: background 0.2s;
+}
+
+#left-menu span {
+	width: 100%;
+}
+
+#left-menu a:hover {
+	background: #919191;
+}
+
+a {
+  color: #00B7FF;
+}
+
+header {
+	background: linear-gradient(#4f63b3, #405091);
+	position: fixed;
+	width: 100%;
+	height: 40px;
+	padding: 0;
+	color: white;
+	font: 24px 'Open Sans', sans-serif;
+	box-shadow: 0px 0px 5px gray;
+}
+
+header span {
+	padding-left: 20px;
+}
+
+#sub-name {
+	position: absolute;
+	left: 65px;
+	top: 25px;
+	font-size: 10px;
+}
+
+/* View Projects */
+.projects-view {
+	float:left;
+	width: calc(100% - 202px);
+}
+
+.project {
+	border-radius: 6px;
+    border: 1px solid gray;
+	box-shadow: 0px 0px 3px gray;
+	margin: 5px;
+	padding: 5px;
+}
+
+.right-link {
+	text-align: right;
+	float: right;
+	margin-top: -22px;
+	padding: 5px;
+}
+
+.filters {
+	float: right;
+	width: 200px;
+	height: 100%;
+	background: radial-gradient(#b3b3b3, #a4a4a4);
+	box-shadow: 0px 0px 3px gray;
+	color:white;
+}
+
+.filter-input {
+	text-shadow: 1.2px 1.2px 1px #343434;
+}
