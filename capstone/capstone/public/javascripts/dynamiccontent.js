@@ -1,11 +1,13 @@
 previousMenuSelection = null;
+
+//Requests an HTML document and loads it into the contents section.
 function getApp(app_name) {
   if (previousMenuSelection	!= null) {
 	previousMenuSelection.setAttribute("style","");
   }
 
   loadingDisplay("content");	
-  document.getElementById(app_name).style.background = "gray"
+  document.getElementById(app_name).style.background = "#004377"
   previousMenuSelection = document.getElementById(app_name);
 	
   if (window.XMLHttpRequest) {
@@ -31,6 +33,7 @@ function getApp(app_name) {
   xmlhttp.send();
 }
 
+// Draws a loading screen over the element that has content to be loaded.
 function loadingDisplay(id) {
 	loadingDisplayHTML = '<div class="spinner"></div>';
 	
