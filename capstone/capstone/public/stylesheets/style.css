@@ -30,7 +30,7 @@ h1 {
 	position: absolute;
 	left: 240px;
 	padding: 25px;
-	font: 14px 'Open Sans', sans-serif;
+	font: 14px Arial, "Helvetica Neue", Helvetica, sans-serif;
 	width: calc(97% - 270px);
 	height: 87%;
 	z-index: -1;
@@ -53,7 +53,7 @@ h1 {
 	padding-top: 35px;
 	padding-bottom: 5px;
 	display:block;
-	font: 14px 'Open Sans', sans-serif;
+	font: 14px Arial, "Helvetica Neue", Helvetica, sans-serif;
 	text-shadow: 1.2px 1.2px 1px #343434;
 	text-align: center;
 	width: 100%;
@@ -63,7 +63,7 @@ h1 {
 #left-menu a:link, #left-menu a:visited, #left-menu a:hover, #left-menu a:active {
 	color: white;
 	text-decoration: none;
-	font: 20px 'Open Sans', sans-serif;
+	font: 20px Arial, "Helvetica Neue", Helvetica, sans-serif;
 	text-shadow: 1.2px 1.2px 1px #343434;
 	display:block;
 	height: 30px;
@@ -183,6 +183,20 @@ header span {
 	padding: 0 0 5px 5px;
 }
 
+.detail-information {
+	float:left;
+	padding-left: 15px;
+}
+
+.detail-header {
+	float:left;
+}
+
+.acceptance-states {
+	clear: left;
+	padding-top: 15px;
+}
+
 .project:nth-child(even) {
 	background: #fcfcfc;
 }
@@ -195,6 +209,7 @@ header span {
 	height: 30px;
 	text-align: center;
 	float: right;
+	font-family: 'Open Sans', sans-serif;
 }
 
 .assigned {
@@ -212,6 +227,7 @@ header span {
 .right-link {
 	text-align: right;
 	float: right;
+	clear: left;
 	margin-top: -22px;
 	padding: 5px;
 }
