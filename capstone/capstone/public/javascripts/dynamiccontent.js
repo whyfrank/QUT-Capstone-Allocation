@@ -7,7 +7,7 @@ function getApp(app_name) {
   }
 
   loadingDisplay("content");	
-  document.getElementById(app_name).style.background = "#004377"
+  document.getElementById(app_name).style.background = "#555"
   previousMenuSelection = document.getElementById(app_name);
 	
   if (window.XMLHttpRequest) {
@@ -21,7 +21,7 @@ function getApp(app_name) {
 	if (this.readyState==4 && this.status==200) {
 		
 	  // Does nothing but show the loading screen for debugging purposes.
-	  sleep(2000);
+	  sleep(1000);
 	  document.getElementById("content").innerHTML=this.responseText;
 	} else if (this.readyState==4 && this.status==404) {
 	  document.getElementById("content").innerHTML="<h2>This resource cannot be found: Error " + this.status + ".</h2>";
