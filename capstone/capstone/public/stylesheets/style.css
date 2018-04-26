@@ -28,7 +28,7 @@ h1 {
 
 #content {
 	position: absolute;
-	left: 240px;
+	left: 216px;
 	padding: 25px;
 	font: 14px Arial, "Helvetica Neue", Helvetica, sans-serif;
 	width: calc(97% - 270px);
@@ -40,9 +40,9 @@ h1 {
 
 #left-menu {
 	position: fixed;
-	width: 240px;
-	top: 40px;
-	height: calc(100% - 40px);
+	width: 216px;
+	top: 36px;
+	height: calc(100% - 36px);
 	background: #17568C;
 	color: white;
 	box-shadow: 0px 5px 5px grey;
@@ -90,10 +90,10 @@ header {
 	background: #004377;
 	position: fixed;
 	width: 100%;
-	height: 40px;
+	height: 36px;
 	padding: 0;
 	color: white;
-	font: 24px 'Open Sans', sans-serif;
+	font: 21.6px 'Open Sans', sans-serif;
 	box-shadow: 0px 0px 5px gray;
 }
 
@@ -105,7 +105,8 @@ header {
 	color: white;
 	cursor: pointer;
 	padding: 4px;
-	width: 40px;
+	width: 36px;
+	font-size: 24px;
 }
 
 .top-menu-search:hover {
@@ -119,7 +120,7 @@ header span {
 #sub-name {
 	position: absolute;
 	left: 65px;
-	top: 25px;
+	top: 21px;
 	font-size: 10px;
 }
 
@@ -127,10 +128,10 @@ header span {
 	float: right;
 	color: white;
 	text-decoration: none;
-	font-size: 20px;
+	font-size: 18px;
 	text-align: right;
-	height: 32px;
-	padding: 8px 10px 0px 10px;
+	height: 30px;
+	padding: 6px 10px 0px 10px;
 	margin-right: 40px;
 }
 
@@ -141,10 +142,10 @@ header span {
 #username:link, #username:visited, #username:hover, #username:active {
 	background: #555;
 	float: right;
-	font-size: 20px;
+	font-size: 18px;
 	text-align: right;
-	height: 32px;
-	padding: 8px 10px 0px 10px;
+	height: 30px;
+	padding: 6px 10px 0px 10px;
 	margin: 0px 2px 0px 80px;
 	color: white;
 	text-decoration: none;
@@ -154,7 +155,7 @@ header span {
 .projects-view {
 	float:left;
 	width: calc(100% - 202px);
-	overflow-y: scroll; 
+	overflow-y: auto; 
 	height: 100%;
 	display: -webkit-flex; /* Safari */
     -webkit-flex-direction: column; /* Safari 6.1+ */
@@ -244,6 +245,110 @@ header span {
 .filter-input {
 	text-shadow: 1.2px 1.2px 1px #343434;
 }
+
+/* Proposals Page */
+.project-li, .project-li:link, .project-li:visited, .project-li:hover, .project-li:active {
+	float: bottom;
+	padding: 0 0 5px 5px;
+	cursor: pointer;
+	text-decoration: none;
+	color: black;
+	border-bottom: 1px solid #004377;
+}
+
+.project-li:nth-child(even) {
+	background: #fcfcfc;
+}
+
+.project-li:hover {
+	color: white;
+	background: #17568C;
+}
+
+.proposals-view {
+	border-right: 1px solid #004377;
+	float:left;
+	width: 270px;
+	overflow-y: auto; 
+	height: 100%;
+	display: -webkit-flex; /* Safari */
+    -webkit-flex-direction: column; /* Safari 6.1+ */
+	display: flex;
+	flex-direction: column; 
+}
+
+#proposal-view {
+	float:right;
+	height: 100%;
+	width: calc(100% - 271px);
+	box-shadow: 0px 0px 5px gray;
+}
+
+#proposal-content {
+	height: 100%;
+	width: 675px;
+	box-shadow: 0px 0px 5px gray;
+	margin: 50px 0 50px calc(50% - 337.5px);
+	background: white;
+	padding-top: 30px;
+}
+
+#proposal-wrapper {
+	height: calc(100% - 36px);
+	overflow-y: auto;
+	background: #f9f9f9;
+}
+
+#prop-action-bar {
+	width: 100%;
+	height: 36px;
+	background: #17568C;
+}
+
+.prop-action-btn {
+	float: right;
+	-webkit-appearance: none;
+	color: white;
+	border: 1px solid gray;
+	height: 24px;
+	width: 70px;
+	margin: 6px 6px 0px 0px;
+}
+
+.prop-action-btn:hover {
+	cursor: pointer;
+}
+
+#acc-btn {
+	background: #3e6d40;
+}
+
+#dec-btn {
+	background: #6d3d3d;
+}
+
+#proposal-helper {
+	padding: 50px;
+	font-size: 24px;
+	color: gray;
+}
+
+.proposal-element {
+	width: calc(100% - 30px);
+	border-bottom: 1px solid gray;
+	padding: 5px;
+	margin: 10px;
+}
+
+.prop-information {
+	float:left;
+	padding-left: 15px;
+}
+
+.prop-header {
+	float:left;
+}
+
 
     /* Formatting search box */
     .search-box{
