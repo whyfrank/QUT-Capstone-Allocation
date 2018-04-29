@@ -33,3 +33,9 @@ function getProposal(id) {
   xmlhttp.open("GET","proposal?id=" + id,true);
   xmlhttp.send();
 }
+
+function proposaldeclineForm() {
+	document.getElementById("prop-action-bar").style.display = "none";
+	document.getElementById("prop-decline-bar").style.display = "block";
+	document.getElementById("proposal-wrapper").style.height = "calc(100% - 160px)";
+}

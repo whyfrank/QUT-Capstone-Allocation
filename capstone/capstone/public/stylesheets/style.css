@@ -305,6 +305,13 @@ header span {
 	background: #17568C;
 }
 
+#prop-decline-bar {
+	width: 100%;
+	height: 160px;
+	background: #17568C;
+	display: none;
+}
+
 .prop-action-btn {
 	float: right;
 	-webkit-appearance: none;
@@ -325,6 +332,12 @@ header span {
 
 #dec-btn {
 	background: #6d3d3d;
+}
+
+#decline-message {
+	height: 142px;
+	margin: 6px;
+	width: calc(100% - 170px);
 }
 
 #proposal-helper {
