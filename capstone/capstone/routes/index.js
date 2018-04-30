@@ -1,6 +1,6 @@
 var express = require('express');
 var router = express.Router();
-var router = require('crypto');
+var crypto = require('crypto');
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
