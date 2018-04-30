@@ -44,7 +44,7 @@ var generateSalt = function(length){
 
 /* Hash the password with sha256 */
 var sha256 = function(password, salt){
-  var hash crypto.createHmac('sha256', salt); /* Hashing algorithm sha256 */
+  var hash =  crypto.createHmac('sha256', salt); /* Hashing algorithm sha256 */
   hash.update(password);
   var value = hash.digest('hex');
   return {
@@ -57,4 +57,4 @@ var sha256 = function(password, salt){
 function saltHashPassword(userpassword){
   var salt = generateSalt(16);
   var passwordData = sha256(userpassword, salt);
-}
+};
