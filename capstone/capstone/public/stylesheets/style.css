@@ -21,7 +21,6 @@ h1 {
 	background: white;
 	height: 95%;
 	width: 97.5%;
-	border-radius: 6px;
     border: 1px solid gray;
 	box-shadow: 0px 0px 5px gray;
 }
@@ -144,7 +143,7 @@ header span {
 	float: right;
 	font-size: 18px;
 	text-align: right;
-	height: 30px;
+	height: 28px;
 	padding: 6px 10px 0px 10px;
 	margin: 0px 2px 0px 80px;
 	color: white;
@@ -156,11 +155,20 @@ header span {
 	float:left;
 	width: calc(100% - 202px);
 	overflow-y: auto; 
-	height: 100%;
+	height: calc(100% - 35px);
 	display: -webkit-flex; /* Safari */
     -webkit-flex-direction: column; /* Safari 6.1+ */
 	display: flex;
 	flex-direction: column; 
+}
+
+#search-bar {
+	height: 28px;
+	font-size: 24px;
+	position: absolute;
+	bottom: 0px;
+	left: 0px;
+	width: calc(100% - 204px);
 }
 
 .accepted {

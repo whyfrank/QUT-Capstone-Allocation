@@ -21,4 +21,14 @@ router.get('/proposal', function(req, res, next) {
   res.render('proposal', {layout: false});
 });
 
+/* GET view teams. */
+router.get('/viewteams', function(req, res, next) {
+  res.render('viewteams', {layout: false});
+});
+
+/* GET view students. */
+router.get('/viewstudents', function(req, res, next) {
+  res.render('viewstudents', {layout: false});
+});
+
 module.exports = router;

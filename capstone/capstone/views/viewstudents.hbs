@@ -1,0 +1,49 @@
+<h1>View Students</h1>
+
+<!-- This is where the main 'app' on the page resides. Will make this update contents by AJAX, rather than reloading entire site. -->
+<div id='app'>
+	<div class='projects-view'>
+		<div class='project'>
+			<span class='tag-icon assigned'>J</span>
+			<h3>Bob Richard</h3>
+			<div class="project-details">
+				<div class="detail-header">Team members:</div><div class="detail-information">Steven Harse, Georja Malt, Karthik Gounder, Yannik Frank</div><br><br>
+				<div class="detail-header">Joined Team:</div><div class="detail-information">Heroic Programmers</div>
+			</div>
+			<a class='right-link' href='#'>Contact student</a>
+
+		</div>
+		<div class='project'>
+			<span class='tag-icon assigned'>J</span>
+			<h3>Gerald John</h3>
+			<div class="project-details">
+				<div class="detail-header">Joined team:</div><div class="detail-information">Holy Developers</div>
+			</div>
+			<a class='right-link' href='#'>Contact student</a>
+		</div>
+		<div class='project'>
+			<span class='tag-icon no-assign'>N</span>
+			<h3>Samantha Smith</h3>
+			<div class="project-details">
+				<p style="color:red">Not in a team</p>
+			</div>
+			<a class='right-link' href='#'>Contact student</a>
+		</div>
+		<div class='project'>
+			<span class='tag-icon no-assign'>N</span>
+			<h3>Frank Green</h3>
+			<div class="project-details">
+				<p style="color:red">Not in a team</p>
+			</div>
+			<a class='right-link' href='#'>Contact student</a>
+		</div>
+	</div>
+	<input id="search-bar" type="text" placeholder="Search students..">
+	<div class='filters'>
+		<form>
+			<span class='menu-head'>Milestones</span>
+			<input type="checkbox" name="milestone" value="not-yet-team" checked><span class='filter-input'>Not in team</span><br>
+			<input type="checkbox" name="milestone" value="in-team" checked><span class='filter-input'>Joined team</span><br>
+		</form>
+	</div>
+</div>
