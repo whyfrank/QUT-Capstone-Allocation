@@ -19,8 +19,8 @@ h1 {
 	display: block;
 	position: absolute;
 	background: white;
-	height: 95%;
-	width: 97.5%;
+	height: 90%;
+	width: 99.5%;
     border: 1px solid gray;
 	box-shadow: 0px 0px 5px gray;
 }
@@ -76,7 +76,7 @@ h1 {
 }
 
 #left-menu a:hover {
-	background: #004880;
+	background: #004377;
 }
 
 a {
@@ -143,7 +143,7 @@ header span {
 	float: right;
 	font-size: 18px;
 	text-align: right;
-	height: 28px;
+	height: 30px;
 	padding: 6px 10px 0px 10px;
 	margin: 0px 2px 0px 80px;
 	color: white;
@@ -154,6 +154,7 @@ header span {
 .projects-view {
 	float:left;
 	width: calc(100% - 202px);
+	padding-top: 29px;
 	overflow-y: auto; 
 	height: calc(100% - 35px);
 	display: -webkit-flex; /* Safari */
@@ -164,11 +165,14 @@ header span {
 
 #search-bar {
 	height: 28px;
-	font-size: 24px;
+	font-size: 20px;
 	position: absolute;
-	bottom: 0px;
+	top: 0px;
 	left: 0px;
-	width: calc(100% - 204px);
+	width: calc(100% - 202px);
+	background: linear-gradient(#d6d6d6, #eee);
+	padding-left: 2px;
+	border-bottom: 1px solid gray;
 }
 
 .accepted {
@@ -328,8 +332,10 @@ header span {
 	height: 24px;
 	width: 70px;
 	margin: 6px 6px 0px 0px;
+	border-radius: 3px;
 }
 
+/* Proposal Buttons */
 .prop-action-btn:hover {
 	cursor: pointer;
 }
@@ -339,6 +345,14 @@ header span {
 }
 
 #dec-btn {
+	background: #6d3d3d;
+}
+
+#submit-btn {
+	background: #5C499E;
+}
+
+#cancel-btn {
 	background: #6d3d3d;
 }
 

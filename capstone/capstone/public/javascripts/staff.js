@@ -39,3 +39,9 @@ function proposaldeclineForm() {
 	document.getElementById("prop-decline-bar").style.display = "block";
 	document.getElementById("proposal-wrapper").style.height = "calc(100% - 160px)";
 }
+
+function rejectCancel() {
+	document.getElementById("prop-action-bar").style.display = "block";
+	document.getElementById("prop-decline-bar").style.display = "none";
+	document.getElementById("proposal-wrapper").style.height = "calc(100% - 36px)";
+}
