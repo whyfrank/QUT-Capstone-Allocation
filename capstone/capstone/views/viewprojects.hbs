@@ -3,43 +3,47 @@
 <!-- This is where the main 'app' on the page resides. Will make this update contents by AJAX, rather than reloading entire site. -->
 <div id='app'>
 	<div class='projects-view'>
-		<div class='project'>
-			<span class='tag-icon pre-assign'>PA</span>
-			<h3>Banana Inc. - ePhone XI App</h3>
-			<div class="project-details">
-				<div class="detail-header">Assigned to:</div><div class="detail-information">DEV Developers<br>Bob Smith, Waylon Jennings, Greg Smith, Jim John</div>
-				<div class="acceptance-states"><i class="fa fa-check-square accepted"></i> Team accepted&nbsp&nbsp&nbsp<i class="fa fa-square pending"></i> Industry acceptance pending</div>
+		{{#projects}}
+			<div class='project'>
+				<span class='tag-icon pre-assign'>PA</span>
+				<h3>{{'Company Name'}}</h3>
+				<div class="project-details">
+					<div class="detail-header">Assigned to:</div><div class="detail-information">DEV Developers<br>Bob Smith, Waylon Jennings, Greg Smith, Jim John</div>
+					<div class="acceptance-states"><i class="fa fa-check-square accepted"></i> Team accepted&nbsp&nbsp&nbsp<i class="fa fa-square pending"></i> Industry acceptance pending</div>
+				</div>
+				<a class='right-link' href='#'>Open Project</a>
 			</div>
-			<a class='right-link' href='#'>Open Project</a>
-		</div>
-		<div class='project'>
-			<span class='tag-icon assigned'>A</span>
-			<h3>MacroSoft - Windown 11 System</h3>
-			<div class="project-details">
-				<div class="detail-header">Assigned to:</div><div class="detail-information">Team Teamwork<br>Jack Daniel, Samantha Johnson, Georgia Nicholson, Tim Thompson</div>
+		{{/projects}}
+		<!--
+			<div class='project'>
+				<span class='tag-icon assigned'>A</span>
+				<h3>MacroSoft - Windown 11 System</h3>
+				<div class="project-details">
+					<div class="detail-header">Assigned to:</div><div class="detail-information">Team Teamwork<br>Jack Daniel, Samantha Johnson, Georgia Nicholson, Tim Thompson</div>
+				</div>
+				<a class='right-link' href='#'>Open Project</a>
 			</div>
-			<a class='right-link' href='#'>Open Project</a>
-		</div>
-		<div class='project'>
-			<span class='tag-icon no-assign'>NA</span>
-			<h3>TechnologyTwo - Enterprise System Solution</h3>
-			<div class="project-details">
-				<p style="color:red">Unassigned</p>
+			<div class='project'>
+				<span class='tag-icon no-assign'>NA</span>
+				<h3>TechnologyTwo - Enterprise System Solution</h3>
+				<div class="project-details">
+					<p style="color:red">Unassigned</p>
+				</div>
+				<a class='right-link' href='#'>Open Project</a>
 			</div>
-			<a class='right-link' href='#'>Open Project</a>
-		</div>
-		<div class='project'>
-			<span class='tag-icon no-assign'>NA</span>
-			<h3>TechnologyTwo - Enterprise System Testing</h3>
-			<div class="project-details">
-				<p style="color:red">Unassigned</p>
+			<div class='project'>
+				<span class='tag-icon no-assign'>NA</span>
+				<h3>TechnologyTwo - Enterprise System Testing</h3>
+				<div class="project-details">
+					<p style="color:red">Unassigned</p>
+				</div>
+				<a class='right-link' href='#'>Open Project</a>
 			</div>
-			<a class='right-link' href='#'>Open Project</a>
+		-->
 		</div>
-	</div>
-	<div id="search-bar">
-		<input type="text" placeholder="Search projects..">
-	</div>
+		<div id="search-bar">
+			<input type="text" placeholder="Search projects..">
+		</div>
 	<div class='filters'>
 		<form>
 			<span class='menu-head'>Milestones</span>

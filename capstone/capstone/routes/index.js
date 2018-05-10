@@ -2,14 +2,24 @@ var express = require('express');
 var router = express.Router();
 var crypto = require('crypto');
 
+//custom route for fetching data  
+var projects_data = require('../data_access/projects');
+
+
 /* GET home page. */
 router.get('/', function(req, res, next) {
   res.render('index', { title: 'IT Capstone', page: req.query.page});
 });
 
+var projects;
+
 /* GET view projects. */
 router.get('/viewprojects', function(req, res, next) {
-  res.render('viewprojects', {layout: false});
+	projects_data.getAllProjects().then(function (projects) {
+		this.projects = projects;
+		console.log(projects);
+	})
+	res.render('viewprojects', {layout: false, projects: this.projects});
 });
 
 /* GET proposals. */
