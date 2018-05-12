@@ -1,17 +1,17 @@
 //methods for fetching mysql data
 var connection = require('../connection/db');
 
-function Projects() {
+function Teams() {
 
     // get all users data
-    this.getAllProjects = function () {
+    this.getAllTeams = function () {
 		return new Promise(function(resolve, reject) {
 			// initialize database connection
 			connection.init();
 			// calling acquire methods and passing callback method that will be execute query
 			// return response to server
 			connection.acquire(function (err, con) {
-				con.query('SELECT DISTINCT * FROM project', function (err, results, fields) {
+				con.query('SELECT DISTINCT * FROM team', function (err, results, fields) {
 					con.release();
 					//console.log(result);
 					resolve(results);
@@ -22,4 +22,4 @@ function Projects() {
 
 }
 
-module.exports = new Projects();
+module.exports = new Teams();

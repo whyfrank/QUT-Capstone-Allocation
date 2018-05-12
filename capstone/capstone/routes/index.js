@@ -2,8 +2,10 @@ var express = require('express');
 var router = express.Router();
 var crypto = require('crypto');
 
-//custom route for fetching data  
+//custom route for fetching data
 var projects_data = require('../data_access/projects');
+var teams_data = require('../data_access/teams');
+var students_data = require('../data_access/students');
 
 
 /* GET home page. */
@@ -19,6 +21,11 @@ router.get('/viewprojects', function(req, res, next) {
 		this.projects = projects;
 		console.log(projects);
 	})
+  // teams_data.getAllTeams().then(function (teams) {
+  //   this.teams = teams;
+  //   console.log(teams);
+  // })
+
 	res.render('viewprojects', {layout: false, projects: this.projects});
 });
 
@@ -34,12 +41,20 @@ router.get('/proposal', function(req, res, next) {
 
 /* GET view teams. */
 router.get('/viewteams', function(req, res, next) {
-  res.render('viewteams', {layout: false});
+  teams_data.getAllTeams().then(function (teams) {
+    this.teams = teams;
+    console.log(teams);
+  })
+  res.render('viewteams', {layout: false, teams: this.teams});
 });
 
 /* GET view students. */
 router.get('/viewstudents', function(req, res, next) {
-  res.render('viewstudents', {layout: false});
+  students_data.getAllStudents().then(function (students) {
+    this.students = students;
+    console.log(students);
+  })
+  res.render('viewstudents', {layout: false, students: this.students});
 });
 
 module.exports = router;

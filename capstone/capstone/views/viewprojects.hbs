@@ -3,12 +3,13 @@
 <!-- This is where the main 'app' on the page resides. Will make this update contents by AJAX, rather than reloading entire site. -->
 <div id='app'>
 	<div class='projects-view'>
+
 		{{#projects}}
 			<div class='project'>
 				<span class='tag-icon pre-assign'>PA</span>
-				<h3>{{'Company Name'}}</h3>
+				<h3>{{'Company Name'}} - {{'Project Name'}}</h3>
 				<div class="project-details">
-					<div class="detail-header">Assigned to:</div><div class="detail-information">DEV Developers<br>Bob Smith, Waylon Jennings, Greg Smith, Jim John</div>
+					<div class="detail-header">Assigned to:</div><div class="detail-information">{{'Allocated Team'}}<br>Bob Smith, Waylon Jennings, Greg Smith, Jim John</div>
 					<div class="acceptance-states"><i class="fa fa-check-square accepted"></i> Team accepted&nbsp&nbsp&nbsp<i class="fa fa-square pending"></i> Industry acceptance pending</div>
 				</div>
 				<a class='right-link' href='#'>Open Project</a>

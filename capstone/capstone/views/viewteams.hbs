@@ -3,50 +3,29 @@
 <!-- This is where the main 'app' on the page resides. Will make this update contents by AJAX, rather than reloading entire site. -->
 <div id='app'>
 	<div class='projects-view'>
-		<div class='project'>
-			<span class='tag-icon assigned'>A</span>
-			<h3>SKYG Developments</h3>
-			<div class="project-details">
-				<div class="detail-header">Team members:</div><div class="detail-information">Steven Harse, Georja Malt, Karthik Gounder, Yannik Frank</div><br><br>
-				<div class="detail-header">Assigned to:</div><div class="detail-information">Capstone Systems</div>
+
+		{{#teams}}
+			<div class='project'>
+				<span class='tag-icon pre-assign'>PA</span>
+				<h3>{{'Team Name'}}</h3>
+				<div class="project-details">
+					<div class="detail-header">Assigned to:</div><div class="detail-information">DEV Developers<br>Bob Smith, Waylon Jennings, Greg Smith, Jim John</div>
+					<div class="acceptance-states"><i class="fa fa-check-square accepted"></i> Team accepted&nbsp&nbsp&nbsp<i class="fa fa-square pending"></i> Industry acceptance pending</div>
+				</div>
+				<a class='right-link' href='#'>Open Project</a>
 			</div>
-			<a class='right-link' href='#'>Contact team</a>
+		{{/teams}}
 
 		</div>
-		<div class='project'>
-			<span class='tag-icon assigned'>A</span>
-			<h3>Super Programmers</h3>
-			<div class="project-details">
-				<div class="detail-header">Team members:</div><div class="detail-information">Jack Daniel, Samantha Johnson, Georgia Nicholson, Tim Thompson</div>
-			</div>
-			<a class='right-link' href='#'>Contact team</a>
+		<div id="search-bar">
+			<input type="text" placeholder="Search projects..">
 		</div>
-		<div class='project'>
-			<span class='tag-icon no-assign'>NC</span>
-			<h3>Block Heads</h3>
-			<div class="project-details">
-				<div class="detail-header">Team members:</div><div class="detail-information">Dylan Murphy, Todd Pepper</div>
-			</div>
-			<a class='right-link' href='#'>Contact team</a>
-		</div>
-		<div class='project'>
-			<span class='tag-icon no-assign'>NA</span>
-			<h3>Tech R Us</h3>
-			<div class="project-details">
-				<div class="detail-header">Team members:</div><div class="detail-information">Joe Hisaishi, Hayao Miyazaki, Shinji Orito, Gen Fukunaga</div>
-			</div>
-			<a class='right-link' href='#'>Contact team</a>
-			<a class='right-link' href='#'>Assign team</a>
-		</div>
-	</div>
-	<div id="search-bar">
-		<input type="text" placeholder="Search teams..">
-	</div>
 	<div class='filters'>
 		<form>
 			<span class='menu-head'>Milestones</span>
-			<input type="checkbox" name="milestone" value="not-yet-full" checked><span class='filter-input'>Not Yet Complete Team</span><br>
 			<input type="checkbox" name="milestone" value="not-yet-assigned" checked><span class='filter-input'>Not Yet Assigned</span><br>
+			<input type="checkbox" name="milestone" value="preliminary-assignment" checked><span class='filter-input'>Preliminary Assignment</span><br>
+			<input type="checkbox" name="milestone" value="pending-contract" checked><span class='filter-input'>Pending Contract</span><br>
 			<input type="checkbox" name="milestone" value="assigned" checked><span class='filter-input'>Assigned</span><br>
 		</form>
 	</div>
