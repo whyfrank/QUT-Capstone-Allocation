@@ -25,7 +25,11 @@ CREATE TABLE IF NOT EXISTS `project` (
   `description` varchar(1000) NOT NULL,
   `project_output_type` varchar(50) DEFAULT NULL,
   `difficulty` set('Easy','Normal','Hard') DEFAULT NULL,
+<<<<<<< HEAD
   `priority` set('Normal','High') DEFAULT NULL,
+=======
+  `oriority` set('Normal','High') DEFAULT NULL,
+>>>>>>> origin/master
   `preferred_course_combination` set('CCCI','CCII','CIII') DEFAULT NULL,
   `repeat_partner` tinyint(1) DEFAULT NULL,
   `academic_needed` tinyint(1) DEFAULT NULL,
@@ -102,7 +106,11 @@ CREATE TABLE IF NOT EXISTS `skills` (
   `skill_name` char(50) NOT NULL,
   `skill_type` enum('General Software Development','Languages','Data Analysis and AI','Business Analysis','UX and Interaction Design') NOT NULL,
   PRIMARY KEY (`skill_id`),
+<<<<<<< HEAD
   UNIQUE KEY `skill_name` (`skill_name`)
+=======
+  UNIQUE KEY `skill_name` (`Skill Name`)
+>>>>>>> origin/master
 ) ENGINE=InnoDB AUTO_INCREMENT=64 DEFAULT CHARSET=utf8;
 
 -- Dumping data for table capstone.skills: ~0 rows (approximately)
@@ -176,7 +184,11 @@ CREATE TABLE IF NOT EXISTS `students` (
   `first_name` varchar(50) NOT NULL,
   `last_name` varchar(50) NOT NULL,
   `qut_email` varchar(50) NOT NULL,
+<<<<<<< HEAD
   `gpa` double NOT NULL,
+=======
+  `gpa` double() NOT NULL,
+>>>>>>> origin/master
   `course_code` set('IN01') NOT NULL,
   `course_title` varchar(50) NOT NULL,
   `study_area_a` varchar(50) NOT NULL,
@@ -231,7 +243,11 @@ CREATE TABLE IF NOT EXISTS `team` (
   `team_id` smallint(6) NOT NULL,
   `team_name` varchar(20) NOT NULL,
   `team_ready` tinyint(1) DEFAULT NULL,
+<<<<<<< HEAD
   PRIMARY KEY (`team_id`)
+=======
+  PRIMARY KEY (`Team ID`)
+>>>>>>> origin/master
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- Dumping data for table capstone.team: ~0 rows (approximately)
