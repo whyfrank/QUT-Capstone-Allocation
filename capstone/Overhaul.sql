@@ -18,38 +18,38 @@ USE `capstone`;
 
 -- Dumping structure for table capstone.project
 CREATE TABLE IF NOT EXISTS `project` (
-  `Project ID` smallint(6) NOT NULL AUTO_INCREMENT,
-  `Company Name` varchar(50) NOT NULL,
-  `Project Name` varchar(50) NOT NULL,
-  `Industry` varchar(50) NOT NULL,
-  `Description` varchar(1000) NOT NULL,
-  `Project Output Type` varchar(50) DEFAULT NULL,
-  `Difficulty` set('Easy','Normal','Hard') DEFAULT NULL,
-  `Priority` set('Normal','High') DEFAULT NULL,
-  `Preferred Course Combination` set('CCCI','CCII','CIII') DEFAULT NULL,
-  `Repeat Partner` tinyint(1) DEFAULT NULL,
-  `Academic Needed` tinyint(1) DEFAULT NULL,
-  `IP Contract Requirement` char(50) DEFAULT NULL,
-  `Potential Support Level` varchar(50) DEFAULT NULL,
-  `Company Type` varchar(50) DEFAULT NULL,
-  `Scope/Deliverables` varchar(1000) DEFAULT NULL,
-  `Allocated Team` smallint(6) DEFAULT NULL,
-  `Notes` varchar(1000) DEFAULT NULL,
-  `Status` set('Not Assigned','Preliminary Assignment','Awaiting Contract','Assigned') NOT NULL,
-  `Phone` smallint(6) DEFAULT NULL,
-  `Address` varchar(150) DEFAULT NULL,
-  `Liaison Accepted` enum('Declined','Pending','Approved') DEFAULT NULL,
-  `Academic Accepted` enum('Declined','Pending','Approved') DEFAULT NULL,
-  `Partner Accepted` enum('Declined','Pending','Approved') DEFAULT NULL,
-  `Team Accepted` enum('Declined','Pending','Approved') DEFAULT NULL,
-  PRIMARY KEY (`Project ID`),
-  KEY `Project_fk0` (`Allocated Team`),
-  CONSTRAINT `Project_fk0` FOREIGN KEY (`Allocated Team`) REFERENCES `team` (`team id`)
+  `project_id` smallint(6) NOT NULL AUTO_INCREMENT,
+  `company_name` varchar(50) NOT NULL,
+  `project_name` varchar(50) NOT NULL,
+  `industry` varchar(50) NOT NULL,
+  `description` varchar(1000) NOT NULL,
+  `project_output_type` varchar(50) DEFAULT NULL,
+  `difficulty` set('Easy','Normal','Hard') DEFAULT NULL,
+  `oriority` set('Normal','High') DEFAULT NULL,
+  `preferred_course_combination` set('CCCI','CCII','CIII') DEFAULT NULL,
+  `repeat_partner` tinyint(1) DEFAULT NULL,
+  `academic_needed` tinyint(1) DEFAULT NULL,
+  `ip_contract_requirement` char(50) DEFAULT NULL,
+  `potential_support_level` varchar(50) DEFAULT NULL,
+  `company_type` varchar(50) DEFAULT NULL,
+  `scope_deliverables` varchar(1000) DEFAULT NULL,
+  `allocated_team` smallint(6) DEFAULT NULL,
+  `notes` varchar(1000) DEFAULT NULL,
+  `status` set('Not Assigned','Preliminary Assignment','Awaiting Contract','Assigned') NOT NULL,
+  `phone` smallint(6) DEFAULT NULL,
+  `address` varchar(150) DEFAULT NULL,
+  `liaison_accepted` enum('Declined','Pending','Approved') DEFAULT NULL,
+  `academic_accepted` enum('Declined','Pending','Approved') DEFAULT NULL,
+  `partner_accepted` enum('Declined','Pending','Approved') DEFAULT NULL,
+  `team_accepted` enum('Declined','Pending','Approved') DEFAULT NULL,
+  PRIMARY KEY (`project_id`),
+  KEY `Project_fk0` (`allocated_team`),
+  CONSTRAINT `Project_fk0` FOREIGN KEY (`allocated_team`) REFERENCES `team` (`team id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
 -- Dumping data for table capstone.project: ~0 rows (approximately)
 /*!40000 ALTER TABLE `project` DISABLE KEYS */;
-INSERT INTO `project` (`Project ID`, `Company Name`, `Project Name`, `Industry`, `Description`, `Project Output Type`, `Difficulty`, `Priority`, `Preferred Course Combination`, `Repeat Partner`, `Academic Needed`, `IP Contract Requirement`, `Potential Support Level`, `Company Type`, `Scope/Deliverables`, `Allocated Team`, `Notes`, `Status`, `Phone`, `Address`, `Liaison Accepted`, `Academic Accepted`, `Partner Accepted`, `Team Accepted`) VALUES
+INSERT INTO `project` (`project_id`, `company_name`, `project_name`, `industry`, `description`, `project_output_type`, `difficulty`, `priority`, `preferred_course_combination`, `repeat_partner`, `academic_needed`, `ip_contract_requirement`, `potential_support_level`, `company_type`, `scope_deliverables`, `allocated_team`, `notes`, `status`, `phone`, `address`, `liaison_accepted`, `academic_accepted`, `partner_accepted`, `team_accepted`) VALUES
 	(1, 'Computers R Us', 'Administration Services', 'Information Technology', 'Some snazzy cool admin web portal!', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'Not Assigned', NULL, NULL, NULL, NULL, NULL, NULL);
 /*!40000 ALTER TABLE `project` ENABLE KEYS */;
 
@@ -97,16 +97,16 @@ INSERT INTO `project_skills` (`id`, `project_id`, `required`, `skill`) VALUES
 
 -- Dumping structure for table capstone.skills
 CREATE TABLE IF NOT EXISTS `skills` (
-  `Skill ID` int(11) NOT NULL AUTO_INCREMENT,
-  `Skill Name` char(50) NOT NULL,
-  `Skill Type` enum('General Software Development','Languages','Data Analysis and AI','Business Analysis','UX and Interaction Design') NOT NULL,
-  PRIMARY KEY (`Skill ID`),
-  UNIQUE KEY `Skill Name` (`Skill Name`)
+  `skill_id` int(11) NOT NULL AUTO_INCREMENT,
+  `skill_name` char(50) NOT NULL,
+  `skill_type` enum('General Software Development','Languages','Data Analysis and AI','Business Analysis','UX and Interaction Design') NOT NULL,
+  PRIMARY KEY (`skill_id`),
+  UNIQUE KEY `skill_name` (`Skill Name`)
 ) ENGINE=InnoDB AUTO_INCREMENT=64 DEFAULT CHARSET=utf8;
 
 -- Dumping data for table capstone.skills: ~0 rows (approximately)
 /*!40000 ALTER TABLE `skills` DISABLE KEYS */;
-INSERT INTO `skills` (`Skill ID`, `Skill Name`, `Skill Type`) VALUES
+INSERT INTO `skills` (`skill_id`, `skill_name`, `skill_type`) VALUES
 	(1, 'Back-End Web Development', 'General Software Development'),
 	(2, 'Security', 'General Software Development'),
 	(3, 'Networks', 'General Software Development'),
@@ -153,14 +153,14 @@ INSERT INTO `skills` (`Skill ID`, `Skill Name`, `Skill Type`) VALUES
 
 -- Dumping structure for table capstone.staff
 CREATE TABLE IF NOT EXISTS `staff` (
-  `Staff ID` smallint(6) NOT NULL AUTO_INCREMENT,
-  `Password` varchar(50) NOT NULL,
-  `Password Salt` varchar(50) NOT NULL,
-  `First Name` varchar(50) NOT NULL,
-  `Last Name` varchar(50) NOT NULL,
-  `QUT Email` varchar(50) NOT NULL,
-  `Staff Type` set('Coordinator','Tutor','Industry Liason') NOT NULL,
-  PRIMARY KEY (`Staff ID`)
+  `staff_id` smallint(6) NOT NULL AUTO_INCREMENT,
+  `password` varchar(50) NOT NULL,
+  `password_salt` varchar(50) NOT NULL,
+  `First_name` varchar(50) NOT NULL,
+  `last_name` varchar(50) NOT NULL,
+  `qut_email` varchar(50) NOT NULL,
+  `staff_type` set('Coordinator','Tutor','Industry Liason') NOT NULL,
+  PRIMARY KEY (`staff_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- Dumping data for table capstone.staff: ~0 rows (approximately)
@@ -169,23 +169,23 @@ CREATE TABLE IF NOT EXISTS `staff` (
 
 -- Dumping structure for table capstone.students
 CREATE TABLE IF NOT EXISTS `students` (
-  `Student ID` int(11) NOT NULL,
-  `Password` varchar(50) NOT NULL,
-  `Password Salt` varchar(6) NOT NULL,
-  `First Name` varchar(50) NOT NULL,
-  `Last Name` varchar(50) NOT NULL,
-  `QUT Email` varchar(50) NOT NULL,
-  `GPA` double NOT NULL,
-  `Course Code` set('IN01') NOT NULL,
-  `Course Title` varchar(50) NOT NULL,
-  `Study Area A` varchar(50) NOT NULL,
-  `Study Area B` varchar(50) DEFAULT NULL,
-  PRIMARY KEY (`Student ID`)
+  `student_id` int(11) NOT NULL,
+  `password` varchar(50) NOT NULL,
+  `password_salt` varchar(6) NOT NULL,
+  `first_name` varchar(50) NOT NULL,
+  `last_name` varchar(50) NOT NULL,
+  `qut_email` varchar(50) NOT NULL,
+  `gpa` double() NOT NULL,
+  `course_code` set('IN01') NOT NULL,
+  `course_title` varchar(50) NOT NULL,
+  `study_area_a` varchar(50) NOT NULL,
+  `study_area_b` varchar(50) DEFAULT NULL,
+  PRIMARY KEY (`student_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- Dumping data for table capstone.students: ~0 rows (approximately)
 /*!40000 ALTER TABLE `students` DISABLE KEYS */;
-INSERT INTO `students` (`Student ID`, `Password`, `Password Salt`, `First Name`, `Last Name`, `QUT Email`, `GPA`, `Course Code`, `Course Title`, `Study Area A`, `Study Area B`) VALUES
+INSERT INTO `students` (`student_id`, `password`, `password_salt`, `first_name`, `last_name`, `qut_email`, `gpa`, `course_code`, `course_title`, `study_area_a`, `study_area_b`) VALUES
 	(9375643, 'jgf8943u834ut34mtgut8934*&(*(R&*r', '858490', 'Greg', 'George', 'greg.george@connect.qut.edu.au', 4.32, 'IN01', 'Information Technology', 'Computer Science', NULL);
 /*!40000 ALTER TABLE `students` ENABLE KEYS */;
 
@@ -227,16 +227,16 @@ INSERT INTO `student_skills` (`id`, `student_id`, `skill`) VALUES
 
 -- Dumping structure for table capstone.team
 CREATE TABLE IF NOT EXISTS `team` (
-  `Team ID` smallint(6) NOT NULL,
-  `Team Name` varchar(20) NOT NULL,
-  `Team Ready` tinyint(1) DEFAULT NULL,
+  `team_id` smallint(6) NOT NULL,
+  `team_name` varchar(20) NOT NULL,
+  `team_ready` tinyint(1) DEFAULT NULL,
   PRIMARY KEY (`Team ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- Dumping data for table capstone.team: ~0 rows (approximately)
 /*!40000 ALTER TABLE `team` DISABLE KEYS */;
-INSERT INTO `team` (`Team ID`, `Team Name`, `Team Ready`) VALUES
-	(1, 'GYSK Developers', 0);
+INSERT INTO `team` (`team_id`, `team_name`, `team_ready`) VALUES
+	(1, 'SKYG Developers', 0);
 /*!40000 ALTER TABLE `team` ENABLE KEYS */;
 
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
