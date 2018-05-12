@@ -11,7 +11,7 @@ function Projects() {
 			// calling acquire methods and passing callback method that will be execute query
 			// return response to server
 			connection.acquire(function (err, con) {
-				con.query('SELECT DISTINCT * FROM project', function (err, results, fields) {
+				con.query('SELECT * FROM project', function (err, results, fields) {
 					con.release();
 					//console.log(result);
 					resolve(results);
