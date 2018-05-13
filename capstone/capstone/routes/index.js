@@ -21,12 +21,8 @@ router.get('/viewprojects', function(req, res, next) {
 		this.projects = projects;
 		console.log(projects);
 	})
-  // teams_data.getAllTeams().then(function (teams) {
-  //   this.teams = teams;
-  //   console.log(teams);
-  // })
-
-	res.render('viewprojects', {layout: false, projects: this.projects});
+  res.render('viewprojects', {layout: false, projects: this.projects, 
+    teams: this.teams, studentsInTeams: this.studentsInTeams, students: this.students});
 });
 
 /* GET proposals. */

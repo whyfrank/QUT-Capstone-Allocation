@@ -7,9 +7,15 @@
 		{{#projects}}
 			<div class='project'>
 				<span class='tag-icon pre-assign'>PA</span>
-				<h3>{{company_name}} - {{'project_name'}}</h3>
+				<h3>{{company_name}} - {{project_name}}</h3>
 				<div class="project-details">
-					<div class="detail-header">Assigned to:</div><div class="detail-information">{{allocated_team}}<br>Bob Smith, Waylon Jennings, Greg Smith, Jim John</div>
+					<div class="detail-header">Assigned to:</div>
+					<div class="detail-information">
+						{{#team}}
+							{{team_name}}<br>
+						{{/team}}
+						Bob Smith, Waylon Jennings, Greg Smith, Jim John
+						</div>
 					<div class="acceptance-states">
 						<i class="fa fa-square pending"></i>&nbspTeam Acceptance {{team_accepted}}&nbsp&nbsp&nbsp
 						<i class="fa fa-square pending"></i> Industry Acceptance {{liaison_accepted}}
@@ -18,6 +24,7 @@
 				<a class='right-link' href='#'>Open Project</a>
 			</div>
 		{{/projects}}
+
 		<!--
 			<div class='project'>
 				<span class='tag-icon assigned'>A</span>
