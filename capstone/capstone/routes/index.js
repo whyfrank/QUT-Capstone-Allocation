@@ -44,21 +44,7 @@ router.get('/viewteams', function(req, res, next) {
   teams_data.getAllTeams().then(function (teams) {
     this.teams = teams;
     console.log(teams);
-	console.log(teams[0].team_id);
   })
-/*   for (var i = 0; i < teams.length; i++) {
-	await teams_data.getAllStudentsOfTeam(teams[i].team_id).then(function (studentsInTeam) {
-      studentsInTeams.push(studentsInTeam);
-    })
-  } */
-  Promise.all(teams.map(team => {
-    return teams_data.getAllStudentsOfTeam(team.team_id);
-  })).then(studentsInTeams => {
-    this.studentsInTeams = studentsInTeams;
-  }).catch(err => {
-    // error here
-  });
-  console.log(studentsInTeams);
   res.render('viewteams', {layout: false, teams: this.teams, studentsInTeams: this.studentsInTeams});
 });
 
