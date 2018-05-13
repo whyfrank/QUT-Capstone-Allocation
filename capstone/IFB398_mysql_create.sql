@@ -1,3 +1,5 @@
+USE capstone;
+
 CREATE TABLE `Students` (
 	`Student ID` smallint NOT NULL AUTO_INCREMENT,
 	`Password` varchar(50) NOT NULL,
