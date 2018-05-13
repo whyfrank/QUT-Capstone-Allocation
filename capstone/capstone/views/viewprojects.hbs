@@ -3,54 +3,38 @@
 <!-- This is where the main 'app' on the page resides. Will make this update contents by AJAX, rather than reloading entire site. -->
 <div id='app'>
 	<div class='projects-view'>
-
+		
 		{{#projects}}
 			<div class='project'>
 				<span class='tag-icon pre-assign'>PA</span>
+				{{!-- line below doesn't work, why isn't projects accessing this data? --}}
 				<h3>{{company_name}} - {{project_name}}</h3>
 				<div class="project-details">
 					<div class="detail-header">Assigned to:</div>
 					<div class="detail-information">
 						{{#team}}
 							{{team_name}}<br>
+
+							{{!-- This block doesn't work yet --}}
+							{{#students_in_teams}}
+								{{#if @first}}{{else}}, {{/if}}
+									{{#student}}
+										{{first_name}} {{last_name}}
+									{{/student}}
+							{{/students_in_teams}}
+
 						{{/team}}
 						Bob Smith, Waylon Jennings, Greg Smith, Jim John
 						</div>
 					<div class="acceptance-states">
 						<i class="fa fa-square pending"></i>&nbspTeam Acceptance {{team_accepted}}&nbsp&nbsp&nbsp
-						<i class="fa fa-square pending"></i> Industry Acceptance {{liaison_accepted}}
+						<i class="fa fa-square pending"></i> Industry Acceptance {{partner_accepted}}
 						</div>
 				</div>
 				<a class='right-link' href='#'>Open Project</a>
 			</div>
 		{{/projects}}
 
-		<!--
-			<div class='project'>
-				<span class='tag-icon assigned'>A</span>
-				<h3>MacroSoft - Windown 11 System</h3>
-				<div class="project-details">
-					<div class="detail-header">Assigned to:</div><div class="detail-information">Team Teamwork<br>Jack Daniel, Samantha Johnson, Georgia Nicholson, Tim Thompson</div>
-				</div>
-				<a class='right-link' href='#'>Open Project</a>
-			</div>
-			<div class='project'>
-				<span class='tag-icon no-assign'>NA</span>
-				<h3>TechnologyTwo - Enterprise System Solution</h3>
-				<div class="project-details">
-					<p style="color:red">Unassigned</p>
-				</div>
-				<a class='right-link' href='#'>Open Project</a>
-			</div>
-			<div class='project'>
-				<span class='tag-icon no-assign'>NA</span>
-				<h3>TechnologyTwo - Enterprise System Testing</h3>
-				<div class="project-details">
-					<p style="color:red">Unassigned</p>
-				</div>
-				<a class='right-link' href='#'>Open Project</a>
-			</div>
-		-->
 		</div>
 		<div id="search-bar">
 			<input type="text" placeholder="Search projects..">

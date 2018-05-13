@@ -21,13 +21,10 @@ router.get('/viewprojects', function(req, res, next) {
 		this.projects = projects;
 		console.log(projects);
 	})
-  res.render('viewprojects', {layout: false, projects: this.projects, 
-    teams: this.teams, studentsInTeams: this.studentsInTeams, students: this.students});
-});
-
-/* GET proposals. */
-router.get('/proposals', function(req, res, next) {
-  res.render('proposals', {layout: false});
+  res.render('viewprojects', {layout: false, projects: this.projects,
+    teams: this.teams, students: this.students, 
+    studentInTeams: this.studentsInTeams,
+    students: this.students});
 });
 
 /* GET proposal. */
