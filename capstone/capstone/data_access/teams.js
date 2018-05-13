@@ -28,5 +28,6 @@ function Teams() {
 			});
 		});
     };
+}
 
 module.exports = new Teams();
