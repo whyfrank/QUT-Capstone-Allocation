@@ -21,9 +21,7 @@ function db() {
     this.pool.getConnection(function(err, connection) {
       callback(err, connection);
     });
-
   };
-
 }
 
 module.exports = new db();

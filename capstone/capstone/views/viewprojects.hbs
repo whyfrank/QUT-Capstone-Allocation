@@ -7,24 +7,20 @@
 		{{#projects}}
 			<div class='project'>
 				<span class='tag-icon pre-assign'>PA</span>
-				{{!-- line below doesn't work, why isn't projects accessing this data? --}}
 				<h3>{{company_name}} - {{project_name}}</h3>
 				<div class="project-details">
 					<div class="detail-header">Assigned to:</div>
 					<div class="detail-information">
 						{{#team}}
 							{{team_name}}<br>
-
-							{{!-- This block doesn't work yet --}}
 							{{#students_in_teams}}
 								{{#if @first}}{{else}}, {{/if}}
-									{{#student}}
+									{{#students}}
 										{{first_name}} {{last_name}}
-									{{/student}}
+									{{/students}}
 							{{/students_in_teams}}
 
 						{{/team}}
-						Bob Smith, Waylon Jennings, Greg Smith, Jim John
 						</div>
 					<div class="acceptance-states">
 						<i class="fa fa-square pending"></i>&nbspTeam Acceptance {{team_accepted}}&nbsp&nbsp&nbsp

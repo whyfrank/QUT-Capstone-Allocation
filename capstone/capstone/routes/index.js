@@ -21,10 +21,7 @@ router.get('/viewprojects', function(req, res, next) {
 		this.projects = projects;
 		console.log(projects);
 	})
-  res.render('viewprojects', {layout: false, projects: this.projects,
-    teams: this.teams, students: this.students, 
-    studentInTeams: this.studentsInTeams,
-    students: this.students});
+  res.render('viewprojects', {layout: false, projects: this.projects});
 });
 
 /* GET proposal. */
@@ -38,7 +35,7 @@ router.get('/viewteams', function(req, res, next) {
     this.teams = teams;
     console.log(teams);
   })
-  res.render('viewteams', {layout: false, teams: this.teams, studentsInTeams: this.studentsInTeams});
+  res.render('viewteams', {layout: false, teams: this.teams});
 });
 
 /* GET view students. */
