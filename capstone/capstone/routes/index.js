@@ -26,7 +26,21 @@ router.get('/viewprojects', function(req, res, next) {
 
 /* GET proposal. */
 router.get('/proposal', function(req, res, next) {
-  res.render('proposal', {layout: false});
+	var id = req.query.id;
+	projects_data.getProposal(id).then(function (proposal) {
+		this.proposal = proposal[0];
+		console.log(proposal);
+	})
+  res.render('proposal', {layout: false, proposal: this.proposal});
+});
+
+/* GET proposals. */
+router.get('/proposals', function(req, res, next) {
+	projects_data.getAllProposals().then(function (proposals) {
+		this.proposals = proposals;
+		console.log(proposals);
+	})
+  res.render('proposals', {layout: false, proposals: this.proposals});
 });
 
 /* GET view teams. */

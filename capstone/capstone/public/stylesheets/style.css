@@ -297,10 +297,9 @@ header span {
 }
 
 #proposal-content {
-	height: 100%;
 	width: 675px;
 	box-shadow: 0px 0px 5px gray;
-	margin: 50px 0 50px calc(50% - 337.5px);
+	margin: 50px 50px 50px calc(50% - 337.5px);
 	background: white;
 	padding-top: 30px;
 }
@@ -324,15 +323,9 @@ header span {
 	display: none;
 }
 
-.prop-action-btn {
-	float: right;
-	-webkit-appearance: none;
-	color: white;
-	border: 1px solid gray;
-	height: 24px;
-	width: 70px;
-	margin: 6px 6px 0px 0px;
-	border-radius: 3px;
+.proposal-header {
+	text-align: center;
+	color: gray;
 }
 
 /* Proposal Buttons */

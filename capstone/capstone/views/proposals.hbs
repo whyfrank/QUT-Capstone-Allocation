@@ -3,10 +3,12 @@
 <!-- This is where the main 'app' on the page resides. Will make this update contents by AJAX, rather than reloading entire site. -->
 <div id='app'>
 	<div class='proposals-view'>
-		<a class='project-li'>
-			<h3>Auricle - AI-based Music Player</h3>
-		</a>
-		<a class='project-li' id="43" onclick="getProposal('43')">
+		{{#proposals}}
+			<a class='project-li' id="{{project.project_id}}" onclick="getProposal('{{project.project_id}}')">
+				<h3>{{project.company_name}} - {{project.project_name}}</h3>
+			</a>
+		{{/proposals}}
+<!-- 		<a class='project-li' id="43" onclick="getProposal('43')">
 			<h3>Koogle - Matroid Security Enhancements</h3>
 		</a>
 		<a class='project-li'>
@@ -14,7 +16,7 @@
 		</a>
 		<a class='project-li'>
 			<h3>Brisbane Technology Services - Technology Servicing</h3>
-		</a>
+		</a> -->
 	</div>
 	<div id='proposal-view'>
 		<div id='proposal-helper'><i class="fa fa-hand-o-left"></i>&nbsp&nbsp&nbsp click on a project to assess</div>

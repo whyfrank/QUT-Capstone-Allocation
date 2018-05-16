@@ -29,6 +29,47 @@ function Projects() {
 			});
 		});
     };
+	
+	// get all proposals data
+    this.getAllProposals = function () {
+		return new Promise(function(resolve, reject) {
+			// initialize database connection
+			connection.init();
+			// calling acquire methods and passing callback method that will be execute query
+			// return response to server
+			connection.acquire(function (err, con) {
+				var options = { sql: "SELECT project_id, company_name, project_name FROM project WHERE liaison_accepted = 'Approved' AND academic_accepted = 'Pending'", nestTables: true };
+				con.query(options, function (err, results, fields) {
+					con.release();
+					resolve(results);
+				});
+			});
+		});
+    };
+	
+		// get proposal data
+    this.getProposal = function (id) {
+		return new Promise(function(resolve, reject) {
+			// initialize database connection
+			connection.init();
+			// calling acquire methods and passing callback method that will be execute query
+			// return response to server
+			connection.acquire(function (err, con) {
+				var options = { sql: "SELECT * FROM project LEFT JOIN project_contacts ON project.project_id = project_contacts.project_id LEFT JOIN project_skills ON project_skills.project_id = project.project_id LEFT JOIN skills ON project_skills.skill = skills.skill_id WHERE project.project_id = ?", nestTables: true };
+				con.query(options, [id],function (err, results, fields) {
+						var nestingOptions = [
+							{ tableName : 'project', pkey: 'project_id', fkeys:[{table:'team',col:'allocated_team'}]},
+							{ tableName : 'project_contacts', pkey: 'id', fkeys:[{table:'project',col:'project_id'}]},
+							{ tableName : 'project_skills', pkey: 'id', fkeys:[{table:'skills',col:'skill'},{table:'project',col:'project_id'}]},
+							{ tableName : 'skills', pkey: 'skill_id'}
+						];
+						var nestedResults = mysql_nest.convertToNested(results, nestingOptions);
+					con.release();
+					resolve(nestedResults);
+				});
+			});
+		});
+    };
 }
 
 module.exports = new Projects();
