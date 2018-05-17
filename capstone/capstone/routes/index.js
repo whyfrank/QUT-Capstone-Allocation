@@ -16,8 +16,8 @@ router.get('/', function(req, res, next) {
 var projects;
 
 /* GET view projects. */
-router.get('/viewprojects', function(req, res, next) {
-	projects_data.getAllProjects().then(function (projects) {
+router.get('/viewprojects', async function(req, res, next) {
+	await projects_data.getAllProjects().then(function (projects) {
 		this.projects = projects;
 		console.log(projects);
 	})
@@ -25,27 +25,44 @@ router.get('/viewprojects', function(req, res, next) {
 });
 
 /* GET proposal. */
-router.get('/proposal', function(req, res, next) {
+router.get('/proposal', async function(req, res, next) {
 	var id = req.query.id;
-	projects_data.getProposal(id).then(function (proposal) {
+	await projects_data.getProposal(id).then(function (proposal) {
 		this.proposal = proposal[0];
 		console.log(proposal);
 	})
   res.render('proposal', {layout: false, proposal: this.proposal});
 });
 
+/* GET approve_proposal. */
+router.get('/approve_proposal', async function(req, res, next) {
+	var id = req.query.id;
+	await projects_data.approveProposal(id).then(function (outcome) {
+		this.outcome = outcome;
+		console.log(outcome);
+	})
+	res.send("<h3>The project proposal was successfully approved.</h3>");
+});
+
 /* GET proposals. */
-router.get('/proposals', function(req, res, next) {
-	projects_data.getAllProposals().then(function (proposals) {
+router.get('/proposals', async function(req, res, next) {
+	await projects_data.getAllProposals().then(function (proposals) {
 		this.proposals = proposals;
 		console.log(proposals);
 	})
-  res.render('proposals', {layout: false, proposals: this.proposals});
+	var isEmpty;
+	if (proposals.length > 0) {
+		isEmpty = false;
+	} else {
+		isEmpty = true;
+	}
+	console.log(isEmpty);
+  res.render('proposals', {layout: false, proposals: this.proposals, isEmpty: this.isEmpty});
 });
 
 /* GET view teams. */
-router.get('/viewteams', function(req, res, next) {
-  teams_data.getAllTeams().then(function (teams) {
+router.get('/viewteams', async function(req, res, next) {
+  await teams_data.getAllTeams().then(function (teams) {
     this.teams = teams;
     console.log(teams);
   })
@@ -53,8 +70,8 @@ router.get('/viewteams', function(req, res, next) {
 });
 
 /* GET view students. */
-router.get('/viewstudents', function(req, res, next) {
-  students_data.getAllStudents().then(function (students) {
+router.get('/viewstudents', async function(req, res, next) {
+  await students_data.getAllStudents().then(function (students) {
     this.students = students;
     console.log(students);
   })

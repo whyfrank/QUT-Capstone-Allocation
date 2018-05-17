@@ -47,6 +47,23 @@ function Projects() {
 		});
     };
 	
+		// get all proposals data
+    this.approveProposal = function (id) {
+		return new Promise(function(resolve, reject) {
+			// initialize database connection
+			connection.init();
+			// calling acquire methods and passing callback method that will be execute query
+			// return response to server
+			connection.acquire(function (err, con) {
+				var options = { sql: "UPDATE project SET academic_accepted = 'Approved' WHERE project_id = ?", nestTables: true };
+				con.query(options, [id], function (err, results, fields) {
+					con.release();
+					resolve(true);
+				});
+			});
+		});
+    };
+	
 		// get proposal data
     this.getProposal = function (id) {
 		return new Promise(function(resolve, reject) {

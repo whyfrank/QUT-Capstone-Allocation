@@ -1,4 +1,12 @@
 <div id="proposal-wrapper">
+	<div id="proposal-confirmation">
+		<div id="proposal-confirmation-content">
+			<h3>Confirm the following action for {{proposal.company_name}} - {{proposal.project_name}}:</h3> 
+			<h2>Approve</h2>
+			<button class="prop-action-btn-ctr" onclick="approveCancel()" id="cancel-btn">Cancel</button>
+			<button class="prop-action-btn-ctr" onclick="confirmProposal({{proposal.project_id}})" id="submit-btn">Confirm</button>
+		</div>
+	</div>
 	<div id="proposal-content">
 		<div class="proposal-element">
 			<span><b>Title of the proposed project: </b></span><p style="font-size: 20px">{{proposal.project_name}}</p>
@@ -36,7 +44,7 @@
 	</div>
 </div>
 <div id="prop-action-bar">
-	<button class="prop-action-btn" id="acc-btn">Accept</button>
+	<button class="prop-action-btn" onclick="proposalAccept()" id="acc-btn">Accept</button>
 	<button class="prop-action-btn" onclick="proposaldeclineForm()" id="dec-btn">Decline</button>
 </div>
 <div id="prop-decline-bar">

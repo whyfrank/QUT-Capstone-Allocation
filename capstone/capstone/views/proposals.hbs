@@ -19,6 +19,10 @@
 		</a> -->
 	</div>
 	<div id='proposal-view'>
-		<div id='proposal-helper'><i class="fa fa-hand-o-left"></i>&nbsp&nbsp&nbsp click on a project to assess</div>
+		{{#if isEmpty}}
+			<div id='proposal-helper'>&nbsp&nbsp&nbsp All caught up! No proposals to assess.</div>
+		{{else}}
+			<div id='proposal-helper'><i class="fa fa-hand-o-left"></i>&nbsp&nbsp&nbsp Click on a project to assess</div>
+		{{/if}}
 	</div>
 </div>

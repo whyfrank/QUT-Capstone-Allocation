@@ -305,6 +305,7 @@ header span {
 }
 
 #proposal-wrapper {
+	position: relative;
 	height: calc(100% - 36px);
 	overflow-y: auto;
 	background: #f9f9f9;
@@ -328,9 +329,49 @@ header span {
 	color: gray;
 }
 
+#proposal-confirmation {
+	display: none;
+	text-align: center;
+	position: absolute;
+	color: white;
+	height: 100%;
+	width: 100%;
+	z-index: 5;
+	background-color: rgba(0, 30, 51, 0.7);
+}
+
+#proposal-confirmation-content {
+	
+}
+
+#proposal-confirmation-content.h3 {
+	font-weight: normal;
+}
+
 /* Proposal Buttons */
-.prop-action-btn:hover {
+.prop-action-btn:hover, .prop-action-btn-ctr:hover {
 	cursor: pointer;
+}
+
+.prop-action-btn {
+	float: right;
+	-webkit-appearance: none;
+	color: white;
+	border: 1px solid gray;
+	height: 24px;
+	width: 70px;
+	margin: 6px 6px 0px 0px;
+	border-radius: 3px;
+}
+
+.prop-action-btn-ctr {
+	-webkit-appearance: none;
+	color: white;
+	border: 1px solid gray;
+	height: 24px;
+	width: 70px;
+	margin: 6px 6px 0px 0px;
+	border-radius: 3px;
 }
 
 #acc-btn {
