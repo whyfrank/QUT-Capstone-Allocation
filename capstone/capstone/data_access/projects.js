@@ -29,7 +29,7 @@ function Projects() {
 			});
 		});
     };
-	
+
 	// get all proposals data
     this.getAllProposals = function () {
 		return new Promise(function(resolve, reject) {
@@ -46,7 +46,7 @@ function Projects() {
 			});
 		});
     };
-	
+
 		// get all proposals data
     this.approveProposal = function (id) {
 		return new Promise(function(resolve, reject) {
@@ -63,7 +63,7 @@ function Projects() {
 			});
 		});
     };
-	
+
 		// get proposal data
     this.getProposal = function (id) {
 		return new Promise(function(resolve, reject) {

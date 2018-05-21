@@ -1,6 +1,9 @@
 //methods for fetching mysql data
 var connection = require('../connection/db');
 
+//methods for nesting mysql data
+var mysql_nest = require('../connection/mysql_nest');
+
 function Students() {
 
     // get all users data
@@ -11,15 +14,20 @@ function Students() {
 			// calling acquire methods and passing callback method that will be execute query
 			// return response to server
 			connection.acquire(function (err, con) {
-				con.query('SELECT DISTINCT * FROM students', function (err, results, fields) {
+        var options = { sql: 'SELECT * FROM students LEFT JOIN students_in_teams ON students_in_teams.student_id = students.student_id LEFT JOIN team ON students_in_teams.team_id', nestTables: true };
+				con.query(options, function (err, results, fields) {
+					    var nestingOptions = [
+							{ tableName : 'students', pkey: 'student_id'},
+							{ tableName : 'students_in_teams', pkey: 'student_id', fkeys:[{table:'team',col:'team_id'},{table:'student',col:'student_id'}]},
+							{ tableName : 'teams', pkey: 'team_id'}
+						];
+						var nestedResults = mysql_nest.convertToNested(results, nestingOptions);
 					con.release();
-					//console.log(result);
-					resolve(results);
+					resolve(nestedResults);
 				});
 			});
 		});
     };
-
 }
 
 module.exports = new Students();
