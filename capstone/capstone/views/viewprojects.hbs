@@ -23,8 +23,8 @@
 						{{/team}}
 						</div>
 					<div class="acceptance-states">
-						<i class="fa fa-square pending"></i>&nbspTeam Acceptance {{team_accepted}}&nbsp&nbsp&nbsp
-						<i class="fa fa-square pending"></i> Industry Acceptance {{partner_accepted}}
+						<i class="fa fa-square {{team_accepted}}"></i>&nbspTeam Acceptance: {{team_accepted}}&nbsp&nbsp&nbsp
+						<i class="fa fa-square {{partner_accepted}}"></i> Industry Acceptance: {{partner_accepted}}
 						</div>
 				</div>
 				<a class='right-link' href='#'>Open Project</a>
@@ -42,6 +42,7 @@
 			<input type="checkbox" name="milestone" value="preliminary-assignment" checked><span class='filter-input'>Preliminary Assignment</span><br>
 			<input type="checkbox" name="milestone" value="pending-contract" checked><span class='filter-input'>Pending Contract</span><br>
 			<input type="checkbox" name="milestone" value="assigned" checked><span class='filter-input'>Assigned</span><br>
+			<input type="checkbox" name="milestone" value="declined" checked><span class='filter-input'>Declined Assignment</span><br>
 		</form>
 	</div>
 </div>

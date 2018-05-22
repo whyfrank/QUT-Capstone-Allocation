@@ -14,7 +14,7 @@ function Projects() {
 			// calling acquire methods and passing callback method that will be execute query
 			// return response to server
 			connection.acquire(function (err, con) {
-				var options = { sql: 'SELECT * FROM project LEFT JOIN team ON team.team_id = project.allocated_team LEFT JOIN students_in_teams ON team.team_id = students_in_teams.team_id LEFT JOIN students ON students_in_teams.student_id = students.student_id', nestTables: true };
+				var options = { sql: "SELECT * FROM project LEFT JOIN team ON team.team_id = project.allocated_team LEFT JOIN students_in_teams ON team.team_id = students_in_teams.team_id LEFT JOIN students ON students_in_teams.student_id = students.student_id WHERE project.academic_accepted = 'Approved'", nestTables: true };
 				con.query(options, function (err, results, fields) {
 						var nestingOptions = [
 							{ tableName : 'project', pkey: 'project_id', fkeys:[{table:'team',col:'allocated_team'}]},
