@@ -4,7 +4,7 @@
 			<h3>Confirm the following action for {{proposal.company_name}} - {{proposal.project_name}}:</h3> 
 			<h2>Approve</h2>
 			<button class="prop-action-btn-ctr" onclick="approveCancel()" id="cancel-btn">Cancel</button>
-			<button class="prop-action-btn-ctr" onclick="confirmProposal({{proposal.project_id}})" id="submit-btn">Confirm</button>
+			<button class="prop-action-btn-ctr" onclick="getContent({{proposal.project_id}}, 'proposal-wrapper', 'approve_proposal', false)" id="submit-btn">Confirm</button>
 		</div>
 	</div>
 	<div id="proposal-content">

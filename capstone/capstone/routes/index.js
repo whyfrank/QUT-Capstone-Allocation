@@ -17,11 +17,26 @@ var projects;
 
 /* GET view projects. */
 router.get('/viewprojects', async function(req, res, next) {
-	await projects_data.getAllProjects().then(function (projects) {
+  res.render('viewprojects', {layout: false});
+});
+
+/* GET view project-list. */
+router.get('/project-list', async function(req, res, next) {
+	await projects_data.getAllProjects(req.query).then(function (projects) {
 		this.projects = projects;
 		console.log(projects);
 	})
-  res.render('viewprojects', {layout: false, projects: this.projects});
+  res.render('project-list', {layout: false, projects: this.projects});
+});
+
+/* GET view project. */
+router.get('/project', async function(req, res, next) {
+	var id = req.query.id;
+	await projects_data.getProject(id).then(function (project) {
+		this.project = project[0];
+		console.log(project);
+	})
+  res.render('project', {layout: false, project: this.project});
 });
 
 /* GET proposal. */

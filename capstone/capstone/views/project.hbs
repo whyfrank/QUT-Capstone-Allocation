@@ -1,0 +1,35 @@
+<div id="proposal-content">
+	<div class="proposal-element">
+		<span><b>Title of the proposed project: </b></span><p style="font-size: 20px">{{project.project_name}}</p>
+	</div>
+	<div class="proposal-element">
+		<span><b>Discipline Area of the Project: </b></span><p>{{project.industry}}</p>
+	</div>
+	<h2 class="proposal-header">Industry Partner Key Contact Details</h2>
+	<div class="proposal-element">
+		<span><b>Industry Partner: </b></span>
+		<p>Organisation Name: {{project.company_name}}</p>
+		<p>Address: {{project.address}}</p>
+		<p>ABN: {{project.abn}}</p>
+	</div>
+	<div class="proposal-element">
+		{{#project.project_contacts}}
+			<span><b>Supervisor: </b></span><br><br>
+			<p>Name: {{first_name}} {{last_name}}</p>
+			<p>Email: {{email}}</p>
+			<p>Phone: {{phone}}</p>
+		{{/project.project_contacts}}
+	</div>
+	<h2 class="proposal-header">Project Details</h2>
+	<div class="proposal-element">
+		<span><b>Your Organisation: </b></span><p>{{project.about_company}}</p>
+	</div>
+	<div class="proposal-element">
+		<span><b>Project Description: </b></span><p>{{project.description}}</p>
+		<span><b>Project Deliverables: </b></span><p>{{project.scope_deliverables}}</p>
+	</div>
+	<div class="proposal-element">
+		<span><b>Required Knowledge: </b></span><p>{{project.req_knowledge}}</p>
+		<span><b>Required Skills: </b></span>{{#project.project_skills}}<p>&#8226; {{skills.skill_name}}</p>{{/project.project_skills}}
+	</div>
+</div>

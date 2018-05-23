@@ -21,8 +21,11 @@ function getApp(app_name) {
 	if (this.readyState==4 && this.status==200) {
 		
 	  // Does nothing but show the loading screen for debugging purposes.
-	  sleep(1000);
+	  sleep(300);
 	  document.getElementById("content").innerHTML=this.responseText;
+	  if (app_name == "viewprojects") {
+		grabProjectList();  
+	  }
 	} else if (this.readyState==4 && this.status==404) {
 	  document.getElementById("content").innerHTML="<h2>This resource cannot be found: Error " + this.status + ".</h2>";
 	} else if (this.readyState==4) {

@@ -1,47 +1,24 @@
-<h1>View Projects</h1>
+<h1 id="app-name">View Projects{{test "hello!"}}</h1>
 
 <!-- This is where the main 'app' on the page resides. Will make this update contents by AJAX, rather than reloading entire site. -->
 <div id='app'>
-	<div class='projects-view'>
-		{{#projects}}
-			<div class='project'>
-				<span class='tag-icon pre-assign'>PA</span>
-				<h3>{{company_name}} - {{project_name}}</h3>
-				<div class="project-details">
-					<div class="detail-header">Assigned to:</div>
-					<div class="detail-information">
-						{{#team}}
-							{{team_name}}<br>
-							{{#students_in_teams}}
-								{{#if @first}}{{else}}, {{/if}}
-									{{#students}}
-										{{first_name}} {{last_name}}
-									{{/students}}
-							{{/students_in_teams}}
-
-						{{/team}}
-						</div>
-					<div class="acceptance-states">
-						<i class="fa fa-square {{team_accepted}}"></i>&nbspTeam Acceptance: {{team_accepted}}&nbsp&nbsp&nbsp
-						<i class="fa fa-square {{partner_accepted}}"></i> Industry Acceptance: {{partner_accepted}}
-						</div>
-				</div>
-				<a class='right-link' href='#'>Open Project</a>
+	<div id='project-information'></div>
+	<div id="projects-section">
+		<div class='projects-view' id='projects-view'>
+		</div>
+			<div id="search-bar">
+				<input type="text" placeholder="Search projects.." id="sch-bar">
+				<button class="prop-action-btn" onclick="searchProjects()" id="sch-btn">Search</button>
 			</div>
-		{{/projects}}
-
+		<div class='filters'>
+			<form>
+				<span class='menu-head'>Milestones</span>
+				<input type="checkbox" name="milestone" value="not-yet-assigned" checked><span class='filter-input'>Not Yet Assigned</span><br>
+				<input type="checkbox" name="milestone" value="preliminary-assignment" checked><span class='filter-input'>Preliminary Assignment</span><br>
+				<input type="checkbox" name="milestone" value="pending-contract" checked><span class='filter-input'>Pending Contract</span><br>
+				<input type="checkbox" name="milestone" value="assigned" checked><span class='filter-input'>Assigned</span><br>
+				<input type="checkbox" name="milestone" value="declined" checked><span class='filter-input'>Declined Assignment</span><br>
+			</form>
 		</div>
-		<div id="search-bar">
-			<input type="text" placeholder="Search projects..">
-		</div>
-	<div class='filters'>
-		<form>
-			<span class='menu-head'>Milestones</span>
-			<input type="checkbox" name="milestone" value="not-yet-assigned" checked><span class='filter-input'>Not Yet Assigned</span><br>
-			<input type="checkbox" name="milestone" value="preliminary-assignment" checked><span class='filter-input'>Preliminary Assignment</span><br>
-			<input type="checkbox" name="milestone" value="pending-contract" checked><span class='filter-input'>Pending Contract</span><br>
-			<input type="checkbox" name="milestone" value="assigned" checked><span class='filter-input'>Assigned</span><br>
-			<input type="checkbox" name="milestone" value="declined" checked><span class='filter-input'>Declined Assignment</span><br>
-		</form>
 	</div>
 </div>

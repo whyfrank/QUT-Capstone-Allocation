@@ -42,4 +42,8 @@ app.use(function(err, req, res, next) {
   res.render('error');
 });
 
+hbs.registerHelper('test', function(variable,context){
+	return new hbs.SafeString(variable);
+});
+
 module.exports = app;

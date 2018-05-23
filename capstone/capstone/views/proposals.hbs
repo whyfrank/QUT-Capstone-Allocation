@@ -4,7 +4,7 @@
 <div id='app'>
 	<div class='proposals-view'>
 		{{#proposals}}
-			<a class='project-li' id="{{project.project_id}}" onclick="getProposal('{{project.project_id}}')">
+			<a class='project-li' id="{{project.project_id}}" onclick="getContent('{{project.project_id}}', 'proposal-view', 'proposal', true)">
 				<h3>{{project.company_name}} - {{project.project_name}}</h3>
 			</a>
 		{{/proposals}}

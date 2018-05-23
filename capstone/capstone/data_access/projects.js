@@ -6,15 +6,32 @@ var mysql_nest = require('../connection/mysql_nest');
 
 function Projects() {
 
+var projectSql = "SELECT * FROM project";
+var projectBareSql = "SELECT project_id, company_name, project_name FROM project";
+var projectContactsSql = "project_contacts ON project.project_id = project_contacts.project_id";
+var projectSkillsSql = "project_skills ON project_skills.project_id = project.project_id";
+var skillsSql = "skills ON project_skills.skill = skills.skill_id";
+
+var joinSql = " LEFT JOIN ";
+var teamSql = "team ON team.team_id = project.allocated_team";
+var inTeamsSql = "students_in_teams ON team.team_id = students_in_teams.team_id";
+
+var studentsSql = "students ON students_in_teams.student_id = students.student_id";
+
     // get all projects data
-    this.getAllProjects = function () {
+    this.getAllProjects = function (query) {
+		var appendedFilters = " ";
+		if (query.query != null) {
+			appendedFilters = appendedFilters + "AND project.project_name LIKE '%" + query.query + "%'";
+		}
 		return new Promise(function(resolve, reject) {
 			// initialize database connection
 			connection.init();
 			// calling acquire methods and passing callback method that will be execute query
 			// return response to server
 			connection.acquire(function (err, con) {
-				var options = { sql: "SELECT * FROM project LEFT JOIN team ON team.team_id = project.allocated_team LEFT JOIN students_in_teams ON team.team_id = students_in_teams.team_id LEFT JOIN students ON students_in_teams.student_id = students.student_id WHERE project.academic_accepted = 'Approved'", nestTables: true };
+				
+				var options = { sql: projectSql + joinSql + teamSql + joinSql + inTeamsSql + joinSql + studentsSql + " WHERE project.academic_accepted = 'Approved'" + appendedFilters, nestTables: true };
 				con.query(options, function (err, results, fields) {
 						var nestingOptions = [
 							{ tableName : 'project', pkey: 'project_id', fkeys:[{table:'team',col:'allocated_team'}]},
@@ -38,7 +55,7 @@ function Projects() {
 			// calling acquire methods and passing callback method that will be execute query
 			// return response to server
 			connection.acquire(function (err, con) {
-				var options = { sql: "SELECT project_id, company_name, project_name FROM project WHERE liaison_accepted = 'Approved' AND academic_accepted = 'Pending'", nestTables: true };
+				var options = { sql: projectBareSql + " WHERE liaison_accepted = 'Approved' AND academic_accepted = 'Pending'", nestTables: true };
 				con.query(options, function (err, results, fields) {
 					con.release();
 					resolve(results);
@@ -72,13 +89,41 @@ function Projects() {
 			// calling acquire methods and passing callback method that will be execute query
 			// return response to server
 			connection.acquire(function (err, con) {
-				var options = { sql: "SELECT * FROM project LEFT JOIN project_contacts ON project.project_id = project_contacts.project_id LEFT JOIN project_skills ON project_skills.project_id = project.project_id LEFT JOIN skills ON project_skills.skill = skills.skill_id WHERE project.project_id = ?", nestTables: true };
+				var options = { sql: projectSql + joinSql + projectContactsSql + joinSql + projectSkillsSql + joinSql + skillsSql + " WHERE project.project_id = ?", nestTables: true };
 				con.query(options, [id],function (err, results, fields) {
 						var nestingOptions = [
 							{ tableName : 'project', pkey: 'project_id', fkeys:[{table:'team',col:'allocated_team'}]},
 							{ tableName : 'project_contacts', pkey: 'id', fkeys:[{table:'project',col:'project_id'}]},
 							{ tableName : 'project_skills', pkey: 'id', fkeys:[{table:'skills',col:'skill'},{table:'project',col:'project_id'}]},
 							{ tableName : 'skills', pkey: 'skill_id'}
+						];
+						var nestedResults = mysql_nest.convertToNested(results, nestingOptions);
+					con.release();
+					resolve(nestedResults);
+				});
+			});
+		});
+    };
+
+
+		// get project data
+    this.getProject = function (id) {
+		return new Promise(function(resolve, reject) {
+			// initialize database connection
+			connection.init();
+			// calling acquire methods and passing callback method that will be execute query
+			// return response to server
+			connection.acquire(function (err, con) {
+				var options = { sql: projectSql + joinSql + projectContactsSql + joinSql + projectSkillsSql + joinSql + skillsSql + joinSql + teamSql + joinSql + inTeamsSql + joinSql + studentsSql + "  WHERE project.project_id = ?", nestTables: true };
+				con.query(options, [id],function (err, results, fields) {
+						var nestingOptions = [
+							{ tableName : 'project', pkey: 'project_id', fkeys:[{table:'team',col:'allocated_team'}]},
+							{ tableName : 'project_contacts', pkey: 'id', fkeys:[{table:'project',col:'project_id'}]},
+							{ tableName : 'project_skills', pkey: 'id', fkeys:[{table:'skills',col:'skill'},{table:'project',col:'project_id'}]},
+							{ tableName : 'skills', pkey: 'skill_id'},
+							{ tableName : 'team', pkey: 'team_id'},
+							{ tableName : 'students_in_teams', pkey: 'student_id', fkeys:[{table:'team',col:'team_id'},{table:'students',col:'student_id'}]},
+							{ tableName : 'students', pkey: 'student_id'}
 						];
 						var nestedResults = mysql_nest.convertToNested(results, nestingOptions);
 					con.release();

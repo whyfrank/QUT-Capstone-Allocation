@@ -1,0 +1,25 @@
+{{#projects}}
+	<div class='project'>
+		<span class='tag-icon pre-assign'>PA</span>
+		<h3>{{company_name}} - {{project_name}}</h3>
+		<div class="project-details">
+			<div class="detail-header">Assigned to:</div>
+			<div class="detail-information">
+				{{#team}}
+					{{team_name}}<br>
+					{{#students_in_teams}}
+						{{#if @first}}{{else}}, {{/if}}
+							{{#students}}
+								{{first_name}} {{last_name}}
+							{{/students}}
+					{{/students_in_teams}}
+				{{/team}}
+				</div>
+			<div class="acceptance-states">
+				<i class="fa fa-square {{team_accepted}}"></i>&nbspTeam Acceptance: {{team_accepted}}&nbsp&nbsp&nbsp
+				<i class="fa fa-square {{partner_accepted}}"></i> Industry Acceptance: {{partner_accepted}}
+			</div>
+		</div>
+		<a class='right-link' href='#' onclick="openProject({{project_id}})">Open Project</a>
+	</div>
+{{/projects}}
