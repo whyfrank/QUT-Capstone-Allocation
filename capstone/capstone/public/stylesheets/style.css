@@ -150,6 +150,163 @@ header span {
 	color: white;
 	text-decoration: none;
 }
+/* View Project */
+#proposal {
+	background: #f9f9f9;
+	border-top: 1px solid gray;
+	border-bottom: 1px solid gray;
+}
+
+.project-options {
+	padding-top: 5px;
+	padding-bottom: 5px !important;
+}
+
+.project-block-btn {
+	height: 30px;
+	cursor: pointer;
+	background-color: white;
+    color: #004377;
+	border: solid #004377 1px;
+	border-radius: 6px;
+	transition: 0.4s;
+}
+
+.project-options .delete {
+	float: right;
+	margin-right: 30px;
+	color: #770000;
+	border: solid #770000 1px;
+}
+
+.project-options .edit {
+	float: right;
+	margin-right: 5px;
+}
+
+/* Invert button when hovered */
+.project-block-btn:hover {
+	color: #fff;
+	background-color: #004377;
+}
+
+/* Invert button when hovered */
+.project-options .delete:hover {
+	color: #fff;
+	background-color: #770000;
+}
+
+.people-blocks, .project-options {
+	padding-left: 30px;
+	padding-bottom: 30px;
+	width: calc(100% - 30px);
+	display: inline-block;
+	border-bottom: 1px solid gray;
+}
+
+.people-block {
+	float: left;
+	margin-top: 5px;
+	margin-right: 20px;
+	padding: 5px;
+	border: 1px solid gray;
+	border-radius: 6px;
+	width: 300px;
+	background-color: white;
+}
+
+.people-block-info {
+
+}
+
+.people-block-buttons {
+	clear: both;
+	display: block;
+	float: right;
+}
+
+.people-block-btn-ext {
+	display:inline;
+}
+
+.people-block-btn {
+	width:30px;
+	height: 30px;
+	cursor: pointer;
+	background-color: white;
+    color: #004377;
+	border: solid #004377 1px;
+	border-radius: 6px;
+	transition: 0.4s;
+}
+
+/* Tooltip text */
+.people-block-btn-ext .tooltiptext {
+	opacity: 0;
+    visibility: hidden;
+    width: 0px;
+    background-color: white;
+    color: #004377;
+	border: solid #004377 1px;
+	box-shadow: 0px 0px 10px #bcbcbc;
+    text-align: center;
+	height: 18px;
+    padding: 5px 0;
+    border-radius: 6px;
+	transform: translate(-105%, 0px);
+	transition: opacity 0.4s, width 0.2s;
+ 
+    /* Position it to not take up space on the layout */
+    position: absolute;
+    z-index: 10;
+}
+
+/* Invert button when hovered */
+.people-block-btn:hover {
+	color: #fff;
+	background-color: #004377;
+}
+
+/* Show text upon hover */
+.people-block-btn-ext:hover .tooltiptext {
+    visibility: visible;
+	opacity: 1;
+	width: 120px;
+}
+
+.people-block-title {
+	font-weight: bold;
+	font-size: 18px;
+}
+
+.people-block-top {
+	padding: 5px;
+
+}
+
+.grp-icon {
+	overflow: hidden;
+	font-size: 800%;
+	right: 0%;
+	margin-left: 90%;
+}
+
+#grp-team {
+	color: #b1c3e2;
+}
+
+#grp-industry {
+	color: #e2bcb1;
+	margin-left: 190px;
+}
+
+#team {
+	background: #d9e6fc;
+}
+
+#industry-contact {
+	background: #fce1d9;
+}
 
 /* View Projects */
 

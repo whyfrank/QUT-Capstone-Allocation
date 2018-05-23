@@ -6,6 +6,8 @@ var mysql_nest = require('../connection/mysql_nest');
 
 function Projects() {
 
+/*------------------------------------------------------------------------------------------------*/
+// These can be joined together to remove repeated code, and simplify query construction.
 var projectSql = "SELECT * FROM project";
 var projectBareSql = "SELECT project_id, company_name, project_name FROM project";
 var projectContactsSql = "project_contacts ON project.project_id = project_contacts.project_id";
@@ -17,6 +19,7 @@ var teamSql = "team ON team.team_id = project.allocated_team";
 var inTeamsSql = "students_in_teams ON team.team_id = students_in_teams.team_id";
 
 var studentsSql = "students ON students_in_teams.student_id = students.student_id";
+/*------------------------------------------------------------------------------------------------*/
 
     // get all projects data
     this.getAllProjects = function (query) {
