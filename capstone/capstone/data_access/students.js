@@ -14,16 +14,16 @@ function Students() {
 			// calling acquire methods and passing callback method that will be execute query
 			// return response to server
 			connection.acquire(function (err, con) {
-        var options = { sql: 'SELECT * FROM students LEFT JOIN students_in_teams ON students_in_teams.student_id = students.student_id LEFT JOIN team ON students_in_teams.team_id', nestTables: true };
+        var options = { sql: 'SELECT * FROM students LEFT JOIN students_in_teams ON students_in_teams.student_id = students.student_id LEFT JOIN team ON students_in_teams.team_id = team.team_id', nestTables: true };
 				con.query(options, function (err, results, fields) {
 					    var nestingOptions = [
 							{ tableName : 'students', pkey: 'student_id'},
 							{ tableName : 'students_in_teams', pkey: 'student_id', fkeys:[{table:'team',col:'team_id'},{table:'student',col:'student_id'}]},
-							{ tableName : 'teams', pkey: 'team_id'}
+							{ tableName : 'team', pkey: 'team_id'}
 						];
 						var nestedResults = mysql_nest.convertToNested(results, nestingOptions);
 					con.release();
-					resolve(nestedResults);
+					resolve(results);
 				});
 			});
 		});
