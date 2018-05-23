@@ -6,10 +6,10 @@ function getApp(app_name) {
 	previousMenuSelection.setAttribute("style","");
   }
 
-  loadingDisplay("content");	
+  loadingDisplay("content");
   document.getElementById(app_name).style.background = "#555"
   previousMenuSelection = document.getElementById(app_name);
-	
+
   if (window.XMLHttpRequest) {
 	// code for IE7+, Firefox, Chrome, Opera, Safari
 	xmlhttp=new XMLHttpRequest();
@@ -19,13 +19,15 @@ function getApp(app_name) {
   xmlhttp.onreadystatechange=function() {
 	// If the response is ready, and OK, then display the results in the contents section.
 	if (this.readyState==4 && this.status==200) {
-		
+
 	  // Does nothing but show the loading screen for debugging purposes.
 	  sleep(300);
 	  document.getElementById("content").innerHTML=this.responseText;
 	  if (app_name == "viewprojects") {
-		grabProjectList();  
-	  }
+		grabProjectList();
+	  } else if (app_name == "viewstudents"){
+    grabStudentList();
+    }
 	} else if (this.readyState==4 && this.status==404) {
 	  document.getElementById("content").innerHTML="<h2>This resource cannot be found: Error " + this.status + ".</h2>";
 	} else if (this.readyState==4) {
@@ -39,7 +41,7 @@ function getApp(app_name) {
 // Draws a loading screen over the element that has content to be loaded.
 function loadingDisplay(id) {
 	loadingDisplayHTML = '<div class="spinner"></div>';
-	
+
 	document.getElementById(id).innerHTML=loadingDisplayHTML;
 }
 
@@ -51,4 +53,13 @@ function sleep(milliseconds) {
       break;
     }
   }
+}
+
+function grabStudentList() {
+	getContent(null, 'students-view', 'student-list', false);
+}
+
+function searchStudents(){
+  var searchQuery = document.getElementById("student-sch-bar").value;
+  getContent(null, 'students-view', 'student-list?query=' + searchQuery, false);
 }

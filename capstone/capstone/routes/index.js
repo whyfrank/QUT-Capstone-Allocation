@@ -84,14 +84,26 @@ router.get('/viewteams', async function(req, res, next) {
   res.render('viewteams', {layout: false, teams: this.teams});
 });
 
+
+
+
+
 /* GET view students. */
 router.get('/viewstudents', async function(req, res, next) {
-  await students_data.getAllStudents().then(function (students) {
-    this.students = students;
-    console.log(students);
-  })
-  res.render('viewstudents', {layout: false, students: this.students});
+  res.render('viewstudents', {layout: false});
 });
+
+/* GET view student-list. */
+router.get('/student-list', async function(req, res, next) {
+	await students_data.getAllStudents(req.query).then(function (student) {
+		this.student = student;
+		console.log(student);
+	})
+  res.render('student-list', {layout: false, students: this.student});
+});
+
+
+
 
 
 module.exports = router;

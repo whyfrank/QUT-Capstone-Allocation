@@ -2,25 +2,19 @@
 
 <!-- This is where the main 'app' on the page resides. Will make this update contents by AJAX, rather than reloading entire site. -->
 <div id='app'>
-	<div class='projects-view'>
+	<div class='students-view' id='students-view'>
+	</div>
 
-		{{#students}}
-			<div class='project'>
-				<span class='tag-icon assigned'>J</span>
-				<h3>{{students.first_name}}</h3>
-				<div class="project-details">
-					{{#team}}
-					<div class="detail-header">Joined Team:</div><div class="detail-information">{{team_name}}</div>
-					{{/team}}
-				</div>
-				<a class='right-link' href='#'>Contact student</a>
-			</div>
-		{{/students}}
 
-		</div>
+
 		<div id="search-bar">
-			<input type="text" placeholder="Search students..">
+			<input type="text" placeholder="Search students.." id="student-sch-bar">
+			<button class="prop-action-btn" onclick="searchStudents()" id="sch-btn">Search</button>
 		</div>
+
+
+
+
 	<div class='filters'>
 		<form>
 			<span class='menu-head'>Milestones</span>

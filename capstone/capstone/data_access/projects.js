@@ -30,7 +30,7 @@ var studentsSql = "students ON students_in_teams.student_id = students.student_i
 			// calling acquire methods and passing callback method that will be execute query
 			// return response to server
 			connection.acquire(function (err, con) {
-				
+
 				var options = { sql: projectSql + joinSql + teamSql + joinSql + inTeamsSql + joinSql + studentsSql + " WHERE project.academic_accepted = 'Approved'" + appendedFilters, nestTables: true };
 				con.query(options, function (err, results, fields) {
 						var nestingOptions = [

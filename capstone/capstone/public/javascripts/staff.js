@@ -12,12 +12,12 @@ function getContent(id, div, template, isMenu) {
 	  if (previousProposalSelection	!= null) {
 		previousProposalSelection.setAttribute("style","");
 	  }
-	  
+
 	  document.getElementById(id).style.background = "#555"
 	  document.getElementById(id).style.color = "#fff"
 	  previousProposalSelection = document.getElementById(id);
   }
-	
+
   if (window.XMLHttpRequest) {
 	// code for IE7+, Firefox, Chrome, Opera, Safari
 	xmlhttp=new XMLHttpRequest();
@@ -50,6 +50,8 @@ function searchProjects() {
 	var searchQuery = document.getElementById("sch-bar").value;
 	getContent(null, 'projects-view', 'project-list?query=' + searchQuery, false);
 }
+
+
 
 function openProject(id, name) {
 	document.getElementById("projects-section").style.display = "none";
