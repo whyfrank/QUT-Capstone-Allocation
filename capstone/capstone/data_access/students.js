@@ -10,8 +10,10 @@ function Students() {
     this.getAllStudents = function (query) {
 		var appendedFilters = " ";
 		if (query.query != null) {
-  			appendedFilters = appendedFilters + "AND students.first_name LIKE '%" + query.query + "%'";
+  			appendedFilters = appendedFilters + "WHERE students.first_name LIKE '%" + query.query + "%'";
   		}
+
+
 		return new Promise(function(resolve, reject) {
 			// initialize database connection
 			connection.init();

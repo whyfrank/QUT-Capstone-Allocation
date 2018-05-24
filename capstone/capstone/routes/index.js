@@ -95,11 +95,11 @@ router.get('/viewstudents', async function(req, res, next) {
 
 /* GET view student-list. */
 router.get('/student-list', async function(req, res, next) {
-	await students_data.getAllStudents(req.query).then(function (student) {
-		this.student = student;
-		console.log(student);
+	await students_data.getAllStudents(req.query).then(function (students) {
+		this.students = students;
+		console.log(students);
 	})
-  res.render('student-list', {layout: false, students: this.student});
+  res.render('student-list', {layout: false, students: this.students});
 });
 
 

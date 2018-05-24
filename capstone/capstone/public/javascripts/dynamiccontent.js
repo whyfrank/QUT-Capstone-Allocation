@@ -59,7 +59,7 @@ function grabStudentList() {
 	getContent(null, 'students-view', 'student-list', false);
 }
 
-function searchStudents(){
+function searchStudents() {
   var searchQuery = document.getElementById("student-sch-bar").value;
   getContent(null, 'students-view', 'student-list?query=' + searchQuery, false);
 }
