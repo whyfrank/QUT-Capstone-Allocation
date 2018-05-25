@@ -27,6 +27,8 @@ function getApp(app_name) {
 		grabProjectList();
 	  } else if (app_name == "viewstudents"){
     grabStudentList();
+    } else if (app_name == "viewteams"){
+    grabTeamList();
     }
 	} else if (this.readyState==4 && this.status==404) {
 	  document.getElementById("content").innerHTML="<h2>This resource cannot be found: Error " + this.status + ".</h2>";
