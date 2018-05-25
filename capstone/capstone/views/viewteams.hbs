@@ -2,28 +2,11 @@
 
 <!-- This is where the main 'app' on the page resides. Will make this update contents by AJAX, rather than reloading entire site. -->
 <div id='app'>
-	<div class='projects-view'>
-		{{#teams}}
-			<div class='project'>
-				<span class='tag-icon pre-assign'>PA</span>
-				<h3>{{team_name}}</h3>
-				<div class="project-details">
-					<div class="detail-header">Team members:</div><div class="detail-information">
-					{{#students_in_teams}}
-						{{#if @first}}{{else}}, {{/if}}
-						{{#student}}
-							{{first_name}} {{last_name}}
-						{{/student}}
-					{{/students_in_teams}}</div>
-					<div class="acceptance-states"><i class="fa fa-check-square accepted"></i> Team accepted&nbsp&nbsp&nbsp<i class="fa fa-square pending"></i> Industry acceptance pending</div>
-				</div>
-				<a class='right-link' href='#'>Open Team</a>
-			</div>
-		{{/teams}}
-
+	<div class='teams-view' id='teams-view'>
 		</div>
-		<div id="search-bar">
-			<input type="text" placeholder="Search projects..">
+	<div id="search-bar">
+		<input type="text" placeholder="Search teams.." id="team-sch-bar">
+		<button class="prop-action-btn" onclick="searchTeams()" id="sch-btn">Search</button>
 		</div>
 	<div class='filters'>
 		<form>

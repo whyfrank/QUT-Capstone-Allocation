@@ -77,16 +77,17 @@ router.get('/proposals', async function(req, res, next) {
 
 /* GET view teams. */
 router.get('/viewteams', async function(req, res, next) {
-  await teams_data.getAllTeams().then(function (teams) {
-    this.teams = teams;
-    console.log(teams);
-  })
-  res.render('viewteams', {layout: false, teams: this.teams});
+  res.render('viewteams', {layout: false});
 });
 
-
-
-
+/* GET view team-list. */
+router.get('/team-list', async function(req, res, next) {
+	await teams_data.getAllTeams(req.query).then(function (teams) {
+		this.teams = teams;
+		console.log(teams);
+	})
+  res.render('team-list', {layout: false, teams: this.teams});
+});
 
 /* GET view students. */
 router.get('/viewstudents', async function(req, res, next) {
