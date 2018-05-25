@@ -104,3 +104,23 @@ function searchTeams() {
 function grabTeamList() {
   getContent(null, 'teams-view', 'team-list', false);
 }
+
+function getTeamsReady() {
+  var radio = document.getElementById("teams-formed");
+  if (radio.checked == true){
+    var status = 1;
+  } else {
+    var status = 0;
+  }
+  getContent(null, 'teams-view', 'team-list?readyStatus=' + status, false);
+}
+
+function getTeamsNotReady() {
+  var radio = document.getElementById("teams-not-formed");
+  if (radio.checked == true){
+    var status = 1;
+  } else {
+    var status = 0;
+  }
+  getContent(null, 'teams-view', 'team-list?notReadyStatus=' + status, false);
+}

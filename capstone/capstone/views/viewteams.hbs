@@ -10,10 +10,10 @@
 		</div>
 	<div class='filters'>
 		<form>
-			<span class='menu-head'>Milestones</span>
-			<input type="checkbox" name="milestone" value="not-yet-assigned" checked><span class='filter-input'>Not Yet Assigned</span><br>
-			<input type="checkbox" name="milestone" value="preliminary-assignment" checked><span class='filter-input'>Preliminary Assignment</span><br>
-			<input type="checkbox" name="milestone" value="assigned" checked><span class='filter-input'>Assigned</span><br>
+			<span class='menu-head'>Team Formation Status</span>
+			<input type="radio" name="milestone" value="teams-all" id="all" onclick="grabTeamList()" checked><span class='filter-input'> All Teams</span><br>
+			<input type="radio" name="milestone" value="teams-formed" id="teams-formed" onclick="getTeamsReady()" unchecked><span class='filter-input'> Teams Formed</span><br>
+			<input type="radio" name="milestone" value="teams-not-formed" id="teams-not-formed" onclick="getTeamsNotReady()" unchecked><span class='filter-input'> Teams Not Formed</span><br>
 		</form>
 	</div>
 </div>
