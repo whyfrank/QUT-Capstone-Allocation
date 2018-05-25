@@ -7,11 +7,18 @@ var mysql_nest = require('../connection/mysql_nest');
 function Students() {
 
     // get all users data
-    this.getAllStudents = function (query) {
+    this.getAllStudents = function (query, status) {
 		var appendedFilters = " ";
+    var statusFilter = " ";
 		if (query.query != null) {
   			appendedFilters = appendedFilters + "WHERE students.first_name LIKE '%" + query.query + "%'";
   		}
+
+    if (status == 1){
+      statusFilter = statusFilter + "WHERE students.student_id = Students_in_teams.student_id";
+    } else if (status == 0){
+      statusFilter = statusFilter + "WHERE students_in_teams.student_id IS NULL";
+    }
 
 
 		return new Promise(function(resolve, reject) {
@@ -20,7 +27,7 @@ function Students() {
 			// calling acquire methods and passing callback method that will be execute query
 			// return response to server
 			connection.acquire(function (err, con) {
-        var options = { sql: 'SELECT * FROM students LEFT JOIN students_in_teams ON students_in_teams.student_id = students.student_id LEFT JOIN team ON students_in_teams.team_id = team.team_id' + appendedFilters, nestTables: true };
+        var options = { sql: 'SELECT * FROM students LEFT JOIN students_in_teams ON students_in_teams.student_id = students.student_id LEFT JOIN team ON students_in_teams.team_id = team.team_id' + appendedFilters + statusFilter, nestTables: true };
 				con.query(options, function (err, results, fields) {
 					    var nestingOptions = [
 							{ tableName : 'students', pkey: 'student_id'},

@@ -63,3 +63,14 @@ function searchStudents() {
   var searchQuery = document.getElementById("student-sch-bar").value;
   getContent(null, 'students-view', 'student-list?query=' + searchQuery, false);
 }
+
+
+function getStudentsOnTeams() {
+  var checkBox = document.getElementById("in-team");
+  if (checkBox.checked == true){
+    var status = 1;
+  } else {
+    var status = 0;
+  }
+  getContent(null, 'students-view', 'student-list?status=' + status, false);
+}
