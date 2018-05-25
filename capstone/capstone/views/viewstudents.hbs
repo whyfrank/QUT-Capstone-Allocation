@@ -18,7 +18,15 @@
 	<div class='filters'>
 		<form>
 			<span class='menu-head'>Milestones</span>
-			<input type="checkbox" name="milestone" value="in-team" id="in-team" onclick="getStudentsOnTeams()" unchecked><span class='filter-input'>Joined team</span><br>
+			<input type="radio" name="milestone" value="all" id="all" onclick="getStudentsOnTeams()" checked><span class='filter-input'>Reset All</span><br>
+			<input type="radio" name="milestone" value="in-team" id="in-team" onclick="getStudentsOnTeams()" unchecked><span class='filter-input'>Joined team</span><br>
+			<input type="radio" name="milestone" value="not-in-team" id="not-in-team" onclick="getStudentsNotOnTeams()" unchecked><span class='filter-input'>Not yet in a team</span><br>
+
+
+
+
+
+
 		</form>
 	</div>
 </div>

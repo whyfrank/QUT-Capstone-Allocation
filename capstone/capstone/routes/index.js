@@ -95,7 +95,7 @@ router.get('/viewstudents', async function(req, res, next) {
 
 /* GET view student-list. */
 router.get('/student-list', async function(req, res, next) {
-	await students_data.getAllStudents(req.query, req.status).then(function (students) {
+	await students_data.getAllStudents(req.query).then(function (students) {
 		this.students = students;
 		console.log(students);
 	})

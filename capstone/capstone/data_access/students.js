@@ -7,18 +7,27 @@ var mysql_nest = require('../connection/mysql_nest');
 function Students() {
 
     // get all users data
-    this.getAllStudents = function (query, status) {
+    this.getAllStudents = function (query) {
 		var appendedFilters = " ";
     var statusFilter = " ";
 		if (query.query != null) {
   			appendedFilters = appendedFilters + "WHERE students.first_name LIKE '%" + query.query + "%'";
   		}
 
-    if (status == 1){
-      statusFilter = statusFilter + "WHERE students.student_id = Students_in_teams.student_id";
-    } else if (status == 0){
-      statusFilter = statusFilter + "WHERE students_in_teams.student_id IS NULL";
+
+    if(query.joinedStatus ==1){
+      statusFilter = "WHERE students.student_id = Students_in_teams.student_id";
     }
+
+    if(query.notJoinedStatus ==1){
+      statusFilter = "WHERE students_in_teams.student_id IS NULL";
+    }
+
+    if(query.allStatus ==1){
+      var statusFilter = " ";
+    }
+
+
 
 
 		return new Promise(function(resolve, reject) {

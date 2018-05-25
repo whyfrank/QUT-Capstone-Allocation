@@ -56,7 +56,15 @@ function sleep(milliseconds) {
 }
 
 function grabStudentList() {
-	getContent(null, 'students-view', 'student-list', false);
+
+
+  var radio = document.getElementById("all");
+  if (radio.checked == true){
+    var status = 1;
+  } else {
+    var status = 0;
+  }
+  getContent(null, 'students-view', 'student-list?allStatus=' + status, false);
 }
 
 function searchStudents() {
@@ -66,11 +74,21 @@ function searchStudents() {
 
 
 function getStudentsOnTeams() {
-  var checkBox = document.getElementById("in-team");
-  if (checkBox.checked == true){
+  var radio = document.getElementById("in-team");
+  if (radio.checked == true){
     var status = 1;
   } else {
     var status = 0;
   }
-  getContent(null, 'students-view', 'student-list?status=' + status, false);
+  getContent(null, 'students-view', 'student-list?joinedStatus=' + status, false);
+}
+
+function getStudentsNotOnTeams() {
+  var radio = document.getElementById("not-in-team");
+  if (radio.checked == true){
+    var status = 1;
+  } else {
+    var status = 0;
+  }
+  getContent(null, 'students-view', 'student-list?notJoinedStatus=' + status, false);
 }
