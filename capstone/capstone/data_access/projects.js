@@ -67,16 +67,20 @@ var studentsSql = "students ON students_in_teams.student_id = students.student_i
 		});
     };
 
-		// get all proposals data
-    this.approveProposal = function (id) {
+		// Set a proposal as either approved or declined.
+    this.actionProposal = function (id, isApproved) {
+		var state = 'Declined';
+		if (isApproved == 'true') {
+			state = 'Approved';
+		}
 		return new Promise(function(resolve, reject) {
 			// initialize database connection
 			connection.init();
 			// calling acquire methods and passing callback method that will be execute query
 			// return response to server
 			connection.acquire(function (err, con) {
-				var options = { sql: "UPDATE project SET academic_accepted = 'Approved' WHERE project_id = ?", nestTables: true };
-				con.query(options, [id], function (err, results, fields) {
+				var options = { sql: "UPDATE project SET academic_accepted = ? WHERE project_id = ?", nestTables: true };
+				con.query(options, [state, id], function (err, results, fields) {
 					con.release();
 					resolve(true);
 				});

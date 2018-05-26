@@ -204,6 +204,10 @@ header span {
 	border-bottom: 1px solid gray;
 }
 
+.people-blocks {
+	box-shadow: inset 0px 0px 20px 0px rgba(0,0,0,0.2);
+}
+
 .people-block {
 	float: left;
 	margin-top: 5px;
@@ -570,7 +574,7 @@ header span {
 	background: #6d3d3d;
 }
 
-#submit-btn {
+#submit-btn, #confirm-btn {
 	background: #5C499E;
 }
 

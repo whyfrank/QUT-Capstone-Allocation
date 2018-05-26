@@ -1,11 +1,14 @@
 previousProposalSelection = null;
 
 //Requests an HTML document and loads it into the proposal section.
-function getContent(id, div, template, isMenu) {
+function getContent(id, div, template, isMenu, concatQuery) {
   loadingDisplay(div);
   var isIdExist = false;
   if (id != null) {
 	template = template + "?id=" + id;
+  }
+  if (concatQuery != null) {
+	 template = template + concatQuery; 
   }
 
   if (isMenu) {
@@ -42,51 +45,74 @@ function getContent(id, div, template, isMenu) {
 
 var app_name;
 
+// Gets all projects and displays it in the list.
 function grabProjectList() {
 	getContent(null, 'projects-view', 'project-list', false);
 }
 
+// Searches for a project based on the input search query.
 function searchProjects() {
 	var searchQuery = document.getElementById("sch-bar").value;
 	getContent(null, 'projects-view', 'project-list?query=' + searchQuery, false);
 }
 
+var project_id;
 
-
+// Displays the individual project section, and inserts the project HTML page into the app view.
 function openProject(id, name) {
 	document.getElementById("projects-section").style.display = "none";
 	document.getElementById("project-information").style.display = "block";
 	getContent(id, 'project-information', 'project', false);
 	app_name = document.getElementById("app-name").innerHTML;
 	document.getElementById("app-name").innerHTML = "<a href='#' onclick='closeProject()'>Back</a>";
+	project_id=id;
 }
 
+// Hides the individual project section if the user closes the project.
 function closeProject() {
 	document.getElementById("projects-section").style.display = "block";
 	document.getElementById("project-information").style.display = "none";
 	document.getElementById("app-name").innerHTML = app_name;
 }
 
+// Displays the decline form for a proposal.
 function proposaldeclineForm() {
 	document.getElementById("prop-action-bar").style.display = "none";
 	document.getElementById("prop-decline-bar").style.display = "block";
 	document.getElementById("proposal-wrapper").style.height = "calc(100% - 160px)";
 }
 
-function proposalAccept() {
+// Displays a confirmation message to either accept, or reject the proposal.
+function proposalDisplayConfirm(isAccept) {
 	document.getElementById("proposal-wrapper").style.height = "100%";
 	document.getElementById("proposal-content").style.filter = "blur(3px)";
 	document.getElementById("prop-action-bar").style.display = "none";
+	if (isAccept) {
+		document.getElementById("action-name").innerHTML = "Approve";
+		isApproved = 'true';
+	} else {
+		document.getElementById("action-name").innerHTML = "Decline";
+		isApproved = 'false';
+	}
 	document.getElementById("proposal-confirmation").style.display = "block";
 	document.getElementById('proposal-confirmation').scrollIntoView();
 }
 
+var isApproved;
+
+// Requests to accept or decline when the user has either confirmed, or declined a proposal.
+function proposalConfirm(id) {
+	getContent(id, 'proposal-wrapper', 'action_proposal', false, '&state=' + isApproved);
+}
+
+// Returns the layout to normal if the user decides not to decline the proposal.
 function rejectCancel() {
 	document.getElementById("prop-action-bar").style.display = "block";
 	document.getElementById("prop-decline-bar").style.display = "none";
 	document.getElementById("proposal-wrapper").style.height = "calc(100% - 36px)";
 }
 
+// Returns the layout to normal if the user decides not to accept the proposal.
 function approveCancel() {
 	document.getElementById("prop-action-bar").style.display = "block";
 	document.getElementById("proposal-content").style.filter = "none";

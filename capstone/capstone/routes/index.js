@@ -50,9 +50,10 @@ router.get('/proposal', async function(req, res, next) {
 });
 
 /* GET approve_proposal. */
-router.get('/approve_proposal', async function(req, res, next) {
+router.get('/action_proposal', async function(req, res, next) {
 	var id = req.query.id;
-	await projects_data.approveProposal(id).then(function (outcome) {
+	var state = req.query.state;
+	await projects_data.actionProposal(id, state).then(function (outcome) {
 		this.outcome = outcome;
 		console.log(outcome);
 	})
@@ -83,10 +84,6 @@ router.get('/viewteams', async function(req, res, next) {
   })
   res.render('viewteams', {layout: false, teams: this.teams});
 });
-
-
-
-
 
 /* GET view students. */
 router.get('/viewstudents', async function(req, res, next) {
