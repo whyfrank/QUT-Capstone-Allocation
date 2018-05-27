@@ -1,6 +1,11 @@
 {{#teams}}
     <div class='project'>
-        <span class='tag-icon pre-assign'>PA</span>
+        {{#compare team_ready '==' 1}}
+            <span class='tag-icon assigned'>F</span>
+        {{/compare}}
+        {{#compare team_ready '==' 0}}
+            <span class='tag-icon no-assign'>NF</span>
+        {{/compare}}
         <h3>{{team_name}}</h3>
         <div class="project-details">
             <div class="detail-header">Team members:</div>
