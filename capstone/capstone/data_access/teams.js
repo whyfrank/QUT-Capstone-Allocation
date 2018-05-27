@@ -7,7 +7,7 @@ var mysql_nest = require('../connection/mysql_nest');
 function Teams() {
 
     // get all users data
-    this.getAllTeams = function () {
+    this.getAllTeams = function (query) {
 
 		var appendedFilters = " ";
 		var statusFilter = " ";
