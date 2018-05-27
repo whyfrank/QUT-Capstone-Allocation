@@ -12,7 +12,7 @@ function Teams() {
 		var appendedFilters = " ";
 		var statusFilter = " ";
 		if (query.query != null) {
-			appendedFilters = appendedFilters + "WHERE team.team_ready LIKE '%" + query.query + "%'";
+			appendedFilters = appendedFilters + "WHERE team.team_name LIKE '%" + query.query + "%'";
 		}
 	
 		if(query.readyStatus ==1){
