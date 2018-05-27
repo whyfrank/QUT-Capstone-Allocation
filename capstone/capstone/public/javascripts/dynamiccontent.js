@@ -57,6 +57,8 @@ function sleep(milliseconds) {
   }
 }
 
+/* STUDENTS functions */
+
 function grabStudentList() {
 	getContent(null, 'students-view', 'student-list', false);
 }
@@ -64,6 +66,26 @@ function grabStudentList() {
 function searchStudents(){
   var searchQuery = document.getElementById("student-sch-bar").value;
   getContent(null, 'students-view', 'student-list?query=' + searchQuery, false);
+}
+
+function getStudentsOnTeams() {
+  var radio = document.getElementById("in-team");
+  if (radio.checked == true){
+    var status = 1;
+  } else {
+    var status = 0;
+  }
+  getContent(null, 'students-view', 'student-list?joinedStatus=' + status, false);
+}
+
+function getStudentsNotOnTeams() {
+  var radio = document.getElementById("not-in-team");
+  if (radio.checked == true){
+    var status = 1;
+  } else {
+    var status = 0;
+  }
+  getContent(null, 'students-view', 'student-list?notJoinedStatus=' + status, false);
 }
 
 /* TEAMS functions */

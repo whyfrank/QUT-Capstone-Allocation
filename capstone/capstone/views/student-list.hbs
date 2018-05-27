@@ -1,10 +1,22 @@
 {{#students}}
   <div class='project'>
-    <span class='tag-icon assigned'>J</span>
-    <h3>{{students.first_name}}</h3>
+    {{#team}}
+    {{#compare team_name '!=' null}}
+        <span class='tag-icon assigned'>J</span>
+    {{/compare}}
+    {{#compare team_name '==' null}}
+        <span class='tag-icon no-assign'>NJ</span>
+    {{/compare}}
+    {{/team}}
+    <h3>{{students.first_name}} {{students.last_name}}</h3>
     <div class="project-details">
       {{#team}}
-      <div class="detail-header">Joined Team:</div><div class="detail-information">{{team_name}}</div>
+      {{#compare team_name '!=' null}}
+        <div class="detail-header">Joined Team:</div><div class="detail-information">{{team_name}}</div>
+      {{/compare}}
+      {{#compare team_name '==' null}}
+        <div class="detail-header">This student is yet to join a team.</div>
+      {{/compare}}
       {{/team}}
     </div>
     <a class='right-link' href='#'>Contact student</a>

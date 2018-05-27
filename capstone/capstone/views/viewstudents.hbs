@@ -4,22 +4,16 @@
 <div id='app'>
 	<div class='students-view' id='students-view'>
 	</div>
-
-
-
 		<div id="search-bar">
 			<input type="text" placeholder="Search students.." id="student-sch-bar">
 			<button class="prop-action-btn" onclick="searchStudents()" id="sch-btn">Search</button>
 		</div>
-
-
-
-
 	<div class='filters'>
 		<form>
-			<span class='menu-head'>Milestones</span>
-			<input type="checkbox" name="milestone" value="not-yet-team" checked><span class='filter-input'>Not in team</span><br>
-			<input type="checkbox" name="milestone" value="in-team" checked><span class='filter-input'>Joined team</span><br>
+			<span class='menu-head'>Students in Teams Status</span>
+			<input type="radio" name="milestone" value="all" id="all" onclick="grabStudentList()" checked><span class='filter-input'> All Students</span><br>
+			<input type="radio" name="milestone" value="in-team" id="in-team" onclick="getStudentsOnTeams()" unchecked><span class='filter-input'> Joined a Team</span><br>
+			<input type="radio" name="milestone" value="not-in-team" id="not-in-team" onclick="getStudentsNotOnTeams()" unchecked><span class='filter-input'> Hasn't Joined a Team</span><br>
 		</form>
 	</div>
 </div>
