@@ -39,21 +39,38 @@ function getContent(id, div, template, isMenu, concatQuery) {
 	  document.getElementById(div).innerHTML="<h2>An error has occured: Error " + this.status + ".</h2>";
 	}
   }
-  xmlhttp.open("GET", template ,true);
-  xmlhttp.send();
+	console.log(template)
+	xmlhttp.open("GET", template ,true);
+	xmlhttp.send();
 }
 
 var app_name;
 
 // Gets all projects and displays it in the list.
 function grabProjectList() {
-	getContent(null, 'projects-view', 'project-list', false);
+	var milestones = document.getElementsByName("milestone");
+	var milestoneQueries = "&";
+	for (let milestone of milestones) {
+		milestoneQueries = milestoneQueries + milestone.value + "=" + milestone.checked + "&";
+	}
+	
+	var searchQuery = document.getElementById("sch-bar").value;
+	getContent(null, 'projects-view', 'project-list?query=' + searchQuery + milestoneQueries, false);
 }
 
 // Searches for a project based on the input search query.
 function searchProjects() {
-	var searchQuery = document.getElementById("sch-bar").value;
-	getContent(null, 'projects-view', 'project-list?query=' + searchQuery, false);
+	grabProjectList();
+}
+
+function searchProjectByMilestone() {
+	var milestones = document.getElementsByName("milestone");
+	var queries = "?";
+	for (let milestone of milestones) {
+		queries = queries + milestone.value + "=" + milestone.checked + "&";
+	}
+	
+	getContent(null, 'projects-view', 'project-list', false, queries);
 }
 
 var project_id;

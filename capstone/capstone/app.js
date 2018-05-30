@@ -46,4 +46,21 @@ hbs.registerHelper('test', function(variable,context){
 	return new hbs.SafeString(variable);
 });
 
+hbs.registerHelper('project_milestone', function(project,context){
+	// Check if not assigned
+	if (project.allocated_team == null) {
+		return new hbs.SafeString('NA');
+	}
+	else if (project.partner_accepted == 'Declined' || project.team_accepted == 'Declined') {
+		return new hbs.SafeString('DA');
+	}
+	else if (project.partner_accepted == 'Approved' && project.team_accepted == 'Approved') {
+		return new hbs.SafeString('A');
+	}
+	else if (project.partner_accepted == 'Pending' || project.team_accepted == 'Pending') {
+		return new hbs.SafeString('PA');
+	}
+	return new hbs.SafeString('E');
+});
+
 module.exports = app;

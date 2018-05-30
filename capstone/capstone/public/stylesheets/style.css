@@ -429,16 +429,20 @@ header span {
 	font-family: 'Open Sans', sans-serif;
 }
 
-.assigned {
+.A {
 	background: #178c34;
 }
 
-.pre-assign {
+.PA {
 	background: #dbad24;
 }
 
-.no-assign {
+.NA {
 	background: #c52020;
+}
+
+.DA {
+	background: #c5209e;
 }
 
 .right-link {

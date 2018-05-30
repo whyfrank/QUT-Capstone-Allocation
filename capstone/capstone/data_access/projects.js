@@ -43,6 +43,21 @@ var studentsSql = "students ON students_in_teams.student_id = students.student_i
 							{ tableName : 'students', pkey: 'student_id'}
 						];
 						var nestedResults = mysql_nest.convertToNested(results, nestingOptions);
+						for (var i = 0; i < nestedResults.length; i++) {
+							console.log(query.not_yet_assigned);
+							if (query.declined == 'false' && (nestedResults[i].partner_accepted == 'Declined' || nestedResults[i].team_accepted == 'Declined')) {
+								delete nestedResults[i];
+							}
+							else if (query.assigned == 'false' && (nestedResults[i].partner_accepted == 'Approved' && nestedResults[i].team_accepted == 'Approved')) {
+								delete nestedResults[i];
+							}
+							else if (query.preliminary_assignment == 'false' && ((nestedResults[i].partner_accepted == 'Pending' || nestedResults[i].team_accepted == 'Pending') && nestedResults[i].allocated_team != null)) {
+								delete nestedResults[i];
+							}
+							else if (query.not_yet_assigned == 'false' && nestedResults[i].allocated_team == null) {
+								delete nestedResults[i];
+							}
+						}
 					con.release();
 					resolve(nestedResults);
 				});

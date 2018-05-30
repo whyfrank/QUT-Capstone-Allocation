@@ -2,10 +2,10 @@
   <div class='project'>
     {{#team}}
     {{#compare team_name '!=' null}}
-        <span class='tag-icon assigned'>J</span>
+        <span class='tag-icon A'>J</span>
     {{/compare}}
     {{#compare team_name '==' null}}
-        <span class='tag-icon no-assign'>NJ</span>
+        <span class='tag-icon NA'>NJ</span>
     {{/compare}}
     {{/team}}
     <h3>{{students.first_name}} {{students.last_name}}</h3>
