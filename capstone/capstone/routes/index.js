@@ -7,6 +7,7 @@ var projects_data = require('../data_access/projects');
 var teams_data = require('../data_access/teams');
 var students_data = require('../data_access/students');
 var login_data = require('../data_access/login');
+var register_data = require('../data_access/register');
 
 
 /* GET home page. */
@@ -121,6 +122,17 @@ router.post('/login', async function(req, res, next) {
 	} else {
 		res.redirect('/');
 	}
+
+});
+
+
+/* GET Register. */
+router.get('/register', async function(req, res, next) {
+  res.render('register', {layout: false});
+});
+
+/* POST Register. */
+router.post('/register', async function(req, res, next) {
 
 });
 
