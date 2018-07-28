@@ -15,8 +15,8 @@
 			<span>{{title}}</span>
 			<span id='sub-name'>Academic Portal</span>
 			
-			<a class="logout-button" href='#'>Logout</a>
-			<a href='#' id='username'>John Smith</a>
+			<a class="logout-button" href='/logout'>Logout</a>
+			<a href='#' id='username'>{{session_data.first_name}} {{session_data.last_name}}</a>
 			<button onclick="myFunction()" class="top-menu-search"><i class="fa fa-user"></i></button>
 			<!--<div class="search-box"> 
         		<input type="text" autocomplete="off" placeholder="Search anime..." />

@@ -1,0 +1,19 @@
+<h1>View Teams</h1>
+
+<!-- This is where the main 'app' on the page resides. Will make this update contents by AJAX, rather than reloading entire site. -->
+<div id='app'>
+	<div class='teams-view' id='teams-view'>
+		</div>
+		<div id="search-bar">
+			<input type="text" placeholder="Search teams.." id="team-sch-bar">
+			<button class="prop-action-btn" onclick="searchTeams()" id="sch-btn">Search</button>
+		</div>
+	<div class='filters'>
+		<form>
+			<span class='menu-head'>Team Formation Status</span>
+			<input type="radio" name="milestone" value="teams-all" id="all" onclick="grabTeamList()" checked><span class='filter-input'> All Teams</span><br>
+			<input type="radio" name="milestone" value="teams-formed" id="teams-formed" onclick="getTeamsReady()" unchecked><span class='filter-input'> Teams Formed</span><br>
+			<input type="radio" name="milestone" value="teams-not-formed" id="teams-not-formed" onclick="getTeamsNotReady()" unchecked><span class='filter-input'> Teams Not Formed</span><br>
+		</form>
+	</div>
+</div>

@@ -1,4 +1,5 @@
 var express = require('express');
+var session = require('express-session');
 var router = express.Router();
 var crypto = require('crypto');
 
@@ -8,10 +9,19 @@ var teams_data = require('../data_access/teams');
 var students_data = require('../data_access/students');
 var login_data = require('../data_access/login');
 
+//Contains User Session data
+router.use(session({secret:'XASDASDA', resave: false, saveUninitialized: false}));
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.render('index', { title: 'IT Capstone', page: req.query.page});
+	var session_data = req.session;
+	
+	// Check if the user is logged in
+	if (session_data.qut_email) {
+		res.render('index', { title: 'IT Capstone', page: req.query.page, session_data: session_data});
+	} else {
+		res.redirect('/login');
+	}
 });
 
 var projects;
@@ -107,24 +117,44 @@ router.get('/student-list', async function(req, res, next) {
 
 /* GET login. */
 router.get('/login', async function(req, res, next) {
-  res.render('login', {layout: false});
+	var session_data = req.session;
+	
+	if(session_data.qut_email) {
+		res.redirect('/');
+	}
+	res.render('login', {layout: false});
 });
 
 /* POST login. */
 router.post('/login', async function(req, res, next) {
+	var session_data = req.session;
 	await login_data.staffLogin(req.body.useremail, req.body.userpw).then(function (login) {
 		this.login = login;
 		console.log(login);
 	})
 	if (login == false) {
-		res.render('login', {layout: false, loginFailure: true});
+		res.render('login', {layout: false, loginFailure: true, accountType: req.body.account_type, email: req.body.useremail});
 	} else {
+		session_data.qut_email = login.qut_email;
+		session_data.first_name = login.First_name;
+		session_data.last_name = login.last_name;
+		session_data.staff_type = login.staff_type;
+		
 		res.redirect('/');
 	}
 
 });
 
-
+/* GET logout. */
+router.get('/logout', function(req, res, next) {
+	var session_data = req.session;
+	
+	// Check if the user is logged in before attempting to destory session.
+	if(session_data.qut_email) {
+		req.session.destroy();
+	}
+	res.redirect('/login');
+});
 
 module.exports = router;
 
