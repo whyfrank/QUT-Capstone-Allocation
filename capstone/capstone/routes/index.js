@@ -6,6 +6,7 @@ var crypto = require('crypto');
 var projects_data = require('../data_access/projects');
 var teams_data = require('../data_access/teams');
 var students_data = require('../data_access/students');
+var login_data = require('../data_access/login');
 
 
 /* GET home page. */
@@ -104,7 +105,24 @@ router.get('/student-list', async function(req, res, next) {
   res.render('student-list', {layout: false, students: this.student});
 });
 
+/* GET login. */
+router.get('/login', async function(req, res, next) {
+  res.render('login', {layout: false});
+});
 
+/* POST login. */
+router.post('/login', async function(req, res, next) {
+	await login_data.staffLogin(req.body.useremail, req.body.userpw).then(function (login) {
+		this.login = login;
+		console.log(login);
+	})
+	if (login == false) {
+		res.render('login', {layout: false, loginFailure: true});
+	} else {
+		res.redirect('/');
+	}
+
+});
 
 
 
