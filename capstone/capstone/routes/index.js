@@ -8,6 +8,7 @@ var projects_data = require('../data_access/projects');
 var teams_data = require('../data_access/teams');
 var students_data = require('../data_access/students');
 var login_data = require('../data_access/login');
+var register_data = require('../data_access/register');
 
 //Contains User Session data
 router.use(session({secret:'XASDASDA', resave: false, saveUninitialized: false}));
@@ -155,6 +156,39 @@ router.get('/logout', function(req, res, next) {
 	}
 	res.redirect('/login');
 });
+
+/* GET Register. */
+router.get('/register', async function(req, res, next) {
+  res.render('register', {layout: false});
+});
+
+/* POST Register. */
+router.post('/register', async function(req, res, next) {
+  var today = new Date();
+  var student={
+        "first_name":req.body.firstname,
+        "last_name":req.body.lastname,
+        "qut_email":req.body.useremail,
+        "gpa":req.body.gpa,
+        "course_code":req.body.coursecode,
+        "course_title":req.body.coursetitle,
+        "study_area_a":req.body.studyareaa,
+        "study_area_b":req.body.studyareab,
+        "student_id":req.body.studentid,
+        "password":req.body.password
+    }
+
+  await register_data.registerStudent(student).then(function (register) {
+      this.register = register;
+      console.log(register);
+    })
+    if (register == false) {
+      res.render('register', {layout: false, registerFailure: true});
+    } else {
+      res.redirect('/');
+    }
+});
+
 
 module.exports = router;
 
