@@ -2,27 +2,33 @@
 <html>
 	<head>
 		<title>Register for Capstone</title>
+		<link rel='stylesheet' href='/stylesheets/style.css' />
+		<script src="javascripts/alertify.js"></script>
+		<link rel="stylesheet" href="stylesheets/alertify.core.css" />
+		<link rel="stylesheet" href="stylesheets/alertify.default.css" />
 	</head>
 	<body>
-		<form method="POST">
-			<h2>Register</h2>
-			{{#if registerFailure}}
-			<!--Currently only a blanket check, adjust to pickup individual errors -->
-				<p>Please double check all fields are entered correctly.</p>
-			{{/if}}
-			<input type="text" placeholder="Enter First Name" name="firstname" required>
-			<input type="text" placeholder="Enter Last Name" name="lastname" required>
-			<input type="text" placeholder="Enter Student ID" name="studentid" required>
-			<input type="email" placeholder="Enter Email" name="useremail" required>
-			<input type="number" placeholder="GPA:" name="gpa" required>
-			<input type="text" placeholder="Enter Course Code" name="coursecode" required>
-			<input type="text" placeholder="Select Course title" name="coursetitle" required>
-			<input type="text" placeholder="Select Study Area A" name="studyareaa" required>
-			<input type="text" placeholder="Select Study Area B" name="studyareab" required>
-			<input type="password" placeholder="Enter Password" name="password" required>
-			<input type="password" placeholder="Confirm Password" name="confirmpassword" required>
+		<div class="login-section">
+			<form method="POST">
+				<h2>Register</h2>
+				{{#if registerFailure}}
+				<!--Currently only a blanket check, adjust to pickup individual errors -->
+					<p>Please double check all fields are entered correctly.</p>
+				{{/if}}
+				<input type="text" placeholder="Enter First Name" name="firstname" required>
+				<input type="text" placeholder="Enter Last Name" name="lastname" required>
+				<input type="text" placeholder="Enter Student ID" name="studentid" required>
+				<input type="email" placeholder="Enter Email" name="useremail" required>
+				<input type="number" placeholder="GPA:" name="gpa" required>
+				<input type="text" placeholder="Enter Course Code" name="coursecode" required>
+				<input type="text" placeholder="Select Course title" name="coursetitle" required>
+				<input type="text" placeholder="Select Study Area A" name="studyareaa" required>
+				<input type="text" placeholder="Select Study Area B" name="studyareab" required>
+				<input type="password" placeholder="Enter Password" name="password" required>
+				<input type="password" placeholder="Confirm Password" name="confirmpassword" required>
 
-			<input type="submit" value="Register">
-		</form>
+				<input type="submit" value="Register">
+			</form>
+		</div>
 	</body>
 </html>

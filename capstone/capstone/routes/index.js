@@ -166,16 +166,16 @@ router.get('/register', async function(req, res, next) {
 router.post('/register', async function(req, res, next) {
   var today = new Date();
   var student={
-        "first_name":req.body.firstname,
-        "last_name":req.body.lastname,
-        "qut_email":req.body.useremail,
-        "gpa":req.body.gpa,
-        "course_code":req.body.coursecode,
-        "course_title":req.body.coursetitle,
-        "study_area_a":req.body.studyareaa,
-        "study_area_b":req.body.studyareab,
-        "student_id":req.body.studentid,
-        "password":req.body.password
+        first_name:req.body.firstname,
+        last_name:req.body.lastname,
+        qut_email:req.body.useremail,
+        gpa:req.body.gpa,
+        course_code:req.body.coursecode,
+        course_title:req.body.coursetitle,
+        study_area_a:req.body.studyareaa,
+        study_area_b:req.body.studyareab,
+        student_id:req.body.studentid,
+        password:req.body.password
     }
 
   await register_data.registerStudent(student).then(function (register) {
@@ -185,7 +185,7 @@ router.post('/register', async function(req, res, next) {
     if (register == false) {
       res.render('register', {layout: false, registerFailure: true});
     } else {
-      res.redirect('/');
+      res.redirect('/login');
     }
 });
 

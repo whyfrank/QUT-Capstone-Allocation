@@ -16,7 +16,7 @@ function Register() {
 
   this.registerStudent = function (student) {
 
-    if(student.password != "" && student.password == student.confirmpassword) {
+/*     if(student.password != "" && student.password == student.confirmpassword) {
       if(student.password < 6) {
         alert("Error: Password must contain at least six characters!");
         student.password.focus();
@@ -40,7 +40,7 @@ function Register() {
         student.password.focus();
         return false;
       }
-    }
+    } */
 
       //CHECK IF EMAIL ALREADY EXISTS
       return new Promise(function(resolve, reject) {
@@ -51,21 +51,24 @@ function Register() {
         connection.acquire(function (err, con) {
           var options = { sql: 'SELECT * FROM students WHERE qut_email = ?' };
           con.query(options, [student.qut_email], function (err, results, fields) {
-            con.release();
+            
 
             // Check if a user account has been matched with the QUT email.
             if (results.length > 0){
               resolve(false);
             } else {
               // ADD STUDENT INTO DATABASE
-              connection.query('INSERT INTO students',student, function (error, response) {
-                if (err) throw err;
-                res.send('Save succesfull');
+			  options = { sql: 'INSERT INTO students (student_id, password, password_salt, first_name, last_name, qut_email, gpa, course_code, course_title, study_area_a, study_area_b) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)' };
+              con.query(options, [student.student_id, student.password, "a", student.first_name, student.last_name, student.qut_email, student.gpa, student.course_code, student.course_title, student.study_area_a, student.study_area_b], function (error, response) {
+                if (error) throw error;
+                resolve(true);
+				
+				con.release();
               });
             }
         });
       });
-    }
+    });
   }
 }
 module.exports = new Register();
