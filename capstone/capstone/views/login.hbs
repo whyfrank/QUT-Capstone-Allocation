@@ -14,7 +14,7 @@
 				<button class="login-button" id="student" onclick="accountTypeSelect('student')">Students</button>
 				<button class="login-button" id="partner" onclick="accountTypeSelect('partner')">Industry Partners</button>
 				<button class="login-button" id="staff" onclick="accountTypeSelect('staff')">Staff</button>
-				<p id="register-note">Students can register <a href="/student_register">here</a></p>
+				<p id="register-note">Students can register <a href="/register">here</a></p>
 			</div>
 			<form id="login-form" method="POST">
 				<h2 id="login-header">Login</h2>
@@ -25,7 +25,7 @@
 				<button type="button" class="login-button" onclick="selectBack()" id="back">Back</button>
 			</form>
 		</div>
-		
+
 		<!-- TODO: Move to separate JS file. -->
 		<script>
 			function accountTypeSelect(accountType) {
@@ -35,13 +35,13 @@
 				var accountTypeCapitalized = accountType.charAt(0).toUpperCase() + accountType.substr(1);
 				document.getElementById('login-header').innerText = accountTypeCapitalized + " Login";
 			}
-			
+
 			function selectBack() {
 				document.getElementById('login-form').style.top = '400px';
 				document.getElementById('login-selection').style.left = '0px';
 			}
 		</script>
-		
+
 		{{#if loginFailure}}
 			<script>
 				alertify.error("You have entered an incorrect username or password, or have not created an account.");

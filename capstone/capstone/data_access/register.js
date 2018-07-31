@@ -16,32 +16,6 @@ function Register() {
 
   this.registerStudent = function (student) {
 
-/*     if(student.password != "" && student.password == student.confirmpassword) {
-      if(student.password < 6) {
-        alert("Error: Password must contain at least six characters!");
-        student.password.focus();
-        return false;
-      }
-      re = /[0-9]/;
-      if(!re.test(student.password)) {
-        alert("Error: password must contain at least one number (0-9)!");
-        student.password.focus();
-        return false;
-      }
-      re = /[a-z]/;
-      if(!re.test(student.password)) {
-        alert("Error: password must contain at least one lowercase letter (a-z)!");
-        student.password.focus();
-        return false;
-      }
-      re = /[A-Z]/;
-      if(!re.test(student.password)) {
-        alert("Error: password must contain at least one uppercase letter (A-Z)!");
-        student.password.focus();
-        return false;
-      }
-    } */
-
       //CHECK IF EMAIL ALREADY EXISTS
       return new Promise(function(resolve, reject) {
         // initialize database connection
@@ -51,7 +25,7 @@ function Register() {
         connection.acquire(function (err, con) {
           var options = { sql: 'SELECT * FROM students WHERE qut_email = ?' };
           con.query(options, [student.qut_email], function (err, results, fields) {
-            
+
 
             // Check if a user account has been matched with the QUT email.
             if (results.length > 0){
@@ -62,7 +36,7 @@ function Register() {
               con.query(options, [student.student_id, student.password, "a", student.first_name, student.last_name, student.qut_email, student.gpa, student.course_code, student.course_title, student.study_area_a, student.study_area_b], function (error, response) {
                 if (error) throw error;
                 resolve(true);
-				
+
 				con.release();
               });
             }

@@ -8,27 +8,87 @@
 		<link rel="stylesheet" href="stylesheets/alertify.default.css" />
 	</head>
 	<body>
-		<div class="login-section">
-			<form method="POST">
-				<h2>Register</h2>
-				{{#if registerFailure}}
-				<!--Currently only a blanket check, adjust to pickup individual errors -->
-					<p>Please double check all fields are entered correctly.</p>
-				{{/if}}
-				<input type="text" placeholder="Enter First Name" name="firstname" required>
-				<input type="text" placeholder="Enter Last Name" name="lastname" required>
-				<input type="text" placeholder="Enter Student ID" name="studentid" required>
-				<input type="email" placeholder="Enter Email" name="useremail" required>
-				<input type="number" placeholder="GPA:" name="gpa" required>
-				<input type="text" placeholder="Enter Course Code" name="coursecode" required>
-				<input type="text" placeholder="Select Course title" name="coursetitle" required>
-				<input type="text" placeholder="Select Study Area A" name="studyareaa" required>
-				<input type="text" placeholder="Select Study Area B" name="studyareab" required>
-				<input type="password" placeholder="Enter Password" name="password" required>
-				<input type="password" placeholder="Confirm Password" name="confirmpassword" required>
+		<div class="registration-section">
 
-				<input type="submit" value="Register">
+			<form id="registrationForm" method="POST">
+				<h2>Register</h2>
+
+				<input type="text" placeholder="Enter First Name" id="firstname" name="firstname" required>
+				<input type="text" placeholder="Enter Last Name" id="lastname" name="lastname" required>
+				<input type="number" placeholder="Enter Student ID" id="studentid" name="studentid" required>
+				<input type="email" placeholder="Enter Email" id="useremail" name="useremail" required>
+				<input type="number" step="0.01" max="7.00" min="0.00" placeholder="GPA:" id="gpa" name="gpa" required>
+				<input type="text" placeholder="Enter Course Code" id="coursecode" name="coursecode" required>
+				<input type="text" placeholder="Select Course title" id="coursetitle" name="coursetitle" required>
+				<input type="text" placeholder="Select Study Area A" id="studyareaa" name="studyareaa" required>
+				<input type="text" placeholder="Select Study Area B" id="studyareab" name="studyareab" required>
+				<input type="password" placeholder="Enter Password" id="password" name="password" required>
+				<input type="password" placeholder="Confirm Password" id="confirmpassword" name="confirmpassword" required>
+
+				<input type="submit" onClick="return validateForm()" value="Register">
 			</form>
 		</div>
+
+		<script>
+
+		function validateForm(){
+
+			var firstname = document.getElementById("firstname").value;
+			var lastname = document.getElementById("lastname").value;
+			var studentid = document.getElementById("studentid").value;
+			var useremail = document.getElementById("useremail").value;
+			var gpa = document.getElementById("gpa").value;
+			var coursecode = document.getElementById("coursecode").value;
+			var password = document.getElementById("password").value;
+      var confirmpassword = document.getElementById("confirmpassword").value;
+
+			// Check that student number does not contain any letters
+			var reg = new RegExp('^[0-9]+$');
+			if (!reg.test(studentid)){
+				alertify.error("Please ensure student number does not contain any letters");
+				return false;
+			}
+
+			// Check that first name does not contain any numbers
+			var reg = new RegExp('^[a-zA-Z]+$');
+			if (!reg.test(firstname)){
+				alertify.error("Please ensure first name only contains letters");
+				return false;
+			}
+			// Check that last name does not contain any numbers
+			var reg = new RegExp('^[a-zA-Z]+$');
+			if (!reg.test(lastname)){
+				alertify.error("Please ensure last name only contains letters");
+				return false;
+			}
+			// Check that email ends in "@connect.qut.edu.au"
+			var reg = new RegExp('^[a-zA-Z0-9._%+-]+@\connect\.qut\.edu\.au$')
+			if (!reg.test(useremail)){
+				alertify.error("Please use your student email");
+				return false;
+			}
+			// Check that GPA is within bounds
+			if (gpa <0 || gpa >7){
+				alertify.error("Please ensure GPA is within bounds");
+				return false;
+			}
+			// Check that course code is in LETTER LETTER NUMBER NUMBER format
+			var reg = new RegExp('^[a-zA-Z][a-zA-Z][0-9][0-9]$')
+			if (!reg.test(coursecode)){
+				alertify.error("Please ensure a valid course code is entered");
+				return false;
+			}
+			// Check that passwords match - WORKS
+			if (password != confirmpassword){
+				alertify.error("Passwords do not match");
+				return false;
+			}
+
+			else return true;
+		}
+
+		</script>
+
+
 	</body>
 </html>

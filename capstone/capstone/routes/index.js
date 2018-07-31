@@ -16,7 +16,7 @@ router.use(session({secret:'XASDASDA', resave: false, saveUninitialized: false})
 /* GET home page. */
 router.get('/', function(req, res, next) {
 	var session_data = req.session;
-	
+
 	// Check if the user is logged in
 	if (session_data.qut_email) {
 		res.render('index', { title: 'IT Capstone', page: req.query.page, session_data: session_data});
@@ -119,7 +119,7 @@ router.get('/student-list', async function(req, res, next) {
 /* GET login. */
 router.get('/login', async function(req, res, next) {
 	var session_data = req.session;
-	
+
 	if(session_data.qut_email) {
 		res.redirect('/');
 	}
@@ -140,7 +140,7 @@ router.post('/login', async function(req, res, next) {
 		session_data.first_name = login.First_name;
 		session_data.last_name = login.last_name;
 		session_data.staff_type = login.staff_type;
-		
+
 		res.redirect('/');
 	}
 
@@ -149,7 +149,7 @@ router.post('/login', async function(req, res, next) {
 /* GET logout. */
 router.get('/logout', function(req, res, next) {
 	var session_data = req.session;
-	
+
 	// Check if the user is logged in before attempting to destory session.
 	if(session_data.qut_email) {
 		req.session.destroy();
