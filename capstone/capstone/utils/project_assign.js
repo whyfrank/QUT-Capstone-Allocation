@@ -17,6 +17,11 @@ function ProjectAssign() {
 		
 		await exportAllocation(allocatableProjects);
 	}
+	
+	this.retrieveAllocation = async function () {
+		var allocation = await importAllocation();
+		return allocation;
+	}
 }
 
 // Returns only projects that can have teams allocated to them.
@@ -37,6 +42,7 @@ async function grabAllocatableProjects() {
 	return allocatableProjects;
 }
 
+// Export the allocation results into a JSON file.
 async function exportAllocation(allocatableProjects) {
 	var allocation = { name: "Team to Project Allocation", timestamp: new Date().getTime(), projects: allocatableProjects };
 	
@@ -49,6 +55,17 @@ async function exportAllocation(allocatableProjects) {
 
 		console.log("The allocation JSON file was saved!");
 	}); 
+}
+
+// Import the allocation results from a JSON file.
+async function importAllocation() {
+	if(fs.existsSync(filePath)) {
+	    var allocation = JSON.parse(await fs.readFileSync(filePath, 'utf8'));
+		return allocation;
+	} else {
+		console.log("Local allocation results not found.");
+		return false;
+	}
 }
 
 module.exports = new ProjectAssign();

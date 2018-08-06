@@ -773,6 +773,14 @@ header span {
 	float:left;
 }
 
+/* Allocation Page */
+
+#gen-btn {
+	background: #17568C;
+	float: right;
+	height: 20px;
+	width: 150px;
+}
 
     /* Formatting search box */
     .search-box{

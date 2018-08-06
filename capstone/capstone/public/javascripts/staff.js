@@ -58,6 +58,8 @@ function grabProjectList() {
 	getContent(null, 'projects-view', 'project-list?query=' + searchQuery + milestoneQueries, false);
 }
 
+
+
 // Searches for a project based on the input search query.
 function searchProjects() {
 	grabProjectList();
@@ -145,4 +147,16 @@ function toggleProject(team_id) {
 	} else {
 		document.getElementById(team_id).style.display = "block";
 	}
+}
+
+// Gets all allocation data and displays it in the list.
+function grabAllocation(regenerate) {
+/* 	var priority = document.getElementsByName("priority");
+	var priorityQueries = "&";
+	for (let priority of priorities) {
+		milestoneQueries = milestoneQueries + milestone.value + "=" + milestone.checked + "&";
+	}
+	
+	var searchQuery = document.getElementById("sch-bar").value; */
+	getContent(null, 'projects-view', 'allocation-list?regenerate=' + regenerate, false);
 }
