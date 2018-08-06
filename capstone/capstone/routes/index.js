@@ -10,6 +10,8 @@ var students_data = require('../data_access/students');
 var login_data = require('../data_access/login');
 var register_data = require('../data_access/register');
 
+var project_assign = require('../utils/project_assign');
+
 //Contains User Session data
 router.use(session({secret:'XASDASDA', resave: false, saveUninitialized: false}));
 
@@ -23,6 +25,12 @@ router.get('/', function(req, res, next) {
 	} else {
 		res.redirect('/login');
 	}
+});
+
+/* GET view allocation. */
+router.get('/allocation', async function(req, res, next) {
+	project_assign.generateAllocation();
+    res.render('allocation', {layout: false});
 });
 
 var projects;

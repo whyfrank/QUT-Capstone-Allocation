@@ -424,6 +424,41 @@ header span {
 	background: #fce1d9;
 }
 
+/* View Allocation System */
+.team-match {
+	background: #d9e6fc;
+	padding: 15px;
+	border: 1px solid gray;
+	border-radius: 5px;
+	margin-bottom: 10px;
+}
+
+.team-match:hover {
+	cursor: pointer;
+}
+
+.team-match-info {
+	display: none;
+	margin-top: 15px;
+	padding-top: 5px;
+	border-top: 1px solid gray;
+}
+
+.alloc-team-btn {
+	float: right;
+	z-index: 2;
+}
+
+.skills-table, .skills-table td {
+	border: 1px solid gray;
+	border-collapse: collapse;
+	background: white;
+}
+
+.skills-table td, .skills-table th {
+	width: 300px;
+}
+
 /* View Projects */
 
 #projects-section, #project-information {

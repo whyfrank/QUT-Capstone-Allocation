@@ -136,3 +136,13 @@ function approveCancel() {
 	document.getElementById("proposal-confirmation").style.display = "none";
 	document.getElementById("proposal-wrapper").style.height = "calc(100% - 36px)";
 }
+
+// Allocation System
+
+function toggleProject(team_id) {
+	if (document.getElementById(team_id).style.display != "none") {
+		document.getElementById(team_id).style.display = "none";
+	} else {
+		document.getElementById(team_id).style.display = "block";
+	}
+}

@@ -1,0 +1,34 @@
+{
+    "name": "Team to Project Allocation",
+    "timestamp": 1533527103551,
+    "projects": [
+        {
+            "project_id": 5,
+            "company_name": "Garden Store",
+            "project_name": "Website Design",
+            "industry": "Information Technology",
+            "about_company": "Sells gardening equipment, seeds, plants and more!",
+            "description": "We aren't happy with our current front web-page. So we would like a re-design!",
+            "project_output_type": null,
+            "difficulty": null,
+            "priority": null,
+            "preferred_course_combination": null,
+            "repeat_partner": null,
+            "academic_needed": null,
+            "ip_contract_requirement": null,
+            "potential_support_level": null,
+            "company_type": null,
+            "scope_deliverables": "Make a nice little image of a cactus plant appear on our front web-page. :)",
+            "req_knowledge": "- Know how to edit images - Know how to use WordPress",
+            "allocated_team": null,
+            "notes": null,
+            "status": "Not Assigned",
+            "abn": "43 847 384 239",
+            "address": "64 Poorscope Lane, Cleveland QLD 4108",
+            "liaison_accepted": "Approved",
+            "academic_accepted": "Approved",
+            "partner_accepted": "Pending",
+            "team_accepted": "Pending"
+        }
+    ]
+}

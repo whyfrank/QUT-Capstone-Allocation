@@ -1,0 +1,73 @@
+<h1 id="app-name">Allocation</h1>
+
+<!-- This is where the main 'app' on the page resides. Will make this update contents by AJAX, rather than reloading entire site. -->
+<div id='app'>
+	<div id='projects-information'>
+	</div>
+	<div id="projects-section">
+		<div class='projects-view' id='projects-view'>
+			<div class='project'>
+				<span class='tag-icon A'>H</span>
+				<h3>Macrosoft - Windown 11 System</h3>
+				<div class="project-details">
+						<div class="detail-header">Best Team Matches:</div><br><br>
+						<div class="team-matches">
+							<div class="team-match" onclick='toggleProject("team_11")')>
+								<b>1.&nbsp;Team&nbsp;Awesome</b>&nbsp;- Angela Deckow, Thalia Kihn, Dejah Hoppe, Danyka Kerluke <br>Average&nbsp;GPA:&nbsp;<b>6.78</b> | Skill&nbsp;Match:&nbsp;<b>87%</b>| Course&nbsp;Combination:&nbsp;<b>CCII</b>
+								<button onclick="location.href='#';" class='project-block-btn alloc-team-btn'>Assign Team <i class="fa fa-users"></i></button>
+								<div class="team-match-info" id="team_11">
+									<table class="skills-table">
+									    <tr>
+											<th>All Team Skills</th>
+											<th>Required Skills</th> 
+											<th>Supporting Skills</th>
+									    </tr>
+										<tr>
+											<td>Back-End Web Development, Security, Object Oriented Programming, C#, Java, Web Design</td>
+											<td><b>Matched Skills:</b><br> Back-End Web Development, Object Oriented Programming, C#</td> 
+											<td><b>Matched Skills:</b><br>Security<br><br><b>Missing Skills:</b><br> SQL, Client side Javascript</td>
+										</tr>
+									</table>
+								</div>
+							</div>
+							<div class="team-match" onclick='toggleProject("team_12")')>
+								<b>2.&nbsp;Team&nbsp;Boehm-Leuschke</b>&nbsp;- Hayley Olson, Garland Tremblay, Michelle Bahringer, Lillie Berge <br>Average&nbsp;GPA:&nbsp;<b>6.23</b> | Skill&nbsp;Match:&nbsp;<b>78%</b>| Course&nbsp;Combination:&nbsp;<b>CCII</b>
+								<button onclick="location.href='#';" class='project-block-btn alloc-team-btn'>Assign Team <i class="fa fa-users"></i></button>
+								<div class="team-match-info" id="team_12">
+									<table class="skills-table">
+									    <tr>
+											<th>All Team Skills</th>
+											<th>Required Skills</th> 
+											<th>Supporting Skills</th>
+									    </tr>
+										<tr>
+											<td>Back-End Web Development, Security, Object Oriented Programming, C, Java, Web Design</td>
+											<td><b>Matched Skills:</b><br> Back-End Web Development, Object Oriented Programming</td> 
+											<td><b>Matched Skills:</b><br>SQL<br><br><b>Missing Skills:</b><br> Security, Client side Javascript</td>
+										</tr>
+									</table>
+								</div>
+							</div>
+						</div>
+				</div>
+			</div>
+		</div>
+		<div id="search-bar">
+			<input type="text" placeholder="Search projects to allocate.." id="sch-bar">
+			<button class="prop-action-btn" onclick="searchProjects()" id="sch-btn">Search</button>
+		</div>
+		<div class='filters'>
+			<form action="" id="milestone-form">
+				<span class='menu-head'>Priority</span>
+				<input type="checkbox" name="milestone" onclick="searchAllocByPriority('high-priority')" value="not_yet_assigned" checked><span class='filter-input'>High Priority</span><br>
+				<input type="checkbox" name="milestone" onclick="searchAllocByPriority('medium-priority')" value="preliminary_assignment" checked><span class='filter-input'>Medium Priority</span><br>
+				<input type="checkbox" name="milestone" onclick="searchAllocByPriority('low-priority')" value="pending_contract" checked><span class='filter-input'>Low Priority</span><br>
+
+			</form>
+		</div>
+	</div>
+</div>
+
+<script>
+
+</script>
