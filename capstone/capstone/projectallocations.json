@@ -1,7 +1,189 @@
 {
     "name": "Team to Project Allocation",
-    "timestamp": 1533538546237,
+    "timestamp": 1533791552362,
     "projects": [
+        {
+            "project_id": 3,
+            "company_name": "MacroSoft",
+            "project_name": "Windown 11",
+            "industry": "Information Technology",
+            "about_company": "MacroSoft is an IT company.",
+            "description": "Work on a functionality on Windown 11",
+            "project_output_type": null,
+            "difficulty": null,
+            "priority": null,
+            "preferred_course_combination": null,
+            "repeat_partner": null,
+            "academic_needed": null,
+            "ip_contract_requirement": null,
+            "potential_support_level": null,
+            "company_type": null,
+            "scope_deliverables": null,
+            "req_knowledge": "- Computer Wizardry - Other Wizardry",
+            "allocated_team": null,
+            "notes": null,
+            "status": "Not Assigned",
+            "abn": "43 847 384 239",
+            "address": "34 Short Road, Brownslopes QLD 4126",
+            "liaison_accepted": "Approved",
+            "academic_accepted": "Approved",
+            "partner_accepted": "Pending",
+            "team_accepted": "Approved",
+            "project_skills": [
+                {
+                    "id": 1,
+                    "project_id": 3,
+                    "required": 1,
+                    "skill": 1,
+                    "skills": {
+                        "skill_id": 1,
+                        "skill_name": "Back-End Web Development",
+                        "skill_type": "General Software Development"
+                    }
+                },
+                {
+                    "id": 2,
+                    "project_id": 3,
+                    "required": 1,
+                    "skill": 4,
+                    "skills": {
+                        "skill_id": 4,
+                        "skill_name": "Front-End Web Development",
+                        "skill_type": "General Software Development"
+                    }
+                },
+                {
+                    "id": 3,
+                    "project_id": 3,
+                    "required": 1,
+                    "skill": 42,
+                    "skills": {
+                        "skill_id": 42,
+                        "skill_name": "Web design",
+                        "skill_type": "UX and Interaction Design"
+                    }
+                },
+                {
+                    "id": 4,
+                    "project_id": 3,
+                    "required": 0,
+                    "skill": 39,
+                    "skills": {
+                        "skill_id": 39,
+                        "skill_name": "Interaction/UX design",
+                        "skill_type": "UX and Interaction Design"
+                    }
+                }
+            ],
+            "team_matches": [
+                {
+                    "team_id": 3,
+                    "team_name": "Team Flair",
+                    "matched_skills": [
+                        {
+                            "id": 1,
+                            "project_id": 3,
+                            "required": 1,
+                            "skill": 1,
+                            "skills": {
+                                "skill_id": 1,
+                                "skill_name": "Back-End Web Development",
+                                "skill_type": "General Software Development"
+                            }
+                        },
+                        {
+                            "id": 2,
+                            "project_id": 3,
+                            "required": 1,
+                            "skill": 4,
+                            "skills": {
+                                "skill_id": 4,
+                                "skill_name": "Front-End Web Development",
+                                "skill_type": "General Software Development"
+                            }
+                        },
+                        {
+                            "id": 3,
+                            "project_id": 3,
+                            "required": 1,
+                            "skill": 42,
+                            "skills": {
+                                "skill_id": 42,
+                                "skill_name": "Web design",
+                                "skill_type": "UX and Interaction Design"
+                            }
+                        }
+                    ],
+                    "matched_skills_percentage": 75
+                },
+                {
+                    "team_id": 1,
+                    "team_name": "Team Price",
+                    "matched_skills": [],
+                    "matched_skills_percentage": 0
+                },
+                {
+                    "team_id": 2,
+                    "team_name": "The Good People",
+                    "matched_skills": [],
+                    "matched_skills_percentage": 0
+                },
+                {
+                    "team_id": 4,
+                    "team_name": "Terrific Quad Squad",
+                    "matched_skills": [],
+                    "matched_skills_percentage": 0
+                },
+                {
+                    "team_id": 5,
+                    "team_name": "HYMN Developers",
+                    "matched_skills": [],
+                    "matched_skills_percentage": 0
+                },
+                {
+                    "team_id": 6,
+                    "team_name": "The Team",
+                    "matched_skills": [],
+                    "matched_skills_percentage": 0
+                },
+                {
+                    "team_id": 7,
+                    "team_name": "C Plus Us",
+                    "matched_skills": [],
+                    "matched_skills_percentage": 0
+                },
+                {
+                    "team_id": 8,
+                    "team_name": "The Coding Group",
+                    "matched_skills": [],
+                    "matched_skills_percentage": 0
+                },
+                {
+                    "team_id": 9,
+                    "team_name": "TODO: Name Here",
+                    "matched_skills": [],
+                    "matched_skills_percentage": 0
+                },
+                {
+                    "team_id": 10,
+                    "team_name": "Justice Developers",
+                    "matched_skills": [],
+                    "matched_skills_percentage": 0
+                },
+                {
+                    "team_id": 11,
+                    "team_name": "Team Awesome",
+                    "matched_skills": [],
+                    "matched_skills_percentage": 0
+                },
+                {
+                    "team_id": 12,
+                    "team_name": "Hype Team",
+                    "matched_skills": [],
+                    "matched_skills_percentage": 0
+                }
+            ]
+        },
         {
             "project_id": 5,
             "company_name": "Garden Store",
@@ -28,7 +210,160 @@
             "liaison_accepted": "Approved",
             "academic_accepted": "Approved",
             "partner_accepted": "Pending",
-            "team_accepted": "Pending"
+            "team_accepted": "Pending",
+            "project_skills": [
+                {
+                    "id": 9,
+                    "project_id": 5,
+                    "required": 1,
+                    "skill": 37,
+                    "skills": {
+                        "skill_id": 37,
+                        "skill_name": "Interface design",
+                        "skill_type": "UX and Interaction Design"
+                    }
+                }
+            ],
+            "team_matches": [
+                {
+                    "team_id": 3,
+                    "team_name": "Team Flair",
+                    "matched_skills": [],
+                    "matched_skills_percentage": 0
+                },
+                {
+                    "team_id": 1,
+                    "team_name": "Team Price",
+                    "matched_skills": [],
+                    "matched_skills_percentage": 0
+                },
+                {
+                    "team_id": 2,
+                    "team_name": "The Good People",
+                    "matched_skills": [],
+                    "matched_skills_percentage": 0
+                },
+                {
+                    "team_id": 4,
+                    "team_name": "Terrific Quad Squad",
+                    "matched_skills": [],
+                    "matched_skills_percentage": 0
+                },
+                {
+                    "team_id": 5,
+                    "team_name": "HYMN Developers",
+                    "matched_skills": [],
+                    "matched_skills_percentage": 0
+                },
+                {
+                    "team_id": 6,
+                    "team_name": "The Team",
+                    "matched_skills": [],
+                    "matched_skills_percentage": 0
+                },
+                {
+                    "team_id": 7,
+                    "team_name": "C Plus Us",
+                    "matched_skills": [],
+                    "matched_skills_percentage": 0
+                },
+                {
+                    "team_id": 8,
+                    "team_name": "The Coding Group",
+                    "matched_skills": [],
+                    "matched_skills_percentage": 0
+                },
+                {
+                    "team_id": 9,
+                    "team_name": "TODO: Name Here",
+                    "matched_skills": [],
+                    "matched_skills_percentage": 0
+                },
+                {
+                    "team_id": 10,
+                    "team_name": "Justice Developers",
+                    "matched_skills": [],
+                    "matched_skills_percentage": 0
+                },
+                {
+                    "team_id": 11,
+                    "team_name": "Team Awesome",
+                    "matched_skills": [],
+                    "matched_skills_percentage": 0
+                },
+                {
+                    "team_id": 12,
+                    "team_name": "Hype Team",
+                    "matched_skills": [],
+                    "matched_skills_percentage": 0
+                }
+            ]
+        }
+    ],
+    "teams": [
+        {
+            "team_id": 3,
+            "team_name": "Team Flair",
+            "team_skills": [
+                1,
+                42,
+                4
+            ]
+        },
+        {
+            "team_id": 1,
+            "team_name": "Team Price",
+            "team_skills": []
+        },
+        {
+            "team_id": 2,
+            "team_name": "The Good People",
+            "team_skills": []
+        },
+        {
+            "team_id": 4,
+            "team_name": "Terrific Quad Squad",
+            "team_skills": []
+        },
+        {
+            "team_id": 5,
+            "team_name": "HYMN Developers",
+            "team_skills": []
+        },
+        {
+            "team_id": 6,
+            "team_name": "The Team",
+            "team_skills": []
+        },
+        {
+            "team_id": 7,
+            "team_name": "C Plus Us",
+            "team_skills": []
+        },
+        {
+            "team_id": 8,
+            "team_name": "The Coding Group",
+            "team_skills": []
+        },
+        {
+            "team_id": 9,
+            "team_name": "TODO: Name Here",
+            "team_skills": []
+        },
+        {
+            "team_id": 10,
+            "team_name": "Justice Developers",
+            "team_skills": []
+        },
+        {
+            "team_id": 11,
+            "team_name": "Team Awesome",
+            "team_skills": []
+        },
+        {
+            "team_id": 12,
+            "team_name": "Hype Team",
+            "team_skills": []
         }
     ]
 }
