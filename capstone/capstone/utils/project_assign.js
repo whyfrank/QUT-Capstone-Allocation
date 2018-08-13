@@ -58,11 +58,18 @@ async function getBestTeamMatch(count, index) {
 		}
 		var skill_match_percentage = (matchedSkills.length / totalSkillCount) * 100;
 		
-		allTeams.push({team_id: team.team_id, team_name: team.team_name, matched_skills: matchedSkills, matched_skills_percentage: skill_match_percentage});
+		allTeams.push({team_id: team.team_id, team_name: team.team_name, matched_skills: matchedSkills, matched_skills_percentage: skill_match_percentage, team_gpa: team.team_gpa.toFixed(2)});
 	}
-
 	
-	return allTeams;
+	// Sort by skill match and cull 5 teams
+	allTeams.sort((a, b) => parseFloat(b.matched_skills_percentage) - parseFloat(a.matched_skills_percentage));
+	
+	var topSkillTeams = allTeams.slice(0, count);
+
+	// Sort by GPA
+	topSkillTeams.sort((a, b) => parseFloat(b.team_gpa) - parseFloat(a.team_gpa));
+	
+	return topSkillTeams;
 }
 
 // Returns only projects that can have teams allocated to them.
@@ -111,11 +118,14 @@ async function grabAllocatableTeams() {
 		
 			// Combine all unique skill sets
 			var team_skills = [];
+			var team_gpa = 0;
 			
 			var team_students = team.students_in_teams;
 			
-			// Get skills from each student
+			// Get information from each student
 			for (var stud_i = 0; stud_i < team_students.length; stud_i++) {
+				// Add GPA to total team GPA
+				team_gpa += team_students[stud_i].students.gpa
 				
 				// Only add skills if the student has skills
 				if (team_students[stud_i].students.student_skills != undefined) {
@@ -140,7 +150,10 @@ async function grabAllocatableTeams() {
 				}
 			}
 			
-			allocatableTeams.push({team_id: team.team_id, team_name: team.team_name, team_skills: team_skills});
+			// Calculate average GPA
+			team_gpa = team_gpa / team_students.length;
+			
+			allocatableTeams.push({team_id: team.team_id, team_name: team.team_name, team_skills: team_skills, team_gpa: team_gpa});
 		/*}*/
 	}
 	

@@ -6,42 +6,26 @@
 			<div class="project-details">
 					<div class="detail-header">Best Team Matches:</div><br><br>
 					<div class="team-matches">
-						<div class="team-match" onclick='toggleProject("team_11")')>
-							<b>1.&nbsp;Team&nbsp;Awesome</b>&nbsp;- Angela Deckow, Thalia Kihn, Dejah Hoppe, Danyka Kerluke <br>Average&nbsp;GPA:&nbsp;<b>6.78</b> | Skill&nbsp;Match:&nbsp;<b>87%</b>| Course&nbsp;Combination:&nbsp;<b>CCII</b>
-							<button onclick="location.href='#';" class='project-block-btn alloc-team-btn'>Assign Team <i class="fa fa-users"></i></button>
-							<div class="team-match-info" id="team_11">
-								<table class="skills-table">
-									<tr>
-										<th>All Team Skills</th>
-										<th>Required Skills</th> 
-										<th>Supporting Skills</th>
-									</tr>
-									<tr>
-										<td>Back-End Web Development, Security, Object Oriented Programming, C#, Java, Web Design</td>
-										<td><b>Matched Skills:</b><br> Back-End Web Development, Object Oriented Programming, C#</td> 
-										<td><b>Matched Skills:</b><br>Security<br><br><b>Missing Skills:</b><br> SQL, Client side Javascript</td>
-									</tr>
-								</table>
-							</div>
-						</div>
-						<div class="team-match" onclick='toggleProject("team_12")')>
-							<b>2.&nbsp;Team&nbsp;Boehm-Leuschke</b>&nbsp;- Hayley Olson, Garland Tremblay, Michelle Bahringer, Lillie Berge <br>Average&nbsp;GPA:&nbsp;<b>6.23</b> | Skill&nbsp;Match:&nbsp;<b>78%</b>| Course&nbsp;Combination:&nbsp;<b>CCII</b>
-							<button onclick="location.href='#';" class='project-block-btn alloc-team-btn'>Assign Team <i class="fa fa-users"></i></button>
-							<div class="team-match-info" id="team_12">
-								<table class="skills-table">
-									<tr>
-										<th>All Team Skills</th>
-										<th>Required Skills</th> 
-										<th>Supporting Skills</th>
-									</tr>
-									<tr>
-										<td>Back-End Web Development, Security, Object Oriented Programming, C, Java, Web Design</td>
-										<td><b>Matched Skills:</b><br> Back-End Web Development, Object Oriented Programming</td> 
-										<td><b>Matched Skills:</b><br>SQL<br><br><b>Missing Skills:</b><br> Security, Client side Javascript</td>
-									</tr>
-								</table>
-							</div>
-						</div>
+						{{#team_matches}}
+								<div class="team-match" onclick='toggleProject("team_{{@../index}}_{{@index}}")')>
+									<b>{{add @index 1}}.&nbsp;{{team_name}}</b>&nbsp;- Angela Deckow, Thalia Kihn, Dejah Hoppe, Danyka Kerluke <br>Average&nbsp;GPA:&nbsp;<b>{{team_gpa}}</b> | Skill&nbsp;Match:&nbsp;<b>{{matched_skills_percentage}}%</b>| Course&nbsp;Combination:&nbsp;<b>CCII</b>
+									<button onclick="location.href='#';" class='project-block-btn alloc-team-btn'>Assign Team <i class="fa fa-users"></i></button>
+									<div class="team-match-info" id="team_{{@../index}}_{{@index}}">
+										<table class="skills-table">
+											<tr>
+												<th>All Team Skills</th>
+												<th>Required Skills</th> 
+												<th>Supporting Skills</th>
+											</tr>
+											<tr>
+												<td>Back-End Web Development, Security, Object Oriented Programming, C#, Java, Web Design</td>
+												<td><b>Matched Skills:</b><br> Back-End Web Development, Object Oriented Programming, C#</td> 
+												<td><b>Matched Skills:</b><br>Security<br><br><b>Missing Skills:</b><br> SQL, Client side Javascript</td>
+											</tr>
+										</table>
+									</div>
+								</div>
+						{{/team_matches}}
 					</div>
 			</div>
 		</div>
