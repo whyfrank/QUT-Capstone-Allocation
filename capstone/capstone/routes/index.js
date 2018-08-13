@@ -10,6 +10,8 @@ var students_data = require('../data_access/students');
 var login_data = require('../data_access/login');
 var register_data = require('../data_access/register');
 
+var project_assign = require('../utils/project_assign');
+
 //Contains User Session data
 router.use(session({secret:'XASDASDA', resave: false, saveUninitialized: false}));
 
@@ -23,6 +25,28 @@ router.get('/', function(req, res, next) {
 	} else {
 		res.redirect('/login');
 	}
+});
+
+/* GET view allocation. */
+router.get('/allocation', async function(req, res, next) {
+    res.render('allocation', {layout: false});
+});
+
+/* GET view allocation-list. */
+router.get('/allocation-list', async function(req, res, next) {
+	
+	// Regenerate allocations if specified
+	if (req.query.regenerate != undefined) {
+		if (req.query.regenerate == 'true') {
+			await project_assign.generateAllocation();
+		}
+	}
+	
+	await project_assign.retrieveAllocation().then(function (allocation) {
+		this.allocation = allocation;
+		console.log(allocation);
+	})
+  res.render('allocation-list', {layout: false, allocation: this.allocation});
 });
 
 var projects;

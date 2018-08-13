@@ -1,0 +1,30 @@
+<h1 id="app-name">Allocation</h1>
+
+<!-- This is where the main 'app' on the page resides. Will make this update contents by AJAX, rather than reloading entire site. -->
+<div id='app'>
+	<div id='projects-information'>
+	</div>
+	<div id="projects-section">
+		<div class='projects-view' id='projects-view'>
+		
+		</div>
+		<div id="search-bar">
+			<input type="text" placeholder="Search projects to allocate.." id="sch-bar">
+			<button class="prop-action-btn" onclick="searchProjects()" id="sch-btn">Search</button>
+			<button class="prop-action-btn" onclick="grabAllocation(true)" id="gen-btn">Allocation Settings</button>
+		</div>
+		<div class='filters'>
+			<form action="" id="milestone-form">
+				<span class='menu-head'>Priority</span>
+				<input type="checkbox" name="milestone" onclick="searchAllocByPriority('high-priority')" value="not_yet_assigned" checked><span class='filter-input'>High Priority</span><br>
+				<input type="checkbox" name="milestone" onclick="searchAllocByPriority('medium-priority')" value="preliminary_assignment" checked><span class='filter-input'>Medium Priority</span><br>
+				<input type="checkbox" name="milestone" onclick="searchAllocByPriority('low-priority')" value="pending_contract" checked><span class='filter-input'>Low Priority</span><br>
+
+			</form>
+		</div>
+	</div>
+</div>
+
+<script>
+
+</script>
