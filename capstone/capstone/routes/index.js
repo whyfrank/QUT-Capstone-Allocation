@@ -159,7 +159,13 @@ router.get('/logout', function(req, res, next) {
 
 /* GET Register. */
 router.get('/register', async function(req, res, next) {
-  res.render('register', {layout: false});
+
+	await register_data.getOptions().then(function (options) {
+		this.options = options;
+		console.log(options);
+	})
+
+  res.render('register', {layout: false, dropdownVals: this.options});
 });
 
 /* POST Register. */

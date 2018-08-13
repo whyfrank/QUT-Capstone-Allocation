@@ -9,10 +9,21 @@ var mysql_nest = require('../connection/mysql_nest');
 
 function Register() {
 
+  this.getOptions = function(){
+    return new Promise(function(resolve, reject) {
+      connection.init();
+      connection.acquire(function (err, con) {
+        var options = { sql: 'SELECT DISTINCT course_code FROM students' };
+        con.query(options, function (err, results, fields) {
+      resolve(results);
+      con.release();
 
-  // make sure no fields are empty
-  // make sure email address contains "qut.edu.au"
-  // validate using JOI or html "required" ?
+            });
+
+      });
+    });
+  };
+
 
   this.registerStudent = function (student) {
 
