@@ -45,20 +45,44 @@ async function getBestTeamMatch(count, index) {
 		var team = allocatableTeams[i];
 		// process skills
 		var matchedSkills = [];
+		var unmatchedSkills = [];
+		
+		var matchedNonReqSkills = [];
+		var unmatchedNonReqSkills = [];
 		
 		// Get each skill from project
 		for (var skill_i = 0; skill_i < totalSkillCount; skill_i++) {
+			var projectSkill = project.project_skills[skill_i];
 			// Check it against each skill from team
+			skillMatched = false;
 			for (var t_skill_i = 0; t_skill_i < totalSkillCount; t_skill_i++) {
 				// If the skills match, then add the skill into the matched skills array.
-				if (team.team_skills[t_skill_i] == project.project_skills[skill_i].skill) {
-					matchedSkills.push(project.project_skills[skill_i]);
+				if (team.team_skills[t_skill_i] == projectSkill.skill) {
+					// Determine if the skill is mandatory (required), then add it to matched skills.
+					if (projectSkill.required == 1) {
+						matchedSkills.push(projectSkill);
+					} else {
+						matchedNonReqSkills.push(projectSkill);
+					}
+					skillMatched = true;
+				}
+			}
+			
+			// If the skill hasn't matched. Add it to the list of unmatched skills
+			if (!skillMatched) {
+				if (projectSkill.required == 1) {
+					unmatchedSkills.push(project.project_skills[skill_i]);
+				} else {
+					unmatchedNonReqSkills.push(project.project_skills[skill_i]);
 				}
 			}
 		}
 		var skill_match_percentage = (matchedSkills.length / totalSkillCount) * 100;
 		
-		allTeams.push({team_id: team.team_id, team_name: team.team_name, matched_skills: matchedSkills, matched_skills_percentage: skill_match_percentage, team_gpa: team.team_gpa.toFixed(2)});
+		allTeams.push({team_id: team.team_id, team_name: team.team_name, matched_skills: matchedSkills, 
+			matched_skills_percentage: skill_match_percentage, unmatched_skills: unmatchedSkills, 
+			matched_nonreq_skills: matchedNonReqSkills, unmatched_nonreq_skills: unmatchedNonReqSkills, 
+			team_gpa: team.team_gpa.toFixed(2), team_min_gpa: team.team_min_gpa, team_max_gpa: team.team_max_gpa});
 	}
 	
 	// Sort by skill match and cull 5 teams
@@ -112,24 +136,33 @@ async function grabAllocatableTeams() {
 	
 	// Push projects that hasn't been allocated into the allocatable projects array.
 	for (var i = 0; i < teams.length; i++) {
-		/*// Only pull teams with no projects allocated
-		if (projects[i].allocated_team == null) {*/
-			var team = teams[i];
-		
+		var team = teams[i];
+		// Only pull teams that are ready
+		if (team.team_ready == 1) {
 			// Combine all unique skill sets
 			var team_skills = [];
 			var team_gpa = 0;
+			var team_min_gpa;
+			var team_max_gpa;
 			
 			var team_students = team.students_in_teams;
 			
 			// Get information from each student
 			for (var stud_i = 0; stud_i < team_students.length; stud_i++) {
+				var student = team_students[stud_i].students;
 				// Add GPA to total team GPA
-				team_gpa += team_students[stud_i].students.gpa
+				team_gpa += student.gpa
+				
+				// Check if min or max GPA
+				if (student.gpa < team_min_gpa | team_min_gpa == null) {
+					team_min_gpa = student.gpa;
+				} else if (student.gpa > team_max_gpa | team_max_gpa == null) {
+					team_max_gpa = student.gpa;
+				}
 				
 				// Only add skills if the student has skills
-				if (team_students[stud_i].students.student_skills != undefined) {
-					var stud_skills = team_students[stud_i].students.student_skills;
+				if (student.student_skills != undefined) {
+					var stud_skills = student.student_skills;
 					
 					// For each student skill, check if it already exists as a team skill.
 					for (var skill_i = 0; skill_i < stud_skills.length; skill_i++) {
@@ -153,8 +186,9 @@ async function grabAllocatableTeams() {
 			// Calculate average GPA
 			team_gpa = team_gpa / team_students.length;
 			
-			allocatableTeams.push({team_id: team.team_id, team_name: team.team_name, team_skills: team_skills, team_gpa: team_gpa});
-		/*}*/
+			allocatableTeams.push({team_id: team.team_id, team_name: team.team_name, team_skills: team_skills, 
+				team_gpa: team_gpa, team_min_gpa: team_min_gpa, team_max_gpa: team_max_gpa});
+		}
 	}
 	
 	return allocatableTeams;

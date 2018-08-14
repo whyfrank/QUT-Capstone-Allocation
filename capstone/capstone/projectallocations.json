@@ -1,6 +1,6 @@
 {
     "name": "Team to Project Allocation",
-    "timestamp": 1533869321474,
+    "timestamp": 1534235468208,
     "projects": [
         {
             "project_id": 3,
@@ -77,13 +77,6 @@
             ],
             "team_matches": [
                 {
-                    "team_id": 5,
-                    "team_name": "HYMN Developers",
-                    "matched_skills": [],
-                    "matched_skills_percentage": 0,
-                    "team_gpa": "6.40"
-                },
-                {
                     "team_id": 4,
                     "team_name": "Terrific Quad Squad",
                     "matched_skills": [
@@ -111,14 +104,153 @@
                         }
                     ],
                     "matched_skills_percentage": 50,
-                    "team_gpa": "6.29"
+                    "unmatched_skills": [
+                        {
+                            "id": 3,
+                            "project_id": 3,
+                            "required": 1,
+                            "skill": 42,
+                            "skills": {
+                                "skill_id": 42,
+                                "skill_name": "Web design",
+                                "skill_type": "UX and Interaction Design"
+                            }
+                        }
+                    ],
+                    "matched_nonreq_skills": [],
+                    "unmatched_nonreq_skills": [
+                        {
+                            "id": 4,
+                            "project_id": 3,
+                            "required": 0,
+                            "skill": 39,
+                            "skills": {
+                                "skill_id": 39,
+                                "skill_name": "Interaction/UX design",
+                                "skill_type": "UX and Interaction Design"
+                            }
+                        }
+                    ],
+                    "team_gpa": "6.29",
+                    "team_min_gpa": 5.1,
+                    "team_max_gpa": 6.73
                 },
                 {
                     "team_id": 7,
                     "team_name": "C Plus Us",
+                    "matched_skills": [
+                        {
+                            "id": 1,
+                            "project_id": 3,
+                            "required": 1,
+                            "skill": 1,
+                            "skills": {
+                                "skill_id": 1,
+                                "skill_name": "Back-End Web Development",
+                                "skill_type": "General Software Development"
+                            }
+                        },
+                        {
+                            "id": 3,
+                            "project_id": 3,
+                            "required": 1,
+                            "skill": 42,
+                            "skills": {
+                                "skill_id": 42,
+                                "skill_name": "Web design",
+                                "skill_type": "UX and Interaction Design"
+                            }
+                        }
+                    ],
+                    "matched_skills_percentage": 50,
+                    "unmatched_skills": [
+                        {
+                            "id": 2,
+                            "project_id": 3,
+                            "required": 1,
+                            "skill": 4,
+                            "skills": {
+                                "skill_id": 4,
+                                "skill_name": "Front-End Web Development",
+                                "skill_type": "General Software Development"
+                            }
+                        }
+                    ],
+                    "matched_nonreq_skills": [],
+                    "unmatched_nonreq_skills": [
+                        {
+                            "id": 4,
+                            "project_id": 3,
+                            "required": 0,
+                            "skill": 39,
+                            "skills": {
+                                "skill_id": 39,
+                                "skill_name": "Interaction/UX design",
+                                "skill_type": "UX and Interaction Design"
+                            }
+                        }
+                    ],
+                    "team_gpa": "6.08",
+                    "team_min_gpa": 5.1,
+                    "team_max_gpa": 7
+                },
+                {
+                    "team_id": 6,
+                    "team_name": "The Team",
                     "matched_skills": [],
                     "matched_skills_percentage": 0,
-                    "team_gpa": "6.08"
+                    "unmatched_skills": [
+                        {
+                            "id": 1,
+                            "project_id": 3,
+                            "required": 1,
+                            "skill": 1,
+                            "skills": {
+                                "skill_id": 1,
+                                "skill_name": "Back-End Web Development",
+                                "skill_type": "General Software Development"
+                            }
+                        },
+                        {
+                            "id": 2,
+                            "project_id": 3,
+                            "required": 1,
+                            "skill": 4,
+                            "skills": {
+                                "skill_id": 4,
+                                "skill_name": "Front-End Web Development",
+                                "skill_type": "General Software Development"
+                            }
+                        },
+                        {
+                            "id": 3,
+                            "project_id": 3,
+                            "required": 1,
+                            "skill": 42,
+                            "skills": {
+                                "skill_id": 42,
+                                "skill_name": "Web design",
+                                "skill_type": "UX and Interaction Design"
+                            }
+                        }
+                    ],
+                    "matched_nonreq_skills": [],
+                    "unmatched_nonreq_skills": [
+                        {
+                            "id": 4,
+                            "project_id": 3,
+                            "required": 0,
+                            "skill": 39,
+                            "skills": {
+                                "skill_id": 39,
+                                "skill_name": "Interaction/UX design",
+                                "skill_type": "UX and Interaction Design"
+                            }
+                        }
+                    ],
+                    "team_gpa": "6.05",
+                    "team_min_gpa": 5.1,
+                    "team_max_gpa": 6.8
                 },
                 {
                     "team_id": 3,
@@ -159,14 +291,24 @@
                         }
                     ],
                     "matched_skills_percentage": 75,
-                    "team_gpa": "5.93"
-                },
-                {
-                    "team_id": 1,
-                    "team_name": "Team Price",
-                    "matched_skills": [],
-                    "matched_skills_percentage": 0,
-                    "team_gpa": "4.84"
+                    "unmatched_skills": [],
+                    "matched_nonreq_skills": [],
+                    "unmatched_nonreq_skills": [
+                        {
+                            "id": 4,
+                            "project_id": 3,
+                            "required": 0,
+                            "skill": 39,
+                            "skills": {
+                                "skill_id": 39,
+                                "skill_name": "Interaction/UX design",
+                                "skill_type": "UX and Interaction Design"
+                            }
+                        }
+                    ],
+                    "team_gpa": "5.93",
+                    "team_min_gpa": 5.1,
+                    "team_max_gpa": 6.42
                 }
             ]
         },
@@ -212,56 +354,105 @@
             ],
             "team_matches": [
                 {
-                    "team_id": 5,
-                    "team_name": "HYMN Developers",
-                    "matched_skills": [],
-                    "matched_skills_percentage": 0,
-                    "team_gpa": "6.40"
-                },
-                {
                     "team_id": 4,
                     "team_name": "Terrific Quad Squad",
                     "matched_skills": [],
                     "matched_skills_percentage": 0,
-                    "team_gpa": "6.29"
+                    "unmatched_skills": [
+                        {
+                            "id": 9,
+                            "project_id": 5,
+                            "required": 1,
+                            "skill": 37,
+                            "skills": {
+                                "skill_id": 37,
+                                "skill_name": "Interface design",
+                                "skill_type": "UX and Interaction Design"
+                            }
+                        }
+                    ],
+                    "matched_nonreq_skills": [],
+                    "unmatched_nonreq_skills": [],
+                    "team_gpa": "6.29",
+                    "team_min_gpa": 5.1,
+                    "team_max_gpa": 6.73
                 },
                 {
                     "team_id": 7,
                     "team_name": "C Plus Us",
                     "matched_skills": [],
                     "matched_skills_percentage": 0,
-                    "team_gpa": "6.08"
+                    "unmatched_skills": [
+                        {
+                            "id": 9,
+                            "project_id": 5,
+                            "required": 1,
+                            "skill": 37,
+                            "skills": {
+                                "skill_id": 37,
+                                "skill_name": "Interface design",
+                                "skill_type": "UX and Interaction Design"
+                            }
+                        }
+                    ],
+                    "matched_nonreq_skills": [],
+                    "unmatched_nonreq_skills": [],
+                    "team_gpa": "6.08",
+                    "team_min_gpa": 5.1,
+                    "team_max_gpa": 7
+                },
+                {
+                    "team_id": 6,
+                    "team_name": "The Team",
+                    "matched_skills": [],
+                    "matched_skills_percentage": 0,
+                    "unmatched_skills": [
+                        {
+                            "id": 9,
+                            "project_id": 5,
+                            "required": 1,
+                            "skill": 37,
+                            "skills": {
+                                "skill_id": 37,
+                                "skill_name": "Interface design",
+                                "skill_type": "UX and Interaction Design"
+                            }
+                        }
+                    ],
+                    "matched_nonreq_skills": [],
+                    "unmatched_nonreq_skills": [],
+                    "team_gpa": "6.05",
+                    "team_min_gpa": 5.1,
+                    "team_max_gpa": 6.8
                 },
                 {
                     "team_id": 3,
                     "team_name": "Team Flair",
                     "matched_skills": [],
                     "matched_skills_percentage": 0,
-                    "team_gpa": "5.93"
-                },
-                {
-                    "team_id": 1,
-                    "team_name": "Team Price",
-                    "matched_skills": [],
-                    "matched_skills_percentage": 0,
-                    "team_gpa": "4.84"
+                    "unmatched_skills": [
+                        {
+                            "id": 9,
+                            "project_id": 5,
+                            "required": 1,
+                            "skill": 37,
+                            "skills": {
+                                "skill_id": 37,
+                                "skill_name": "Interface design",
+                                "skill_type": "UX and Interaction Design"
+                            }
+                        }
+                    ],
+                    "matched_nonreq_skills": [],
+                    "unmatched_nonreq_skills": [],
+                    "team_gpa": "5.93",
+                    "team_min_gpa": 5.1,
+                    "team_max_gpa": 6.42
                 }
             ]
         }
     ],
     "teams": [
-        {
-            "team_id": 1,
-            "team_name": "Team Price",
-            "team_skills": [],
-            "team_gpa": 4.84
-        },
-        {
-            "team_id": 2,
-            "team_name": "The Good People",
-            "team_skills": [],
-            "team_gpa": 5.6
-        },
         {
             "team_id": 3,
             "team_name": "Team Flair",
@@ -270,7 +461,9 @@
                 42,
                 4
             ],
-            "team_gpa": 5.925000000000001
+            "team_gpa": 5.925000000000001,
+            "team_min_gpa": 5.1,
+            "team_max_gpa": 6.42
         },
         {
             "team_id": 4,
@@ -285,55 +478,30 @@
                 37,
                 42
             ],
-            "team_gpa": 6.2925
-        },
-        {
-            "team_id": 5,
-            "team_name": "HYMN Developers",
-            "team_skills": [],
-            "team_gpa": 6.4
+            "team_gpa": 6.2925,
+            "team_min_gpa": 5.1,
+            "team_max_gpa": 6.73
         },
         {
             "team_id": 6,
             "team_name": "The Team",
             "team_skills": [],
-            "team_gpa": 6.052499999999999
+            "team_gpa": 6.052499999999999,
+            "team_min_gpa": 5.1,
+            "team_max_gpa": 6.8
         },
         {
             "team_id": 7,
             "team_name": "C Plus Us",
-            "team_skills": [],
-            "team_gpa": 6.0825
-        },
-        {
-            "team_id": 8,
-            "team_name": "The Coding Group",
-            "team_skills": [],
-            "team_gpa": 6.534
-        },
-        {
-            "team_id": 9,
-            "team_name": "TODO: Name Here",
-            "team_skills": [],
-            "team_gpa": 4.515000000000001
-        },
-        {
-            "team_id": 10,
-            "team_name": "Justice Developers",
-            "team_skills": [],
-            "team_gpa": 6.1
-        },
-        {
-            "team_id": 11,
-            "team_name": "Team Awesome",
-            "team_skills": [],
-            "team_gpa": 6.03
-        },
-        {
-            "team_id": 12,
-            "team_name": "Hype Team",
-            "team_skills": [],
-            "team_gpa": 4.7
+            "team_skills": [
+                1,
+                42,
+                18,
+                3
+            ],
+            "team_gpa": 6.0825,
+            "team_min_gpa": 5.1,
+            "team_max_gpa": 7
         }
     ]
 }
