@@ -5,13 +5,19 @@
 	<div id='projects-information'>
 	</div>
 	<div id="projects-section">
+		<div class='allocation-config' id="allocation-config">
+			<form action="" id="allocation-config-form">
+				<input type="checkbox" name="strict_coursecombo"><span>Strict Course Combination</span><br>
+				<input type="number" name="no_of_matches" value=5 min="3" max="10"><span> Amount of Team Matches</span><br>
+				<button class="prop-action-btn" onclick="grabAllocation(true)" id="gen-btn">Apply</button>
+			</form>
+		</div>
 		<div class='projects-view' id='projects-view'>
-		
 		</div>
 		<div id="search-bar">
 			<input type="text" placeholder="Search projects to allocate.." id="sch-bar">
 			<button class="prop-action-btn" onclick="searchProjects()" id="sch-btn">Search</button>
-			<button class="prop-action-btn" onclick="grabAllocation(true)" id="gen-btn">Allocation Settings</button>
+			<button class="prop-action-btn" onclick="toggleElement('allocation-config')" id="alloc-set-btn">Allocation Settings</button>
 		</div>
 		<div class='filters'>
 			<form action="" id="milestone-form">
@@ -19,7 +25,6 @@
 				<input type="checkbox" name="milestone" onclick="searchAllocByPriority('high-priority')" value="not_yet_assigned" checked><span class='filter-input'>High Priority</span><br>
 				<input type="checkbox" name="milestone" onclick="searchAllocByPriority('medium-priority')" value="preliminary_assignment" checked><span class='filter-input'>Medium Priority</span><br>
 				<input type="checkbox" name="milestone" onclick="searchAllocByPriority('low-priority')" value="pending_contract" checked><span class='filter-input'>Low Priority</span><br>
-
 			</form>
 		</div>
 	</div>

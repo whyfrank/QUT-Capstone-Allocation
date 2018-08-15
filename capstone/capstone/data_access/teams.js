@@ -11,7 +11,7 @@ var teamSql = "SELECT * FROM team";
 var inTeamsSql = "students_in_teams ON team.team_id = students_in_teams.team_id";
 var skillsSql = "student_skills ON students_in_teams.student_id = student_skills.student_id";
 
-    // get all users data
+    // get all teams data
     this.getAllTeams = function (query) {
 		var hasQuery = true;
 		if (query == undefined) {
@@ -55,7 +55,7 @@ var skillsSql = "student_skills ON students_in_teams.student_id = student_skills
 		});
 		};
 
-	// get teams data (student data & skills for allocation)
+	// get team's data
 	this.getTeam = function (id) {
 		return new Promise(function(resolve, reject) {
 			// initialize database connection

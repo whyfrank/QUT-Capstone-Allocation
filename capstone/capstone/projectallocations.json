@@ -1,6 +1,6 @@
 {
     "name": "Team to Project Allocation",
-    "timestamp": 1534235468208,
+    "timestamp": 1534299846219,
     "projects": [
         {
             "project_id": 3,
@@ -133,7 +133,14 @@
                     ],
                     "team_gpa": "6.29",
                     "team_min_gpa": 5.1,
-                    "team_max_gpa": 6.73
+                    "team_max_gpa": 6.73,
+                    "student_names": [
+                        "Angela Deckow",
+                        "Thalia Kihn",
+                        "Dejah Hoppe",
+                        "Danyka Kerluke"
+                    ],
+                    "course_combination": "CCIC"
                 },
                 {
                     "team_id": 7,
@@ -192,7 +199,14 @@
                     ],
                     "team_gpa": "6.08",
                     "team_min_gpa": 5.1,
-                    "team_max_gpa": 7
+                    "team_max_gpa": 7,
+                    "student_names": [
+                        "Hayley Olson",
+                        "Garland Tremblay",
+                        "Michelle Bahringer",
+                        "Lillie Berge"
+                    ],
+                    "course_combination": "ICII"
                 },
                 {
                     "team_id": 6,
@@ -250,7 +264,14 @@
                     ],
                     "team_gpa": "6.05",
                     "team_min_gpa": 5.1,
-                    "team_max_gpa": 6.8
+                    "team_max_gpa": 6.8,
+                    "student_names": [
+                        "Leone Orn",
+                        "Casper Goldner",
+                        "Lura Murazik",
+                        "Jamarcus Schowalter"
+                    ],
+                    "course_combination": "CIII"
                 },
                 {
                     "team_id": 3,
@@ -308,7 +329,14 @@
                     ],
                     "team_gpa": "5.93",
                     "team_min_gpa": 5.1,
-                    "team_max_gpa": 6.42
+                    "team_max_gpa": 6.42,
+                    "student_names": [
+                        "Izabella Emard",
+                        "Justin Barrows",
+                        "Lexus Collier",
+                        "Ethyl Hayes"
+                    ],
+                    "course_combination": "ICCC"
                 }
             ]
         },
@@ -375,7 +403,14 @@
                     "unmatched_nonreq_skills": [],
                     "team_gpa": "6.29",
                     "team_min_gpa": 5.1,
-                    "team_max_gpa": 6.73
+                    "team_max_gpa": 6.73,
+                    "student_names": [
+                        "Angela Deckow",
+                        "Thalia Kihn",
+                        "Dejah Hoppe",
+                        "Danyka Kerluke"
+                    ],
+                    "course_combination": "CCIC"
                 },
                 {
                     "team_id": 7,
@@ -399,7 +434,14 @@
                     "unmatched_nonreq_skills": [],
                     "team_gpa": "6.08",
                     "team_min_gpa": 5.1,
-                    "team_max_gpa": 7
+                    "team_max_gpa": 7,
+                    "student_names": [
+                        "Hayley Olson",
+                        "Garland Tremblay",
+                        "Michelle Bahringer",
+                        "Lillie Berge"
+                    ],
+                    "course_combination": "ICII"
                 },
                 {
                     "team_id": 6,
@@ -423,7 +465,14 @@
                     "unmatched_nonreq_skills": [],
                     "team_gpa": "6.05",
                     "team_min_gpa": 5.1,
-                    "team_max_gpa": 6.8
+                    "team_max_gpa": 6.8,
+                    "student_names": [
+                        "Leone Orn",
+                        "Casper Goldner",
+                        "Lura Murazik",
+                        "Jamarcus Schowalter"
+                    ],
+                    "course_combination": "CIII"
                 },
                 {
                     "team_id": 3,
@@ -447,7 +496,14 @@
                     "unmatched_nonreq_skills": [],
                     "team_gpa": "5.93",
                     "team_min_gpa": 5.1,
-                    "team_max_gpa": 6.42
+                    "team_max_gpa": 6.42,
+                    "student_names": [
+                        "Izabella Emard",
+                        "Justin Barrows",
+                        "Lexus Collier",
+                        "Ethyl Hayes"
+                    ],
+                    "course_combination": "ICCC"
                 }
             ]
         }
@@ -463,7 +519,14 @@
             ],
             "team_gpa": 5.925000000000001,
             "team_min_gpa": 5.1,
-            "team_max_gpa": 6.42
+            "team_max_gpa": 6.42,
+            "student_names": [
+                "Izabella Emard",
+                "Justin Barrows",
+                "Lexus Collier",
+                "Ethyl Hayes"
+            ],
+            "course_combination": "ICCC"
         },
         {
             "team_id": 4,
@@ -480,7 +543,14 @@
             ],
             "team_gpa": 6.2925,
             "team_min_gpa": 5.1,
-            "team_max_gpa": 6.73
+            "team_max_gpa": 6.73,
+            "student_names": [
+                "Angela Deckow",
+                "Thalia Kihn",
+                "Dejah Hoppe",
+                "Danyka Kerluke"
+            ],
+            "course_combination": "CCIC"
         },
         {
             "team_id": 6,
@@ -488,7 +558,14 @@
             "team_skills": [],
             "team_gpa": 6.052499999999999,
             "team_min_gpa": 5.1,
-            "team_max_gpa": 6.8
+            "team_max_gpa": 6.8,
+            "student_names": [
+                "Leone Orn",
+                "Casper Goldner",
+                "Lura Murazik",
+                "Jamarcus Schowalter"
+            ],
+            "course_combination": "CIII"
         },
         {
             "team_id": 7,
@@ -501,7 +578,14 @@
             ],
             "team_gpa": 6.0825,
             "team_min_gpa": 5.1,
-            "team_max_gpa": 7
+            "team_max_gpa": 7,
+            "student_names": [
+                "Hayley Olson",
+                "Garland Tremblay",
+                "Michelle Bahringer",
+                "Lillie Berge"
+            ],
+            "course_combination": "ICII"
         }
     ]
 }

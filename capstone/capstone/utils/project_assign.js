@@ -82,7 +82,8 @@ async function getBestTeamMatch(count, index) {
 		allTeams.push({team_id: team.team_id, team_name: team.team_name, matched_skills: matchedSkills, 
 			matched_skills_percentage: skill_match_percentage, unmatched_skills: unmatchedSkills, 
 			matched_nonreq_skills: matchedNonReqSkills, unmatched_nonreq_skills: unmatchedNonReqSkills, 
-			team_gpa: team.team_gpa.toFixed(2), team_min_gpa: team.team_min_gpa, team_max_gpa: team.team_max_gpa});
+			team_gpa: team.team_gpa.toFixed(2), team_min_gpa: team.team_min_gpa, team_max_gpa: team.team_max_gpa,
+			student_names: team.student_names, course_combination: team.course_combination});
 	}
 	
 	// Sort by skill match and cull 5 teams
@@ -144,6 +145,8 @@ async function grabAllocatableTeams() {
 			var team_gpa = 0;
 			var team_min_gpa;
 			var team_max_gpa;
+			var student_names = [];
+			var course_combination = "";
 			
 			var team_students = team.students_in_teams;
 			
@@ -152,6 +155,11 @@ async function grabAllocatableTeams() {
 				var student = team_students[stud_i].students;
 				// Add GPA to total team GPA
 				team_gpa += student.gpa
+				
+				student_names.push(student.first_name + " " + student.last_name);
+				
+				// Adds first letter of course to course combination
+				course_combination += student.study_area_a.charAt(0);
 				
 				// Check if min or max GPA
 				if (student.gpa < team_min_gpa | team_min_gpa == null) {
@@ -187,7 +195,8 @@ async function grabAllocatableTeams() {
 			team_gpa = team_gpa / team_students.length;
 			
 			allocatableTeams.push({team_id: team.team_id, team_name: team.team_name, team_skills: team_skills, 
-				team_gpa: team_gpa, team_min_gpa: team_min_gpa, team_max_gpa: team_max_gpa});
+				team_gpa: team_gpa, team_min_gpa: team_min_gpa, team_max_gpa: team_max_gpa, student_names: student_names, 
+				course_combination: course_combination});
 		}
 	}
 	

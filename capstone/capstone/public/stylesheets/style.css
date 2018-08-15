@@ -775,11 +775,25 @@ header span {
 
 /* Allocation Page */
 
-#gen-btn {
+#gen-btn, #alloc-set-btn {
 	background: #17568C;
 	float: right;
 	height: 20px;
 	width: 150px;
+}
+
+.allocation-config {
+	position: absolute;
+	background: white;
+	width: 300px;
+	z-index: 1;
+	right: 205px;
+	top: 33px;
+	border-radius: 3px;
+	border: 1px solid gray;
+	padding: 5px;
+	display: none;
+	box-shadow: 0px 0px 10px #555555;
 }
 
     /* Formatting search box */

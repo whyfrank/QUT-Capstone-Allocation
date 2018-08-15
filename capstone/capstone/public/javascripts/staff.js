@@ -139,13 +139,23 @@ function approveCancel() {
 	document.getElementById("proposal-wrapper").style.height = "calc(100% - 36px)";
 }
 
+function toggleElement(element_id) {
+	if (document.getElementById(element_id).style.display != "none") {
+		document.getElementById(element_id).style.display = "none";
+		return false;
+	} else {
+		document.getElementById(element_id).style.display = "block";
+		return true;
+	}
+}
+
 // Allocation System
 
-function toggleProject(team_id) {
-	if (document.getElementById(team_id).style.display != "none") {
-		document.getElementById(team_id).style.display = "none";
-	} else {
-		document.getElementById(team_id).style.display = "block";
+function toggleAllocationSettings() {
+	alert("f");
+	toggleElement('allocation-config');
+	if (toggleElement('allocation-config')) {
+		document.getElementById("alloc-set-btn").innerText = "Close Allocation Settings";
 	}
 }
 
@@ -159,4 +169,11 @@ function grabAllocation(regenerate) {
 	
 	var searchQuery = document.getElementById("sch-bar").value; */
 	getContent(null, 'projects-view', 'allocation-list?regenerate=' + regenerate, false);
+}
+
+var allocSettingsOpen = false;
+function toggleAllocationSettings() {
+	if (allocSettingsOpen) {
+		allocSettingsOpen = false;
+	}
 }
