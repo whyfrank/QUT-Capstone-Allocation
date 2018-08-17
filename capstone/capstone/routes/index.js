@@ -44,7 +44,6 @@ router.get('/allocation-list', async function(req, res, next) {
 	
 	await project_assign.retrieveAllocation().then(function (allocation) {
 		this.allocation = allocation;
-		console.log(allocation);
 	})
   res.render('allocation-list', {layout: false, allocation: this.allocation});
 });

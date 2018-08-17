@@ -161,6 +161,10 @@ function toggleAllocationSettings() {
 
 // Gets all allocation data and displays it in the list.
 function grabAllocation(regenerate) {
+	var searchQuery = document.getElementById("sch-bar").value; //TODO: Search query requires searching through JSON file instead of MySQL database.
+	var teamMatches = document.getElementById("no_of_matches").value;
+	var strictCombo = document.getElementById("strict_coursecombo").value;
+	var queries = '?regenerate=' + regenerate + '&search_query=' + searchQuery + '&no_of_matches=' + teamMatches + '&strict_coursecombo=' + strictCombo;
 /* 	var priority = document.getElementsByName("priority");
 	var priorityQueries = "&";
 	for (let priority of priorities) {
@@ -168,7 +172,10 @@ function grabAllocation(regenerate) {
 	}
 	
 	var searchQuery = document.getElementById("sch-bar").value; */
-	getContent(null, 'projects-view', 'allocation-list?regenerate=' + regenerate, false);
+	getContent(null, 'projects-view', 'allocation-list' + queries, false);
+	if (regenerate) {
+		getApp('allocation');
+	}
 }
 
 var allocSettingsOpen = false;

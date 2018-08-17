@@ -27,6 +27,7 @@ function ProjectAssign() {
 		}
 		
 		await exportAllocation(allocatableProjects, allocatableTeams);
+		console.log('Exported!');
 	}
 	
 	this.retrieveAllocation = async function () {
@@ -194,6 +195,11 @@ async function grabAllocatableTeams() {
 			// Calculate average GPA
 			team_gpa = team_gpa / team_students.length;
 			
+			// Order course acronyms by their first letter
+			course_combination = course_combination.split('');
+			course_combination = course_combination.sort();
+			course_combination = course_combination.join('');
+			
 			allocatableTeams.push({team_id: team.team_id, team_name: team.team_name, team_skills: team_skills, 
 				team_gpa: team_gpa, team_min_gpa: team_min_gpa, team_max_gpa: team_max_gpa, student_names: student_names, 
 				course_combination: course_combination});
@@ -204,12 +210,13 @@ async function grabAllocatableTeams() {
 }
 
 // Export the allocation results into a JSON file.
+// TODO: Can't figure out how to make this not asynchronous. Seems like this generates the JSON file, but somehow stops everything else after with the request.
 async function exportAllocation(allocatableProjects, allocatableTeams) {
 	var allocation = { name: "Team to Project Allocation", timestamp: new Date().getTime(), projects: allocatableProjects, teams: allocatableTeams };
 	
 	var content = JSON.stringify(allocation, null, 4);
 	
-	fs.writeFile(filePath, content, 'utf8', function (err) {
+	await fs.writeFile(filePath, content, 'utf8', function (err) {
 		if (err) {
 			return console.log(err);
 		}

@@ -1,6 +1,6 @@
 {
     "name": "Team to Project Allocation",
-    "timestamp": 1534299846219,
+    "timestamp": 1534470678234,
     "projects": [
         {
             "project_id": 3,
@@ -10,9 +10,9 @@
             "about_company": "MacroSoft is an IT company.",
             "description": "Work on a functionality on Windown 11",
             "project_output_type": null,
-            "difficulty": null,
+            "difficulty": "Hard",
             "priority": null,
-            "preferred_course_combination": null,
+            "preferred_course_combination": "CCII",
             "repeat_partner": null,
             "academic_needed": null,
             "ip_contract_requirement": null,
@@ -140,7 +140,7 @@
                         "Dejah Hoppe",
                         "Danyka Kerluke"
                     ],
-                    "course_combination": "CCIC"
+                    "course_combination": "CCCI"
                 },
                 {
                     "team_id": 7,
@@ -206,7 +206,73 @@
                         "Michelle Bahringer",
                         "Lillie Berge"
                     ],
-                    "course_combination": "ICII"
+                    "course_combination": "CIII"
+                },
+                {
+                    "team_id": 11,
+                    "team_name": "Team Awesome",
+                    "matched_skills": [
+                        {
+                            "id": 3,
+                            "project_id": 3,
+                            "required": 1,
+                            "skill": 42,
+                            "skills": {
+                                "skill_id": 42,
+                                "skill_name": "Web design",
+                                "skill_type": "UX and Interaction Design"
+                            }
+                        }
+                    ],
+                    "matched_skills_percentage": 25,
+                    "unmatched_skills": [
+                        {
+                            "id": 1,
+                            "project_id": 3,
+                            "required": 1,
+                            "skill": 1,
+                            "skills": {
+                                "skill_id": 1,
+                                "skill_name": "Back-End Web Development",
+                                "skill_type": "General Software Development"
+                            }
+                        },
+                        {
+                            "id": 2,
+                            "project_id": 3,
+                            "required": 1,
+                            "skill": 4,
+                            "skills": {
+                                "skill_id": 4,
+                                "skill_name": "Front-End Web Development",
+                                "skill_type": "General Software Development"
+                            }
+                        }
+                    ],
+                    "matched_nonreq_skills": [],
+                    "unmatched_nonreq_skills": [
+                        {
+                            "id": 4,
+                            "project_id": 3,
+                            "required": 0,
+                            "skill": 39,
+                            "skills": {
+                                "skill_id": 39,
+                                "skill_name": "Interaction/UX design",
+                                "skill_type": "UX and Interaction Design"
+                            }
+                        }
+                    ],
+                    "team_gpa": "6.05",
+                    "team_min_gpa": 5.1,
+                    "team_max_gpa": 7,
+                    "student_names": [
+                        "Alejandrin Hayes",
+                        "Mireya Lueilwitz",
+                        "Octavia Greenfelder",
+                        "Arlene Jast"
+                    ],
+                    "course_combination": "CCII"
                 },
                 {
                     "team_id": 6,
@@ -336,7 +402,7 @@
                         "Lexus Collier",
                         "Ethyl Hayes"
                     ],
-                    "course_combination": "ICCC"
+                    "course_combination": "CCCI"
                 }
             ]
         },
@@ -348,9 +414,9 @@
             "about_company": "Sells gardening equipment, seeds, plants and more!",
             "description": "We aren't happy with our current front web-page. So we would like a re-design!",
             "project_output_type": null,
-            "difficulty": null,
+            "difficulty": "Easy",
             "priority": null,
-            "preferred_course_combination": null,
+            "preferred_course_combination": "CCII",
             "repeat_partner": null,
             "academic_needed": null,
             "ip_contract_requirement": null,
@@ -410,7 +476,7 @@
                         "Dejah Hoppe",
                         "Danyka Kerluke"
                     ],
-                    "course_combination": "CCIC"
+                    "course_combination": "CCCI"
                 },
                 {
                     "team_id": 7,
@@ -441,7 +507,7 @@
                         "Michelle Bahringer",
                         "Lillie Berge"
                     ],
-                    "course_combination": "ICII"
+                    "course_combination": "CIII"
                 },
                 {
                     "team_id": 6,
@@ -475,6 +541,37 @@
                     "course_combination": "CIII"
                 },
                 {
+                    "team_id": 11,
+                    "team_name": "Team Awesome",
+                    "matched_skills": [],
+                    "matched_skills_percentage": 0,
+                    "unmatched_skills": [
+                        {
+                            "id": 9,
+                            "project_id": 5,
+                            "required": 1,
+                            "skill": 37,
+                            "skills": {
+                                "skill_id": 37,
+                                "skill_name": "Interface design",
+                                "skill_type": "UX and Interaction Design"
+                            }
+                        }
+                    ],
+                    "matched_nonreq_skills": [],
+                    "unmatched_nonreq_skills": [],
+                    "team_gpa": "6.05",
+                    "team_min_gpa": 5.1,
+                    "team_max_gpa": 7,
+                    "student_names": [
+                        "Alejandrin Hayes",
+                        "Mireya Lueilwitz",
+                        "Octavia Greenfelder",
+                        "Arlene Jast"
+                    ],
+                    "course_combination": "CCII"
+                },
+                {
                     "team_id": 3,
                     "team_name": "Team Flair",
                     "matched_skills": [],
@@ -503,7 +600,7 @@
                         "Lexus Collier",
                         "Ethyl Hayes"
                     ],
-                    "course_combination": "ICCC"
+                    "course_combination": "CCCI"
                 }
             ]
         }
@@ -526,7 +623,7 @@
                 "Lexus Collier",
                 "Ethyl Hayes"
             ],
-            "course_combination": "ICCC"
+            "course_combination": "CCCI"
         },
         {
             "team_id": 4,
@@ -550,7 +647,7 @@
                 "Dejah Hoppe",
                 "Danyka Kerluke"
             ],
-            "course_combination": "CCIC"
+            "course_combination": "CCCI"
         },
         {
             "team_id": 6,
@@ -585,7 +682,26 @@
                 "Michelle Bahringer",
                 "Lillie Berge"
             ],
-            "course_combination": "ICII"
+            "course_combination": "CIII"
+        },
+        {
+            "team_id": 11,
+            "team_name": "Team Awesome",
+            "team_skills": [
+                3,
+                26,
+                42
+            ],
+            "team_gpa": 6.047499999999999,
+            "team_min_gpa": 5.1,
+            "team_max_gpa": 7,
+            "student_names": [
+                "Alejandrin Hayes",
+                "Mireya Lueilwitz",
+                "Octavia Greenfelder",
+                "Arlene Jast"
+            ],
+            "course_combination": "CCII"
         }
     ]
 }

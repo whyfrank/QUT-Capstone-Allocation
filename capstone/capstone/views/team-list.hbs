@@ -11,14 +11,14 @@
             <div class="detail-header">Team members:</div>
             <div class="detail-information">
                 {{#students_in_teams}}
-                    {{#if @first}}{{else}}, {{/if}}
-                    {{#student}}
-                        {{first_name}} {{last_name}}
-                    {{/student}}
+                    {{#if @first}}{{else}},{{/if}}
+                    {{#students}}
+						{{first_name}} {{last_name}}
+                    {{/students}}
                 {{/students_in_teams}}
                 </div>
             <div class="acceptance-states">
-                </div>
+            </div>
         </div>
         <a class='right-link' href='#'>Open Team</a>
     </div>
