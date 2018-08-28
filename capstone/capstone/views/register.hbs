@@ -28,14 +28,22 @@
 				<input type="text" placeholder="Select Study Area A" id="studyareaa" name="studyareaa" required>
 				<input type="text" placeholder="Select Study Area B" id="studyareab" name="studyareab" required>
 				<input type="password" placeholder="Enter Password" id="password" name="password" required>
-				<input type="password" placeholder="Confirm Password" id="confirmpassword" name="confirmpassword" required>
+				<input type="password" placeholder="Confirm Password" id="confirmpassword" name="confirmpassword" required></form><br>
+				
+				<small>Password Requirements:</small></br>
+				<input type="text" placeholder="Min 8 characters with at least 1 U-case, 1 L-case, 1 Num & 1 Special Char" disabled>
 
-
-				<input type="submit" onClick="return validateForm()" value="Register">
+				<button type="button" class="login-button" onclick="return validateForm()" id="submit">Register</button>
+				<button type="button" class="login-button" onclick="location.href='/login';" id="back">Return to Login</button>
 			</form>
 		</div>
 
 		<script>
+
+		function selectBack() {
+			document.getElementById('login-form').style.top = '400px';
+			document.getElementById('login-selection').style.left = '0px';
+		}
 
 		function validateForm(){
 
@@ -87,6 +95,13 @@
 			// Check that passwords match - WORKS
 			if (password != confirmpassword){
 				alertify.error("Passwords do not match");
+				return false;
+			}
+
+			// Check that passwords meet standards - PENDING
+			var reg = new RegExp('^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[d$@$!%*?&#])[A-Za-z\\dd$@$!%*?&#]{8,}')
+			if (!reg.test(confirmpassword)){
+				alertify.error("Please ensure your password meets the required standards");
 				return false;
 			}
 
