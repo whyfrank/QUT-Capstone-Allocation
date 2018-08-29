@@ -1,0 +1,22 @@
+{
+  "name": "teams-projectallocation",
+  "view": "teams-projectallocation",
+  "from": "IT Capstone",
+  "content": {
+    "en": {
+      "subject": "Project Allocation: {{project_name}}",
+      "body": {
+        "introduction": "Please find attached the project allocation for your team. As you are mostly aware, the teams for these projects have been selected based on their overall fit to the project description. You have each indicated your industry preferences and your IT related skills and interests via the form, and we have coded the project description based on similar terms. We have then looked at the best 5-10 matches for each project and chosen the best one we can find. You will find attached the project description supplied by the industry partner or academic, and your Team CV has been sent to them in turn.",
+        "process-intro": "The process following allocation is that we:",
+		"processes": ["Advise the students of the industry or academic partner and send them a copy of the project description",
+						"Advise the industry or academic partner of the student team and send them a copy of the Team CV",
+						"We ask both the student team and the industry partner to let us know whether or not they are happy with the allocation within two (2) days.",
+						"We will discuss any concerns with the relevant party and try to resolve them, but if it does not work out then the team and the project will go back into the pool for re-allocation, which should be possible within a few hours.",
+						"If the allocation is suitable, then we require the student team to make contact with the industry partner and to organise a meeting within a week to discuss the project and the initial approach.",
+						"After the successful conclusion of this meeting, the allocation is final."],
+		"conclusion": "Please find attached a detailed briefing on IP arrangements and your rights and responsibilities. If the project requires IP assignment you should give this careful consideration, and as noted, you may seek independent advice and even request another project. This document will also be made available on Blackboard. Please get in touch by return email to this account (IT.Capstone) to indicate your acceptance of the project. Once we hear from the industry partner then we will tell you to make contact to arrange a meeting. If you have concerns about the project allocation, please get in touch (again via IT.Capstone) and we will chat with you in person about the issues.",
+		"footer": "All the best for this semester."
+      }
+    }
+  }
+}

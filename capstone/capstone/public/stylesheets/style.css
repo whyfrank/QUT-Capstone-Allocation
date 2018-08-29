@@ -523,7 +523,7 @@ header span {
 #sch-btn {
 	background: #17568C;
 	float: none;
-	height: 20px;
+	height: 21px;
 }
 
 .Approved {
@@ -544,7 +544,7 @@ header span {
 .project {
 	float: bottom;
 	border-bottom: 1px solid #004377;
-	padding: 0 0 5px 5px;
+	padding: 0 3px 5px 5px;
 }
 
 .detail-information {
@@ -775,11 +775,16 @@ header span {
 
 /* Allocation Page */
 
-#gen-btn, #alloc-set-btn {
+#gen-btn {
 	background: #17568C;
-	float: right;
+	float: none;
 	height: 20px;
-	width: 150px;
+	width: 100px;
+	margin-left: 15px;
+}
+
+.alloc {
+	width: calc(100% - 2px) !important;
 }
 
 .allocation-config {
@@ -796,54 +801,39 @@ header span {
 	box-shadow: 0px 0px 10px #555555;
 }
 
-    /* Formatting search box */
-    .search-box{
-        width: 300px;
-        position: relative;
-        display: inline-block;
-        font-size: 14px;
-        float: right;
-        margin-top: 8px;
-        margin-right: 20px;
-    }
-    .search-box input[type="text"]{
-    	color: white;
-        height: 32px;
-        padding: 5px 10px;
-        border: 2px solid #5C499E;
-        font-size: 14px;
-        outline: none;
-        background-color: #3c3069;
-    }
-    .result{
-        position: absolute;
-        z-index: 999;
-        top: 100%;
-        left: 0;
-        background-color: #5C499E;
-    }
-    .search-box input[type="text"], .result{
-        width: 100%;
-        box-sizing: border-box;
-    }
-    /* Formatting result items */
-    .result a{
-        display: block;
-	    padding-top: 1em;
-	    padding-bottom: 1em;
-	    margin-left: 0;
-	    margin-right: 0;
-        padding: 7px 10px;
-        border: 2px solid #3c3069;
-        border-top: none;
-        cursor: pointer;
-        text-decoration: none;
-        color: white;
-    }
-    .result a:hover{
-        background: #3c3069;
-    }
+.alloc-setting {
+	display: inline;
+	padding-right: 5px;
+	border-right: 1px solid gray;
+}
 
-    .result p{
-    	padding: 7px 10px;
-    }
+.alloc-setting-txt {
+	font-size: 14px;
+}
+
+#alloc-finalize {
+	position: absolute;
+	width: calc(100% - 20px);
+	height: calc(100% - 20px);
+	display: none;
+	z-index: 3;
+	background: white;
+	padding: 10px;
+}
+
+#login-next {
+	display: none;
+}
+
+.email-editor {
+	box-shadow: inset 0px 0px 10px gray;
+	padding: 15px;
+}
+
+.email-editor-title {
+	color: white;
+	font-size: 16px;
+	padding: 8px;
+	background: #004377;
+	width: calc(100% - 16px);
+}

@@ -32,7 +32,10 @@
 				</div>
 			{{/is}}
 		</div>
-		<a class='right-link' href='#' onclick="openProject({{project_id}})">Open Project</a>
+		<a class='right-link' href='#' onclick="openProject({{project_id}}, '{{project_name}}')">Open Project</a>
+		{{#is (project_milestone this) "NA"}}
+			<a class='right-link' href='#' onclick="allocateProject({{project_id}})">Allocate a Team</a>
+		{{/is}}
 	</div>
 
 

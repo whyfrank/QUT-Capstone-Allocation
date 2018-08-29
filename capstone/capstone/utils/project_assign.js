@@ -5,39 +5,28 @@ var projects_data = require('../data_access/projects');
 var teams_data = require('../data_access/teams');
 
 const filePath = "./projectallocations.json";
-const TOP_MATCHES = 5;
 
-var allocatableProjects;
 var allocatableTeams;
 
 function ProjectAssign() {
 
 	// Main method that calls all the components of the allocation system
-	this.generateAllocation = async function () {
+	this.generateAllocation = async function (project_id, settings) {
 		
 		// Grab all allocatable projects.
-		allocatableProjects = await grabAllocatableProjects();
-		console.log(allocatableProjects);
+		allocatableProject = await grabAllocatableProject(project_id);
+		console.log(allocatableProject);
 		
 		allocatableTeams = await grabAllocatableTeams();
 		
-		for (var i = 0; i < allocatableProjects.length; i++) {
-			var teamMatches = await getBestTeamMatch(TOP_MATCHES, i);
-			allocatableProjects[i].team_matches = teamMatches;
-		}
-		
-		await exportAllocation(allocatableProjects, allocatableTeams);
-		console.log('Exported!');
-	}
-	
-	this.retrieveAllocation = async function () {
-		var allocation = await importAllocation();
-		return allocation;
+		var teamMatches = await getBestTeamMatch(settings, allocatableProject);
+		allocatableProject.team_matches = teamMatches;
+
+		return allocatableProject;
 	}
 }
 
-async function getBestTeamMatch(count, index) {
-	var project = allocatableProjects[index];
+async function getBestTeamMatch(settings, project) {
 	var allTeams = [];
 
 	var totalSkillCount = project.project_skills.length;
@@ -80,50 +69,43 @@ async function getBestTeamMatch(count, index) {
 		}
 		var skill_match_percentage = (matchedSkills.length / totalSkillCount) * 100;
 		
+		// Only make the team allocatable if the course combination strictly matches, or if strict course combo is disabled.
+		if (settings.strictCourseCombo == true && project.preferred_course_combination != team.course_combination) {
+			// Do nothing
+		} else {
 		allTeams.push({team_id: team.team_id, team_name: team.team_name, matched_skills: matchedSkills, 
 			matched_skills_percentage: skill_match_percentage, unmatched_skills: unmatchedSkills, 
 			matched_nonreq_skills: matchedNonReqSkills, unmatched_nonreq_skills: unmatchedNonReqSkills, 
 			team_gpa: team.team_gpa.toFixed(2), team_min_gpa: team.team_min_gpa, team_max_gpa: team.team_max_gpa,
 			student_names: team.student_names, course_combination: team.course_combination});
-	}
-	
-	// Sort by skill match and cull 5 teams
-	allTeams.sort((a, b) => parseFloat(b.matched_skills_percentage) - parseFloat(a.matched_skills_percentage));
-	
-	var topSkillTeams = allTeams.slice(0, count);
-
-	// Sort by GPA
-	topSkillTeams.sort((a, b) => parseFloat(b.team_gpa) - parseFloat(a.team_gpa));
-	
-	return topSkillTeams;
-}
-
-// Returns only projects that can have teams allocated to them.
-async function grabAllocatableProjects() {
-	await projects_data.getAllProjects().then(function (projects) {
-		this.projects = projects;
-	})
-	
-	var allocatableProjects = [];
-	
-	// Push projects that hasn't been allocated into the allocatable projects array.
-	for (var i = 0; i < projects.length; i++) {
-		// Only pull projects with no teams allocated
-		if (projects[i].allocated_team == null) {
-			
-			// Grab the full project with skills.
-			await projects_data.getProject(projects[i].project_id).then(function (project) {
-				this.project = project[0];
-				console.log(this.project);
-				
-				// Clean unnecessary details
-				delete this.project.project_contacts;
-			})
-			allocatableProjects.push(this.project);
 		}
 	}
 	
-	return allocatableProjects;
+	if (settings.sort != 'gpa') {
+		// Sort by skill match
+		allTeams.sort((a, b) => parseFloat(b.matched_skills_percentage) - parseFloat(a.matched_skills_percentage));
+		
+		if (settings.sort == 'gpa_skills') {
+			allTeams.slice(0, settings.count);
+		}
+	} else if (settings.sort != 'skills') {
+		// Sort by GPA
+		allTeams.sort((a, b) => parseFloat(b.team_gpa) - parseFloat(a.team_gpa));
+	}
+	
+	// Reduce the number of allocatable teams to the count specified
+	allTeams.slice(0, settings.count);
+	
+	return allTeams;
+}
+
+// Returns the project.
+async function grabAllocatableProject(project_id) {
+	await projects_data.getProject(project_id).then(function (project) {
+		this.project = project[0];
+	})
+	
+	return project;
 }
 
 // Returns only teams that haven't been allocated to projects.

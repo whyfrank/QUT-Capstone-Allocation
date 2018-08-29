@@ -1,6 +1,6 @@
 {
     "name": "Team to Project Allocation",
-    "timestamp": 1534470678234,
+    "timestamp": 1534600213005,
     "projects": [
         {
             "project_id": 3,
@@ -79,7 +79,9 @@
                 {
                     "team_id": 4,
                     "team_name": "Terrific Quad Squad",
-                    "matched_skills": [
+                    "matched_skills": [],
+                    "matched_skills_percentage": 0,
+                    "unmatched_skills": [
                         {
                             "id": 1,
                             "project_id": 3,
@@ -101,10 +103,7 @@
                                 "skill_name": "Front-End Web Development",
                                 "skill_type": "General Software Development"
                             }
-                        }
-                    ],
-                    "matched_skills_percentage": 50,
-                    "unmatched_skills": [
+                        },
                         {
                             "id": 3,
                             "project_id": 3,
@@ -135,10 +134,10 @@
                     "team_min_gpa": 5.1,
                     "team_max_gpa": 6.73,
                     "student_names": [
+                        "Danyka Kerluke",
                         "Angela Deckow",
                         "Thalia Kihn",
-                        "Dejah Hoppe",
-                        "Danyka Kerluke"
+                        "Dejah Hoppe"
                     ],
                     "course_combination": "CCCI"
                 },
@@ -267,10 +266,10 @@
                     "team_min_gpa": 5.1,
                     "team_max_gpa": 7,
                     "student_names": [
+                        "Arlene Jast",
                         "Alejandrin Hayes",
                         "Mireya Lueilwitz",
-                        "Octavia Greenfelder",
-                        "Arlene Jast"
+                        "Octavia Greenfelder"
                     ],
                     "course_combination": "CCII"
                 },
@@ -330,7 +329,7 @@
                     ],
                     "team_gpa": "6.05",
                     "team_min_gpa": 5.1,
-                    "team_max_gpa": 6.8,
+                    "team_max_gpa": 7,
                     "student_names": [
                         "Leone Orn",
                         "Casper Goldner",
@@ -471,10 +470,10 @@
                     "team_min_gpa": 5.1,
                     "team_max_gpa": 6.73,
                     "student_names": [
+                        "Danyka Kerluke",
                         "Angela Deckow",
                         "Thalia Kihn",
-                        "Dejah Hoppe",
-                        "Danyka Kerluke"
+                        "Dejah Hoppe"
                     ],
                     "course_combination": "CCCI"
                 },
@@ -510,37 +509,6 @@
                     "course_combination": "CIII"
                 },
                 {
-                    "team_id": 6,
-                    "team_name": "The Team",
-                    "matched_skills": [],
-                    "matched_skills_percentage": 0,
-                    "unmatched_skills": [
-                        {
-                            "id": 9,
-                            "project_id": 5,
-                            "required": 1,
-                            "skill": 37,
-                            "skills": {
-                                "skill_id": 37,
-                                "skill_name": "Interface design",
-                                "skill_type": "UX and Interaction Design"
-                            }
-                        }
-                    ],
-                    "matched_nonreq_skills": [],
-                    "unmatched_nonreq_skills": [],
-                    "team_gpa": "6.05",
-                    "team_min_gpa": 5.1,
-                    "team_max_gpa": 6.8,
-                    "student_names": [
-                        "Leone Orn",
-                        "Casper Goldner",
-                        "Lura Murazik",
-                        "Jamarcus Schowalter"
-                    ],
-                    "course_combination": "CIII"
-                },
-                {
                     "team_id": 11,
                     "team_name": "Team Awesome",
                     "matched_skills": [],
@@ -564,12 +532,43 @@
                     "team_min_gpa": 5.1,
                     "team_max_gpa": 7,
                     "student_names": [
+                        "Arlene Jast",
                         "Alejandrin Hayes",
                         "Mireya Lueilwitz",
-                        "Octavia Greenfelder",
-                        "Arlene Jast"
+                        "Octavia Greenfelder"
                     ],
                     "course_combination": "CCII"
+                },
+                {
+                    "team_id": 6,
+                    "team_name": "The Team",
+                    "matched_skills": [],
+                    "matched_skills_percentage": 0,
+                    "unmatched_skills": [
+                        {
+                            "id": 9,
+                            "project_id": 5,
+                            "required": 1,
+                            "skill": 37,
+                            "skills": {
+                                "skill_id": 37,
+                                "skill_name": "Interface design",
+                                "skill_type": "UX and Interaction Design"
+                            }
+                        }
+                    ],
+                    "matched_nonreq_skills": [],
+                    "unmatched_nonreq_skills": [],
+                    "team_gpa": "6.05",
+                    "team_min_gpa": 5.1,
+                    "team_max_gpa": 7,
+                    "student_names": [
+                        "Leone Orn",
+                        "Casper Goldner",
+                        "Lura Murazik",
+                        "Jamarcus Schowalter"
+                    ],
+                    "course_combination": "CIII"
                 },
                 {
                     "team_id": 3,
@@ -629,40 +628,25 @@
             "team_id": 4,
             "team_name": "Terrific Quad Squad",
             "team_skills": [
-                4,
-                14,
-                1,
                 26,
                 34,
                 18,
                 37,
-                42
+                42,
+                1,
+                4,
+                14
             ],
             "team_gpa": 6.2925,
             "team_min_gpa": 5.1,
             "team_max_gpa": 6.73,
             "student_names": [
+                "Danyka Kerluke",
                 "Angela Deckow",
                 "Thalia Kihn",
-                "Dejah Hoppe",
-                "Danyka Kerluke"
+                "Dejah Hoppe"
             ],
             "course_combination": "CCCI"
-        },
-        {
-            "team_id": 6,
-            "team_name": "The Team",
-            "team_skills": [],
-            "team_gpa": 6.052499999999999,
-            "team_min_gpa": 5.1,
-            "team_max_gpa": 6.8,
-            "student_names": [
-                "Leone Orn",
-                "Casper Goldner",
-                "Lura Murazik",
-                "Jamarcus Schowalter"
-            ],
-            "course_combination": "CIII"
         },
         {
             "team_id": 7,
@@ -696,12 +680,27 @@
             "team_min_gpa": 5.1,
             "team_max_gpa": 7,
             "student_names": [
+                "Arlene Jast",
                 "Alejandrin Hayes",
                 "Mireya Lueilwitz",
-                "Octavia Greenfelder",
-                "Arlene Jast"
+                "Octavia Greenfelder"
             ],
             "course_combination": "CCII"
+        },
+        {
+            "team_id": 6,
+            "team_name": "The Team",
+            "team_skills": [],
+            "team_gpa": 6.052499999999999,
+            "team_min_gpa": 5.1,
+            "team_max_gpa": 7,
+            "student_names": [
+                "Leone Orn",
+                "Casper Goldner",
+                "Lura Murazik",
+                "Jamarcus Schowalter"
+            ],
+            "course_combination": "CIII"
         }
     ]
 }

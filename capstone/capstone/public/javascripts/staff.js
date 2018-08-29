@@ -83,7 +83,17 @@ function openProject(id, name) {
 	document.getElementById("project-information").style.display = "block";
 	getContent(id, 'project-information', 'project', false);
 	app_name = document.getElementById("app-name").innerHTML;
-	document.getElementById("app-name").innerHTML = "<a href='#' onclick='closeProject()'>Back</a>";
+	document.getElementById("app-name").innerHTML = name + " - <a href='#' onclick='closeProject()'>Back</a>";
+	project_id=id;
+}
+
+// Displays the allocation system inside the individual project section, and inserts the project HTML page into the app view.
+function allocateProject(id, name) {
+	document.getElementById("projects-section").style.display = "none";
+	document.getElementById("project-information").style.display = "block";
+	getContent(id, 'project-information', 'project-allocation', false);
+	app_name = document.getElementById("app-name").innerHTML;
+	document.getElementById("app-name").innerHTML = "Allocation - <a href='#' onclick='closeProject()'>Back</a>";
 	project_id=id;
 }
 
@@ -151,31 +161,29 @@ function toggleElement(element_id) {
 
 // Allocation System
 
-function toggleAllocationSettings() {
-	alert("f");
-	toggleElement('allocation-config');
-	if (toggleElement('allocation-config')) {
-		document.getElementById("alloc-set-btn").innerText = "Close Allocation Settings";
-	}
+// Gets all allocation data and displays it in the list.
+function grabAllocation(projectId) {
+	var teamMatches = document.getElementById("no_of_matches").value;
+	var strictCombo = document.getElementById("strict_coursecombo").checked;
+	var sort = document.getElementById("sort");
+	var sortValue = sort.options[sort.selectedIndex].value;
+	var queries = '?id=' + projectId + '&no_of_matches=' + teamMatches + '&strict_coursecombo=' + strictCombo + '&sort=' + sortValue;
+	getContent(null, 'project-information', 'project-allocation' + queries, false);
 }
 
-// Gets all allocation data and displays it in the list.
-function grabAllocation(regenerate) {
-	var searchQuery = document.getElementById("sch-bar").value; //TODO: Search query requires searching through JSON file instead of MySQL database.
-	var teamMatches = document.getElementById("no_of_matches").value;
-	var strictCombo = document.getElementById("strict_coursecombo").value;
-	var queries = '?regenerate=' + regenerate + '&search_query=' + searchQuery + '&no_of_matches=' + teamMatches + '&strict_coursecombo=' + strictCombo;
-/* 	var priority = document.getElementsByName("priority");
-	var priorityQueries = "&";
-	for (let priority of priorities) {
-		milestoneQueries = milestoneQueries + milestone.value + "=" + milestone.checked + "&";
-	}
+function allocateTeam(teamId, projectId) {
+	document.getElementById('alloc-finalize').style.display = 'block';
+	var queries = '?teamId=' + teamId + '&projectId=' + projectId;
+	getContent(null, 'alloc-finalize', 'allocation-finalize' + queries, false);
+}
+
+function microsoftAuthenticateAlloc(outlook_authenticate) {
+	var win = window.open(outlook_authenticate, '_blank');
+	win.focus();
 	
-	var searchQuery = document.getElementById("sch-bar").value; */
-	getContent(null, 'projects-view', 'allocation-list' + queries, false);
-	if (regenerate) {
-		getApp('allocation');
-	}
+	document.getElementById('continue-message').style.display = 'block';
+	document.getElementById('login-msft').style.display = 'none';
+	document.getElementById('login-next').style.display = 'block';
 }
 
 var allocSettingsOpen = false;

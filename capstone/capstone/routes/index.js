@@ -2,6 +2,7 @@ var express = require('express');
 var session = require('express-session');
 var router = express.Router();
 var crypto = require('crypto');
+const HtmlEmail = require('html-email');
 
 //custom route for fetching data
 var projects_data = require('../data_access/projects');
@@ -11,6 +12,9 @@ var login_data = require('../data_access/login');
 var register_data = require('../data_access/register');
 
 var project_assign = require('../utils/project_assign');
+var outlook_auth = require('../utils/outlook_auth');
+var outlook_actions = require('../utils/outlook_actions');
+var emails = require('../utils/emails');
 
 //Contains User Session data
 router.use(session({secret:'XASDASDA', resave: false, saveUninitialized: false}));
@@ -48,7 +52,87 @@ router.get('/allocation-list', async function(req, res, next) {
   res.render('allocation-list', {layout: false, allocation: this.allocation});
 });
 
+/* GET view project-allocation. */
+router.get('/project-allocation', async function(req, res, next) {
+	// Set default settings for allocation
+	var settings = {count: 5, sort: "gpa_skills", strictCourseCombo: false};
+	if (req.query.id != undefined) {
+		// Set any allocation settings configured by user
+		if (req.query.no_of_matches != undefined) {
+			settings.count = req.query.no_of_matches;
+		}
+		if (req.query.strict_coursecombo != undefined) {
+			if (req.query.strict_coursecombo === 'true') {
+				settings.strictCourseCombo = true;
+			}
+		}
+		if (req.query.sort != undefined) {
+			settings.sort = req.query.sort;
+		}
+		var projectId = req.query.id;
+		await project_assign.generateAllocation(projectId, settings).then(function (allocation) {
+			this.allocation = allocation;
+		})
+		
+		res.render('project-allocation', {layout: false, allocation: this.allocation, settings: settings});
+	}
+});
+
+/* GET allocation finalize */
+router.get('/allocation-finalize', async function(req, res, next) {
+	var session_data = req.session;
+	var isAuthorized = false;
+	var isError = true;
+	if (req.session.token != undefined) {
+		isAuthorized = true;
+		await outlook_actions.getUser(req.session.token).then(function (user) {
+			this.outlookUser = user;
+			console.log(outlookUser);
+		})
+		console.log(outlookUser);
+	}
+	var outlook_authenticate = await outlook_auth.getAuthUrl();
+	if (req.query.projectId != undefined) {
+		await projects_data.getProject(req.query.projectId).then(function (project) {
+			this.project = project[0];
+		})
+		if (req.query.teamId != undefined) {
+			await teams_data.getTeam(req.query.teamId).then(function (team) {
+				this.team = team[0];
+			})
+			
+			this.teamEmail = await emails.generateTeamEmail(project.project_name + " - " + project.company_name, team.team_name);
+			this.partnerEmail = await emails.generatePartnerEmail();
+		}
+	}
+
+	res.render('allocation-finalize', {layout: false, isAuthorized: isAuthorized, outlook_authenticate: outlook_authenticate, 
+				project: project, team: team, outlookUser: this.outlookUser, teamEmail: this.teamEmail, partnerEmail: this.partnerEmail});
+});
+
+/* GET preview student email. */
+router.get('/student-email-preview', async function(req, res, next) {
+	var email = new HtmlEmail('teams-projectallocation', 'en');
+	var emailBody = email.body({
+						team_name: req.query.team_name
+					});
+	
+    res.send(emailBody);
+});
+
+
 var projects;
+
+/* GET office authorize. */
+router.get('/officeauthorize', async function(req, res, next) {
+	var session_data = req.session;
+	var code = req.query.code;
+	
+	var token = await outlook_auth.getTokenFromCode(code);
+	session_data.token = token.token.access_token;
+	
+    res.send('<head><title>Authorized</title></head><body>You may now close this window.</body>');
+});
 
 /* GET view projects. */
 router.get('/viewprojects', async function(req, res, next) {
