@@ -38,14 +38,14 @@ router.get('/allocation', async function(req, res, next) {
 
 /* GET view allocation-list. */
 router.get('/allocation-list', async function(req, res, next) {
-	
+
 	// Regenerate allocations if specified
 	if (req.query.regenerate != undefined) {
 		if (req.query.regenerate == 'true') {
 			await project_assign.generateAllocation();
 		}
 	}
-	
+
 	await project_assign.retrieveAllocation().then(function (allocation) {
 		this.allocation = allocation;
 	})
@@ -73,7 +73,7 @@ router.get('/project-allocation', async function(req, res, next) {
 		await project_assign.generateAllocation(projectId, settings).then(function (allocation) {
 			this.allocation = allocation;
 		})
-		
+
 		res.render('project-allocation', {layout: false, allocation: this.allocation, settings: settings});
 	}
 });
@@ -100,13 +100,13 @@ router.get('/allocation-finalize', async function(req, res, next) {
 			await teams_data.getTeam(req.query.teamId).then(function (team) {
 				this.team = team[0];
 			})
-			
+
 			this.teamEmail = await emails.generateTeamEmail(project.project_name + " - " + project.company_name, team.team_name);
 			this.partnerEmail = await emails.generatePartnerEmail();
 		}
 	}
 
-	res.render('allocation-finalize', {layout: false, isAuthorized: isAuthorized, outlook_authenticate: outlook_authenticate, 
+	res.render('allocation-finalize', {layout: false, isAuthorized: isAuthorized, outlook_authenticate: outlook_authenticate,
 				project: project, team: team, outlookUser: this.outlookUser, teamEmail: this.teamEmail, partnerEmail: this.partnerEmail});
 });
 
@@ -116,7 +116,7 @@ router.get('/student-email-preview', async function(req, res, next) {
 	var emailBody = email.body({
 						team_name: req.query.team_name
 					});
-	
+
     res.send(emailBody);
 });
 
@@ -127,10 +127,10 @@ var projects;
 router.get('/officeauthorize', async function(req, res, next) {
 	var session_data = req.session;
 	var code = req.query.code;
-	
+
 	var token = await outlook_auth.getTokenFromCode(code);
 	session_data.token = token.token.access_token;
-	
+
     res.send('<head><title>Authorized</title></head><body>You may now close this window.</body>');
 });
 
@@ -236,20 +236,41 @@ router.get('/login', async function(req, res, next) {
 /* POST login. */
 router.post('/login', async function(req, res, next) {
 	var session_data = req.session;
-	await login_data.staffLogin(req.body.useremail, req.body.userpw).then(function (login) {
-		this.login = login;
-		console.log(login);
-	})
-	if (login == false) {
-		res.render('login', {layout: false, loginFailure: true, accountType: req.body.account_type, email: req.body.useremail});
-	} else {
-		session_data.qut_email = login.qut_email;
-		session_data.first_name = login.First_name;
-		session_data.last_name = login.last_name;
-		session_data.staff_type = login.staff_type;
 
-		res.redirect('/');
+	if (req.body.account_type == "staff"){
+		await login_data.staffLogin(req.body.useremail, req.body.userpw).then(function (login) {
+			this.login = login;
+			console.log(login);
+		})
+		if (login == false) {
+			res.render('login', {layout: false, loginFailure: true, accountType: req.body.account_type, email: req.body.useremail});
+		} else {
+			session_data.qut_email = login.qut_email;
+			session_data.first_name = login.First_name;
+			session_data.last_name = login.last_name;
+			session_data.staff_type = login.staff_type;
+
+			res.redirect('/');
+		}
+
+	} else if (req.body.account_type == "student"){
+		await login_data.studentLogin(req.body.useremail, req.body.userpw).then(function (login) {
+			this.login = login;
+			console.log(login);
+		})
+		if (login == false) {
+			res.render('login', {layout: false, loginFailure: true, accountType: req.body.account_type, email: req.body.useremail});
+		} else {
+			session_data.qut_email = login.qut_email;
+			session_data.first_name = login.First_name;
+			session_data.last_name = login.last_name;
+
+			res.redirect('/');
+		}
 	}
+
+
+
 
 });
 
