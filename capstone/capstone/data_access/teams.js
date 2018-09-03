@@ -17,7 +17,7 @@ var skillsSql = "student_skills ON students_in_teams.student_id = student_skills
 		if (query == undefined) {
 			hasQuery = false;
 		}
-		
+
 		var appendedFilters = " ";
 		var statusFilter = " ";
 		if (hasQuery) {
@@ -27,7 +27,7 @@ var skillsSql = "student_skills ON students_in_teams.student_id = student_skills
 			if(query.readyStatus ==1){
 			  statusFilter = "WHERE team.team_ready = 1";
 			}
-		
+
 			if(query.notReadyStatus ==1){
 			  statusFilter = "WHERE team.team_ready = 0";
 			}
@@ -77,6 +77,22 @@ var skillsSql = "student_skills ON students_in_teams.student_id = student_skills
 			});
 		});
     };
+
+    // Will return all details of a particular team that the student ID is in.
+    this.getMyTeam = function (student_id) {
+      return new Promise(function(resolve, reject) {
+        // initialize database connection
+        connection.init();
+        // calling acquire methods and passing callback method that will be execute query
+        // return response to server
+        connection.acquire(function (err, con) {
+
+            con.release();
+            // resolve(nestedResults);
+          });
+        });
+      };
+
 
 }
 
