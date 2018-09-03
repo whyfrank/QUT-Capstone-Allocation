@@ -200,6 +200,11 @@ router.get('/viewteams', async function(req, res, next) {
   res.render('viewteams', {layout: false});
 });
 
+/* GET view my team. */
+router.get('/viewmyteam', async function(req, res, next) {
+  res.render('viewmyteam', {layout: false});
+});
+
 /* GET view team-list. */
 router.get('/team-list', async function(req, res, next) {
 	await teams_data.getAllTeams(req.query).then(function (team) {
