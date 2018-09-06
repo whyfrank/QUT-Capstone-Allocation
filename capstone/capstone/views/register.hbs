@@ -75,10 +75,12 @@
 				alertify.error("Please ensure last name only contains letters");
 				return false;
 			}
-			// Check that email ends in "@connect.qut.edu.au"
-			var reg = new RegExp('^[a-zA-Z0-9._%+-]+@\connect\.qut\.edu\.au$')
-			if (!reg.test(useremail)){
-				alertify.error("Please use your student email");
+			// Check that email ends in "@connect.qut.edu.au" or "@student.qut.edu.au", or is 'n'studentID@qut.edu.au
+			var reg1 = new RegExp('^[a-zA-Z0-9._%+-]+@\connect\.qut\.edu\.au$')
+			var reg2 = new RegExp('^[a-zA-Z0-9._%+-]+@\student\.qut\.edu\.au$')
+			var stuIDemail = "n".concat(studentid.slice(1))
+			if (!reg1.test(useremail) && !reg2.test(useremail) && (useremail != stuIDemail+"@qut.edu.au")){
+				alertify.error("Please use your QUT student email address");
 				return false;
 			}
 			// Check that GPA is within bounds

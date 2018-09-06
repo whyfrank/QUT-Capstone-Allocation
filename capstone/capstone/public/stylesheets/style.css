@@ -161,6 +161,19 @@ h1 {
 	overflow: auto;
 }
 
+#viewmyteam:after{
+    content:'1';
+    position:absolute;
+		left: 110px;
+		background: red;
+    border-radius:99px;
+    border:1px solid red;
+    height:15px;
+    width:15px;
+    text-align:center;
+		font: 12px Arial, "Helvetica Neue", Helvetica, sans-serif;
+}
+
 .menu-head {
 	padding-top: 35px;
 	padding-bottom: 5px;
@@ -519,6 +532,50 @@ header span {
 	padding-left: 2px;
 	border-bottom: 1px solid gray;
 }
+
+#options-bar {
+	height: 40px;
+	font-size: 10px;
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	width: calc(100% - 202px);
+	background: linear-gradient(#d6d6d6, #eee);
+	padding-left: 2px;
+	border-bottom: 1px solid gray;
+}
+
+.team-action-btn:hover, .team-action-btn-ctr:hover {
+	cursor: pointer;
+}
+
+.team-action-btn {
+	float: right;
+	-webkit-appearance: none;
+	color: white;
+	border: 1px solid gray;
+	height: 24px;
+	margin: 6px 6px 0px 0px;
+	border-radius: 3px;
+}
+
+.team-action-btn-ctr {
+	-webkit-appearance: none;
+	color: white;
+	border: 1px solid gray;
+	height: 24px;
+	width: 70px;
+	margin: 6px 6px 0px 0px;
+	border-radius: 3px;
+}
+
+#team-btn {
+	background: #17568C;
+	float: none;
+	font-size: 18px;
+	height: 30px;
+}
+
 
 #sch-btn {
 	background: #17568C;

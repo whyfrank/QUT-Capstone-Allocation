@@ -43,6 +43,23 @@ function Students() {
 			});
 		});
     };
+
+    // Will return a list of all students that have requested to join the team of the owner
+    // assuming the user is an owner of a team
+    this.getRequestedMembers = function(student_id){
+      return new Promise(function(resolve, reject) {
+        connection.init();
+        connection.acquire(function (err, con) {
+          // var options = { sql: ' };
+          // con.query(options, function (err, results, fields) {
+        // resolve(results);
+        con.release();
+
+              });
+
+        });
+      };
+
 }
 
 module.exports = new Students();
