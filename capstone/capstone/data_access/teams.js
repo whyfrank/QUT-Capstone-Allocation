@@ -63,11 +63,12 @@ var skillsSql = "student_skills ON students_in_teams.student_id = student_skills
 			// calling acquire methods and passing callback method that will be execute query
 			// return response to server
 			connection.acquire(function (err, con) {
-				var options = { sql: teamSql + joinSql + inTeamsSql + joinSql + skillsSql + "  WHERE team.team_id = ?", nestTables: true };
+				var options = { sql: teamSql + joinSql + inTeamsSql + joinSql + "students ON students_in_teams.student_id = students.student_id" + joinSql + skillsSql + "  WHERE team.team_id = ?", nestTables: true };
 				con.query(options, [id],function (err, results, fields) {
 						var nestingOptions = [
 							{ tableName : 'team', pkey: 'team_id'},
 							{ tableName : 'students_in_teams', pkey: 'student_id', fkeys:[{table:'team',col:'team_id'},{table:'students',col:'student_id'}]},
+							{ tableName : 'students', pkey: 'student_id'},
 							{ tableName : 'student_skills', pkey: 'id', fkeys:[{table:'skills',col:'skill_id'},{table:'student_id_for_skills',col:'student_id'}]}
 						];
 						var nestedResults = mysql_nest.convertToNested(results, nestingOptions);

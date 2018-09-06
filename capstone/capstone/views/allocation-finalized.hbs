@@ -1,0 +1,9 @@
+<div class="allocation-finalize">
+	<h2>Allocated {{team.team_name}} to {{project.project_name}}</h2>
+	{{#if isSuccessful}}
+		<p>Emails were sent to both the student team, and the industry partner.</p>
+	{{else}}
+		<h2>Failed to allocate {{team.team_name}} to {{project.project_name}}</h2>
+		<p>There was an error in sending the emails.</p>
+	{{/if}}
+</div>

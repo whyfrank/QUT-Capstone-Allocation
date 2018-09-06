@@ -16,7 +16,7 @@ var redirectUri = 'http://localhost:3000/officeauthorize';
 // The scopes the app requires
 var scopes = [ 'openid',
 			   'offline_access',
-               'https://outlook.office.com/mail.read' ];
+               'https://outlook.office.com/mail.send' ];
     
 async function getAuthUrl() {
   var returnVal = oauth2.authorizationCode.authorizeURL({

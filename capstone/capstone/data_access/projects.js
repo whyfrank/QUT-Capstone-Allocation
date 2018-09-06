@@ -162,6 +162,23 @@ var studentsSql = "students ON students_in_teams.student_id = students.student_i
 			});
 		});
     };
+	
+	// Set a team for a project.
+    this.allocateProject = function (teamId, projectId) {
+		return new Promise(function(resolve, reject) {
+			// initialize database connection
+			connection.init();
+			// calling acquire methods and passing callback method that will be execute query
+			// return response to server
+			connection.acquire(function (err, con) {
+				var options = { sql: "UPDATE project SET allocated_team = ? WHERE project_id = ?", nestTables: true };
+				con.query(options, [teamId, projectId], function (err, results, fields) {
+					con.release();
+					resolve(true);
+				});
+			});
+		});
+    };
 }
 
 module.exports = new Projects();

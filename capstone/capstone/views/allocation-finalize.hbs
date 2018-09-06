@@ -4,8 +4,8 @@
 		<p>You will be sending these emails through {{outlookUser.EmailAddress}} as {{outlookUser.DisplayName}}.</p>
 		<p>After this process, the project will be allocated to the team {{team.team_name}}, and will be set as a preliminary assignment.</p><br>
 		<h2>Email to the students</h2>
-		<div class="email-editor-title"><b>Subject</b> <i class="fa fa-edit"></i></div>
-		<div class="email-editor" contenteditable="true">{{{teamEmail.emailSubject}}}</div><br>
+		<div id="teamSubjectEdit" class="email-editor-title"><b>Subject</b> <i class="fa fa-edit"></i></div>
+		<div id="teamBodyEdit" class="email-editor" contenteditable="true">{{{teamEmail.emailSubject}}}</div><br>
 		<div class="email-editor-title"><b>Body</b> <i class="fa fa-edit"></i></div>
 		<div class="email-editor" contenteditable="true">{{{teamEmail.emailBody}}}</div><br>
 		<h2>Email to the industry partner</h2>
@@ -14,7 +14,15 @@
 		<div class="email-editor-title"><b>Body</b> <i class="fa fa-edit"></i></div>
 		<div class="email-editor" contenteditable="true">{{{partnerEmail.emailBody}}}</div><br>
 		<div></div>
-		<button id='login-sendemail' class='project-block-btn' onclick=''>Send Emails</button>
+		<form id="emailSendForm" method="POST" action="/allocation-finalize">
+			<input type="hidden" id="teamSubject" name="teamSubject" value="">
+			<input type="hidden" id="teamBody" name="teamBody" value="">
+			<input type="hidden" id="teamImportance" name="teamImportance" value="Low">
+			<input type="hidden" id="teamId" name="teamId" value={{team.team_id}}>
+			<input type="hidden" id="projectId" name="projectId" value={{project.project_id}}>
+			<input type="hidden" id="userEmail" name="userEmail" value="{{outlookUser.EmailAddress}}">
+			<button type="button" onclick="sendEmails()" id='login-sendemail' class='project-block-btn'>Send Emails</button>
+		</form>
 	{{else}}
 		<p>You need to be signed into a Microsoft account to proceed to the next step.</p>
 		<p id='continue-message' style="display: none">Once you have successfully signed in on the pop-up window, please click Continue.</p>

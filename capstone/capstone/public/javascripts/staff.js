@@ -192,3 +192,9 @@ function toggleAllocationSettings() {
 		allocSettingsOpen = false;
 	}
 }
+
+function sendEmails() {
+	document.getElementById("teamSubject").value = document.getElementById("teamSubjectEdit").innerHTML;
+	document.getElementById("teamBody").value = document.getElementById("teamBodyEdit").innerHTML;
+	document.getElementById("emailSendForm").submit();
+}

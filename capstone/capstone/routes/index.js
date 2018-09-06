@@ -99,6 +99,7 @@ router.get('/allocation-finalize', async function(req, res, next) {
 		if (req.query.teamId != undefined) {
 			await teams_data.getTeam(req.query.teamId).then(function (team) {
 				this.team = team[0];
+				console.log(team);
 			})
 			
 			this.teamEmail = await emails.generateTeamEmail(project.project_name + " - " + project.company_name, team.team_name);
@@ -111,13 +112,32 @@ router.get('/allocation-finalize', async function(req, res, next) {
 });
 
 /* GET preview student email. */
-router.get('/student-email-preview', async function(req, res, next) {
-	var email = new HtmlEmail('teams-projectallocation', 'en');
-	var emailBody = email.body({
-						team_name: req.query.team_name
-					});
+router.post('/allocation-finalize', async function(req, res, next) {
+	this.token = req.session.token;
+	this.teamBody = req.body.teamBody;
+	this.teamSubject = req.body.teamSubject;
+	this.teamImportance = req.body.teamImportance;
+	this.userEmail = req.body.userEmail;
+	this.isSuccessful = true; //TODO: Check with actual values
 	
-    res.send(emailBody);
+	await teams_data.getTeam(req.body.teamId).then(function (team) {
+		this.team = team[0];
+	})
+	await projects_data.getProject(req.body.projectId).then(function (project) {
+		this.project = project[0];
+	})
+	var students = this.team.students_in_teams;
+	var teamEmails = [];
+	
+	for (var i = 0; i < students.length; i++) {
+		teamEmails.push(students[i].students.qut_email);
+		console.log(teamEmails[i]);
+	}
+	
+	var result = await outlook_actions.sendMail(token, teamSubject, teamImportance, teamBody, teamEmails, userEmail);
+	
+	projects_data.allocateProject(team.team_id, project.project_id);
+	res.render('allocation-finalized', {layout: false, project: project, team: team, isSuccessful, isSuccessful});
 });
 
 
