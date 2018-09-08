@@ -1,17 +1,26 @@
 <div id='left-menu'>
 	<a href='#'><span>Home</span></a>
+	{{#compare session_data.staff_type '===' 'staff'}}
 	<span class='menu-head'>Projects</span>
 		<a id='viewprojects' onclick="getApp('viewprojects')" href='#'><span>View Projects</span></a>
 		<!-- <a id="allocation" onclick="getApp('allocation')" href='#'><span>Allocation</span></a> DEPRECATED -->
 		<a id="proposals" onclick="getApp('proposals')" href='#'><span>Proposals</span></a>
 	<span class='menu-head'>Students</span>
 		<a id="viewstudents" onclick="getApp('viewstudents')" href='#'><span>View Students</span></a>
+	{{/compare}}
 	<span class='menu-head'>Teams</span>
-		<a id="viewteams" onclick="getApp('viewteams')" href='#'><span>View Teams</span></a>
+	{{#compare session_data.staff_type '===' 'student'}}
+		<a id="viewteams" onclick="getApp('viewteams')" href='#'><span>Join Team</span></a>
 		<a id="viewmyteam" onclick="getApp('viewmyteam')" href='#'><span>My Team</span></a>
+	{{else}}
+		<a id="viewteams" onclick="getApp('viewteams')" href='#'><span>View Teams</span></a>
+	{{/compare}}
 
 	<span class='menu-head'>Account Management</span>
-		<a id="createstaff" onclick="getApp('createstaff')" href='#'><span>Create Accounts</span></a>
+	{{#compare session_data.staff_type '===' 'staff'}}
+	<a id="createstaff" onclick="getApp('createstaff')" href='#'><span>Create Accounts</span></a>
+	{{/compare}}
+	<a id="createstaff" onclick="getApp('createstaff')" href='#'><span>My Account Settings</span></a>
 </div>
 <div id='content'>
 

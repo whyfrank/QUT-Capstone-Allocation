@@ -1,4 +1,8 @@
-<h1>View Teams</h1>
+{{#compare session_data.staff_type '===' 'staff'}}
+	<h1>View Teams</h1>
+{{else}}
+	<h1>Join Team</h1>
+{{/compare}}
 
 <!-- This is where the main 'app' on the page resides. Will make this update contents by AJAX, rather than reloading entire site. -->
 <div id='app'>
@@ -10,10 +14,14 @@
 		</div>
 	<div class='filters'>
 		<form>
-			<span class='menu-head'>Team Formation Status</span>
-			<input type="radio" name="milestone" value="teams-all" id="all" onclick="grabTeamList()" checked><span class='filter-input'> All Teams</span><br>
-			<input type="radio" name="milestone" value="teams-formed" id="teams-formed" onclick="getTeamsReady()" unchecked><span class='filter-input'> Teams Formed</span><br>
-			<input type="radio" name="milestone" value="teams-not-formed" id="teams-not-formed" onclick="getTeamsNotReady()" unchecked><span class='filter-input'> Teams Not Formed</span><br>
+			{{#compare session_data.staff_type '===' 'staff'}}
+				<span class='menu-head'>Team Formation Status</span>
+				<input type="radio" name="milestone" value="teams-all" id="all" onclick="grabTeamList()" checked><span class='filter-input'> All Teams</span><br>
+				<input type="radio" name="milestone" value="teams-formed" id="teams-formed" onclick="getTeamsReady()" unchecked><span class='filter-input'> Teams Formed</span><br>
+				<input type="radio" name="milestone" value="teams-not-formed" id="teams-not-formed" onclick="getTeamsNotReady()" unchecked><span class='filter-input'> Teams Not Formed</span><br>
+			{{/compare}}
+				<span class='menu-head'>Study Area Composition</span>
+				
 		</form>
 	</div>
 </div>

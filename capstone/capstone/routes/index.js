@@ -139,6 +139,7 @@ router.post('/allocation-finalize', async function(req, res, next) {
 	
 	projects_data.allocateProject(team.team_id, project.project_id);
 	res.render('allocation-finalized', {layout: false, project: project, team: team, isSuccessful, isSuccessful});
+});
 
 router.get('/student-email-preview', async function(req, res, next) {
 	var email = new HtmlEmail('teams-projectallocation', 'en');
@@ -226,7 +227,8 @@ router.get('/proposals', async function(req, res, next) {
 
 /* GET view teams. */
 router.get('/viewteams', async function(req, res, next) {
-  res.render('viewteams', {layout: false});
+	var session_data = req.session;
+  res.render('viewteams', {layout: false, session_data: session_data});
 });
 
 /* GET view my team. */
@@ -236,11 +238,16 @@ router.get('/viewmyteam', async function(req, res, next) {
 
 /* GET view team-list. */
 router.get('/team-list', async function(req, res, next) {
-	await teams_data.getAllTeams(req.query).then(function (team) {
+	var session_data = req.session;
+	isStudent = false;
+	if (session_data.staff_type == 'student') {
+		isStudent = true;
+	}
+	await teams_data.getAllTeams(req.query, isStudent).then(function (team) {
 		this.team = team;
 		console.log(team);
 	})
-  res.render('team-list', {layout: false, teams: this.team});
+  res.render('team-list', {layout: false, teams: this.team, session_data: session_data});
 });
 
 /* GET view students. */
@@ -282,7 +289,7 @@ router.post('/login', async function(req, res, next) {
 			session_data.qut_email = login.qut_email;
 			session_data.first_name = login.First_name;
 			session_data.last_name = login.last_name;
-			session_data.staff_type = login.staff_type;
+			session_data.staff_type = "staff";
 
 			res.redirect('/');
 		}
@@ -298,7 +305,7 @@ router.post('/login', async function(req, res, next) {
 			session_data.qut_email = login.qut_email;
 			session_data.first_name = login.First_name;
 			session_data.last_name = login.last_name;
-
+			session_data.staff_type = "student"
 			res.redirect('/');
 		}
 	}

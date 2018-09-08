@@ -1,12 +1,6 @@
 {{#teams}}
 
     <div class='project'>
-        {{#compare team_ready '==' 1}}
-            <span class='tag-icon A'>F</span>
-        {{/compare}}
-        {{#compare team_ready '==' 0}}
-            <span class='tag-icon NA'>NF</span>
-        {{/compare}}
         <h3>{{team_name}}</h3>
         <div class="project-details">
             <div class="detail-header">Team members:</div>
@@ -15,18 +9,30 @@
                     {{#if @first}}{{else}},{{/if}}
                     {{#students}}
 						{{first_name}} {{last_name}}
-            {{@index}}
                     {{/students}}
                 {{/students_in_teams}}
-                </div>
+			</div>
+			<br><br>
+			<div class="detail-header">Total members:</div>
+			<div class="detail-information">
+				{{students_in_teams.length}}
+				&nbsp&nbsp&nbsp
+            </div>
+			<div class="detail-header">Course Combination:</div>
+			<div class="detail-information">
+				CCII
+            </div>
             <div class="acceptance-states">
             </div>
         </div>
 
 
-
-        <a class='right-link' href='#'>Join Team</a>
-        <a class='right-link' href='#'>Open Team</a>
+		{{#compare ../session_data.staff_type '===' 'staff'}}
+			<a class='right-link' href='#'>Open Team</a>
+		{{/compare}}
+		{{#compare ../session_data.staff_type '===' 'student'}}
+			<button class='project-block-btn' onclick=''>Request to join</button>
+		{{/compare}}
 
     </div>
 {{/teams}}

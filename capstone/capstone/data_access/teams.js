@@ -12,7 +12,7 @@ var inTeamsSql = "students_in_teams ON team.team_id = students_in_teams.team_id"
 var skillsSql = "student_skills ON students_in_teams.student_id = student_skills.student_id";
 
     // get all teams data
-    this.getAllTeams = function (query) {
+    this.getAllTeams = function (query, isStudent) {
 		var hasQuery = true;
 		if (query == undefined) {
 			hasQuery = false;
@@ -28,7 +28,7 @@ var skillsSql = "student_skills ON students_in_teams.student_id = student_skills
 			  statusFilter = "WHERE team.team_ready = 1";
 			}
 
-			if(query.notReadyStatus ==1){
+			if((query.notReadyStatus ==1) || isStudent){
 			  statusFilter = "WHERE team.team_ready = 0";
 			}
 		}
@@ -53,7 +53,7 @@ var skillsSql = "student_skills ON students_in_teams.student_id = student_skills
 				});
 			});
 		});
-		};
+	};
 
 	// get team's data
 	this.getTeam = function (id) {
