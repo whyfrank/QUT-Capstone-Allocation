@@ -44,22 +44,19 @@ function Students() {
 		});
     };
 
-    // Will return a list of all students that have requested to join the team of the owner
-    // assuming the user is an owner of a team
-    this.getRequestedMembers = function(student_id){
+    // Will add a student to a team, but set their approval state as false.
+    this.requestJoinTeam = function(student_id, team_id){
       return new Promise(function(resolve, reject) {
         connection.init();
         connection.acquire(function (err, con) {
-          // var options = { sql: ' };
-          // con.query(options, function (err, results, fields) {
-        // resolve(results);
-        con.release();
-
-              });
-
+          var options = { sql: 'INSERT INTO students_in_teams (student_id, team_id, master, is_approved) VALUES (?, ?, 0, 0)' };
+          con.query(options, [student_id, team_id], function (err, results, fields) {
+          resolve(results[0]);
+          con.release();
+          });
         });
-      };
-
+      });
+    }
 }
 
 module.exports = new Students();

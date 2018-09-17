@@ -895,3 +895,56 @@ header span {
 	background: #004377;
 	width: calc(100% - 16px);
 }
+
+.myteam_list {
+	width: calc(100% - 2px);
+	padding-top: 0px;
+	height: calc(100% - 0px);
+}
+
+.myteam_head {
+	
+}
+
+#teamReadyInfoContent {
+	display: none;
+}
+
+.request_decline_btn {
+	color: #6d3d3d;
+	border-color: #6d3d3d;
+}
+
+.request_decline_btn:hover {
+	background-color: #6d3d3d;
+	color: white;
+}
+
+.error-p {
+	font-size: 24px;
+	text-align: center;
+	color: #004377;
+}
+
+.pending-request-msg {
+	position: absolute;
+	background-color: #004377;
+	color: white;
+	font-size: 14px;
+	font-weight: bold;
+	padding: 8px;
+	width: calc(100% - 216px);
+}
+
+.send-request-confirm {
+	position: absolute;
+	background-color: white;
+	color: #004377;
+	font-size: 14px;
+	font-weight: bold;
+	text-align: center;
+	padding: 8px;
+	width: calc(100% - 216px);
+	display: none;
+	height: calc(100% - 50px);
+}

@@ -10,9 +10,12 @@
 	{{/compare}}
 	<span class='menu-head'>Teams</span>
 	{{#compare session_data.staff_type '===' 'student'}}
-		<a id="viewteams" onclick="getApp('viewteams')" href='#'><span>Join Team</span></a>
-		<a id="viewmyteam" onclick="getApp('viewmyteam')" href='#'><span>My Team</span></a>
-	{{else}}
+		{{#session_data.in_team}}
+			<a id="viewmyteam" onclick="getApp('viewmyteam')" href='#'><span>My Team</span></a>
+		{{else}}
+			<a id="viewteams" onclick="getApp('viewteams')" href='#'><span>Join Team</span></a>
+		{{/session_data.in_team}}
+		<a id="editteam" onclick="getApp('editteam')" href='#'><span>{{#session_data.in_team}}Edit Team{{else}}Create Team{{/session_data.in_team}}</span></a>
 		<a id="viewteams" onclick="getApp('viewteams')" href='#'><span>View Teams</span></a>
 	{{/compare}}
 

@@ -1,0 +1,36 @@
+<h1>{{#isNewTeam}}Create{{else}}Edit{{/isNewTeam}} Team</h1>
+
+<!-- This is where the main 'app' on the page resides. Will make this update contents by AJAX, rather than reloading entire site. -->
+<div id='app'>
+	<div class="allocation-finalize">
+		<div id="teamNameEdit" class="email-editor-title"><b>Team Name</b> <i class="fa fa-edit"></i></div>
+		<div id="teamNameEdit" class="email-editor" contenteditable="true">{{{team.team_name}}}</div><br>
+		<div class="email-editor-title"><b>Team Summary</b> <i class="fa fa-edit"></i></div>
+		<div class="email-editor" contenteditable="true">{{{team.team_summary}}}</div><br>
+		<form id="emailSendForm" method="POST" action="/allocation-finalize">
+			<div id="teamSettingsEdit" class="email-editor-title"><b>Team Member Join Requests</b> <i class="fa fa-edit"></i></div>
+			<div id="teamSettingsEdit" class="email-editor">
+				<input type="checkbox" id="allMembersRequiredApprove" name="allMembersRequiredApprove"> <span>Require all team members to approve join requests? If this option is unchecked, the team owner will be able to solely approve members.</span>
+			</div><br>
+			<input type="hidden" id="teamSubject" name="teamSubject" value="">
+			<input type="hidden" id="teamBody" name="teamBody" value="">
+			<input type="hidden" id="teamImportance" name="teamImportance" value="Low">
+			<input type="hidden" id="teamId" name="teamId" value={{team.team_id}}>
+			<input type="hidden" id="projectId" name="projectId" value={{project.project_id}}>
+			<input type="hidden" id="userEmail" name="userEmail" value="{{outlookUser.EmailAddress}}">
+			{{#unless isNewTeam}}
+				<div id="teamReadyEdit" class="email-editor-title"><b>Team Ready</b> <i class="fa fa-edit"></i></div>
+				<div id="teamReadyEdit" class="email-editor">
+					<input type="checkbox" onchange="teamReadyCheckToggle();" id="teamReady" name="teamReady"> <span>Check this box if your team is ready to be entered into the pool of teams that can be allocated to projects.</span>
+					<div id="teamReadyInfoContent">
+						<p><b>Warning: </b>This setting will immediately take effect after applying changes. Please ensure that the team information you have provided is your final version.</p>
+						<p><b>Important Notice: </b>As part of the Capstone project allocation process it is necessary for QUT staff to provide potential industry partners with information about the members of the student team that they have been allocated.  By submitting the student team information you consent to QUT providing the information present in this Team CV document to the industry partner. In particular, this information may include personal information such as your contact details (e.g. name, email address and phone number). QUT undertakes to provide this information only to the specific industry partner involved in an active project allocation, and all industry partners are required to treat this information confidentially. 
+						If there are any issues with the provision of this information, please contact us via the IT Capstone alias (<a href="mailto:it.capstone@qut.edu.au">it.capstone@qut.edu.au</a>), or if the matter is especially sensitive, please contact the unit co-ordinator directly (<a href="j.hogan@qut.edu.au">j.hogan@qut.edu.au</a>).</p>
+						<input type="checkbox" id="infoUnderstand" name="infoUnderstand"> <span>Check this box if you understand the information above.</span>
+					</div>
+				</div><br>
+			{{/unless}}
+			<button type="button" onclick="sendEmails()" id='login-sendemail' class='project-block-btn'>Apply Changes</button>
+		</form>
+	</div>
+</div>

@@ -19,6 +19,7 @@
     "mysql": "^2.15.0",
     "node-mysql-nesting": "0.0.3",
     "node-outlook": "^1.1.8",
+    "npm": "^6.4.1",
     "q": "^1.5.1",
     "simple-oauth2": "^2.2.1"
   },

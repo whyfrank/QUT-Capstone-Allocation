@@ -12,7 +12,12 @@ var inTeamsSql = "students_in_teams ON team.team_id = students_in_teams.team_id"
 var skillsSql = "student_skills ON students_in_teams.student_id = student_skills.student_id";
 
     // get all teams data
-    this.getAllTeams = function (query, isStudent) {
+    this.getAllTeams = function (query, isStudent, includeRequests) {
+		var inTeamSql = " WHERE students_in_teams.is_approved = 1";
+		if (includeRequests) {
+			inTeamSql = "";
+		}
+		
 		var hasQuery = true;
 		if (query == undefined) {
 			hasQuery = false;
@@ -22,14 +27,14 @@ var skillsSql = "student_skills ON students_in_teams.student_id = student_skills
 		var statusFilter = " ";
 		if (hasQuery) {
 			if (query.query != null) {
-				appendedFilters = appendedFilters + "WHERE team.team_name LIKE '%" + query.query + "%'";
+				appendedFilters = appendedFilters + " AND team.team_name LIKE '%" + query.query + "%'";
 			}
 			if(query.readyStatus ==1){
-			  statusFilter = "WHERE team.team_ready = 1";
+			  statusFilter = " AND team.team_ready = 1";
 			}
 
 			if((query.notReadyStatus ==1) || isStudent){
-			  statusFilter = "WHERE team.team_ready = 0";
+			  statusFilter = " AND team.team_ready = 0";
 			}
 		}
 
@@ -39,7 +44,8 @@ var skillsSql = "student_skills ON students_in_teams.student_id = student_skills
 			// calling acquire methods and passing callback method that will be execute query
 			// return response to server
 			connection.acquire(function (err, con) {
-				var options = { sql: 'SELECT * FROM team LEFT JOIN students_in_teams ON team.team_id = students_in_teams.team_id LEFT JOIN students ON students_in_teams.student_id = students.student_id' + joinSql + skillsSql + appendedFilters + statusFilter, nestTables: true };
+				var options = { sql: 'SELECT * FROM team LEFT JOIN students_in_teams ON team.team_id = students_in_teams.team_id LEFT JOIN students ON students_in_teams.student_id = students.student_id' + joinSql + skillsSql + inTeamSql + appendedFilters + statusFilter, nestTables: true };
+				console.log (options.sql);
 				con.query(options, function (err, results, fields) {
 					    var nestingOptions = [
 							{ tableName : 'team', pkey: 'team_id'},
@@ -56,14 +62,19 @@ var skillsSql = "student_skills ON students_in_teams.student_id = student_skills
 	};
 
 	// get team's data
-	this.getTeam = function (id) {
+	this.getTeam = function (id, includeRequests) {
 		return new Promise(function(resolve, reject) {
+			var inTeamSql = " AND students_in_teams.is_approved = 1";
+			if (includeRequests) {
+				inTeamSql = "";
+			}
 			// initialize database connection
 			connection.init();
 			// calling acquire methods and passing callback method that will be execute query
 			// return response to server
 			connection.acquire(function (err, con) {
-				var options = { sql: teamSql + joinSql + inTeamsSql + joinSql + "students ON students_in_teams.student_id = students.student_id" + joinSql + skillsSql + "  WHERE team.team_id = ?", nestTables: true };
+				var options = { sql: teamSql + joinSql + inTeamsSql + joinSql + "students ON students_in_teams.student_id = students.student_id" + joinSql + skillsSql + "  WHERE team.team_id = ?" + inTeamSql, nestTables: true };
+				console.log(options.sql);
 				con.query(options, [id],function (err, results, fields) {
 						var nestingOptions = [
 							{ tableName : 'team', pkey: 'team_id'},
@@ -79,20 +90,22 @@ var skillsSql = "student_skills ON students_in_teams.student_id = student_skills
 		});
     };
 
-    // Will return all details of a particular team that the student ID is in.
-    this.getMyTeam = function (student_id) {
-      return new Promise(function(resolve, reject) {
-        // initialize database connection
-        connection.init();
-        // calling acquire methods and passing callback method that will be execute query
-        // return response to server
-        connection.acquire(function (err, con) {
-
-            con.release();
-            // resolve(nestedResults);
-          });
-        });
-      };
+		// get team ID from a team a student has joined
+	this.getStudentTeam = function (student_id) {
+		return new Promise(function(resolve, reject) {
+			// initialize database connection
+			connection.init();
+			// calling acquire methods and passing callback method that will be execute query
+			// return response to server
+			connection.acquire(function (err, con) {
+				var options = { sql: "SELECT * FROM students_in_teams WHERE student_id = ?" };
+				con.query(options, [student_id],function (err, results, fields) {
+					con.release();
+					resolve(results[0]);
+				});
+			});
+		});
+    };
 
 
 }

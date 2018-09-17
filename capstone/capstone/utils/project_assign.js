@@ -110,7 +110,7 @@ async function grabAllocatableProject(project_id) {
 
 // Returns only teams that haven't been allocated to projects.
 async function grabAllocatableTeams() {
-	await teams_data.getAllTeams().then(function (teams) {
+	await teams_data.getAllTeams("", false, false).then(function (teams) {
 		this.teams = teams;
 	})
 	

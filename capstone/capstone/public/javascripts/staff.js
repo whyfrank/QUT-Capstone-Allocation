@@ -101,16 +101,6 @@ function approveCancel() {
 	document.getElementById("proposal-wrapper").style.height = "calc(100% - 36px)";
 }
 
-function toggleElement(element_id) {
-	if (document.getElementById(element_id).style.display != "none") {
-		document.getElementById(element_id).style.display = "none";
-		return false;
-	} else {
-		document.getElementById(element_id).style.display = "block";
-		return true;
-	}
-}
-
 // Allocation System
 
 // Gets all allocation data and displays it in the list.

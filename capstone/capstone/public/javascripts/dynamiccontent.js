@@ -168,3 +168,16 @@ function getTeamsNotReady() {
   }
   getContent(null, 'teams-view', 'team-list?notReadyStatus=' + status, false);
 }
+
+function toggleElement(element_id) {
+	if (document.getElementById(element_id).style.display === "none") {
+		document.getElementById(element_id).style.display = "block";
+		return false;
+	} else if (document.getElementById(element_id).style.display === "block") {
+		document.getElementById(element_id).style.display = "none";
+		return true;
+	} else {
+		document.getElementById(element_id).style.display = "block";
+		return false;
+	}
+}

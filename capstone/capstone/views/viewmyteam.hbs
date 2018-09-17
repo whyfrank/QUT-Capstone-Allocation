@@ -1,16 +1,33 @@
-<h1>My Team</h1>
+<h1>{{team.team_name}}</h1>
 
 <!-- This is where the main 'app' on the page resides. Will make this update contents by AJAX, rather than reloading entire site. -->
 <div id='app'>
-	<div class='students-view' id='students-view'>
-	</div>
-		<div id="options-bar">
-			<!-- Want to have a bar for member requests (same format as view students!), and "My Team" info -->
-			<button class="team-action-btn" onclick="" id="team-btn">Member Requests</button>
-			<button class="team-action-btn" onclick="" id="team-btn">Team Information</button>
+	<div class='students-view myteam_list' id='students-view'>
+		<div class="email-editor-title"><b>Team Members in {{team.team_name}}</b></i></div>
+		{{#team.students_in_teams}}
+			{{#compare is_approved '===' 1}}
+			  <div class='project'>
+				<h3>{{students.first_name}} {{students.last_name}}{{#compare master '===' 1}} (Owner){{/compare}}</h3>
+				<div class="project-details">
 
-		</div>
-	<div class='filters'>
-		<!-- Not sure yet what we want in here if anything, but would look weird if page were full screen width?? -->
+				</div>
+				<a class='right-link' href='mailto:{{students.qut_email}}'>Contact student</a>
+			  </div>
+			{{/compare}}
+		{{/team.students_in_teams}}
+		<div class="email-editor-title"><b>Peers requesting to join {{team.team_name}}</b></i></div>
+		{{#team.students_in_teams}}
+			{{#compare is_approved '===' 0}}
+			  <div class='project'>
+				<h3>{{students.first_name}} {{students.last_name}}</h3>
+				<div class="project-details">
+
+				</div>
+				<a class='right-link' href='mailto:{{students.qut_email}}'>Contact student</a>
+				<button class='project-block-btn' onclick=''>Approve join request</button>
+				<button class='project-block-btn request_decline_btn' onclick=''>Decline join request</button>
+			  </div>
+			{{/compare}}
+		{{/team.students_in_teams}}
 	</div>
 </div>
