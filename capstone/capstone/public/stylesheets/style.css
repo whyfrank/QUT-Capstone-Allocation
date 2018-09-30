@@ -161,7 +161,7 @@ h1 {
 	overflow: auto;
 }
 
-#viewmyteam:after{
+/* #viewmyteam:after{
     content:'1';
     position:absolute;
 		left: 110px;
@@ -172,7 +172,7 @@ h1 {
     width:15px;
     text-align:center;
 		font: 12px Arial, "Helvetica Neue", Helvetica, sans-serif;
-}
+} */
 
 .menu-head {
 	padding-top: 35px;

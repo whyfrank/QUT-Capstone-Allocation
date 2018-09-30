@@ -30,7 +30,12 @@
 					</div>
 				</div><br>
 			{{/unless}}
-			<button type="button" onclick="sendEmails()" id='login-sendemail' class='project-block-btn'>Apply Changes</button>
+			{{#isNewTeam}}
+			<button type="button" onclick="" id='login-sendemail' class='project-block-btn'>Create Team</button>
+			<p>&nbspPlease note that you will be able to make changes to the information provided, after creating the team.</p>
+			{{else}}
+			<button type="button" onclick="" id='login-sendemail' class='project-block-btn'>Apply Changes</button>
+			{{/isNewTeam}}
 		</form>
 	</div>
 </div>

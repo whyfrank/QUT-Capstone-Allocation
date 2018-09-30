@@ -90,8 +90,15 @@ var studentsSql = "students ON students_in_teams.student_id = students.student_i
 		});
     };
 
-		// Set a proposal as either approved or declined.
-    this.actionProposal = function (id, isApproved) {
+		// Set a project as either approved or declined.
+    this.actionProject = function (id, isApproved, staffType) {
+		var userAccepted;
+		if (staffType == "staff") {
+			userAccepted = "academic_accepted"
+		} else if (staffType == "student") {
+			userAccepted = "team_accepted"
+		}
+		
 		var state = 'Declined';
 		if (isApproved == 'true') {
 			state = 'Approved';
@@ -102,7 +109,7 @@ var studentsSql = "students ON students_in_teams.student_id = students.student_i
 			// calling acquire methods and passing callback method that will be execute query
 			// return response to server
 			connection.acquire(function (err, con) {
-				var options = { sql: "UPDATE project SET academic_accepted = ? WHERE project_id = ?", nestTables: true };
+				var options = { sql: "UPDATE project SET " + userAccepted + " = ? WHERE project_id = ?", nestTables: true };
 				con.query(options, [state, id], function (err, results, fields) {
 					con.release();
 					resolve(true);
@@ -146,6 +153,33 @@ var studentsSql = "students ON students_in_teams.student_id = students.student_i
 			connection.acquire(function (err, con) {
 				var options = { sql: projectSql + joinSql + projectContactsSql + joinSql + projectSkillsSql + joinSql + skillsSql + joinSql + teamSql + joinSql + inTeamsSql + joinSql + studentsSql + "  WHERE project.project_id = ?", nestTables: true };
 				con.query(options, [id],function (err, results, fields) {
+						var nestingOptions = [
+							{ tableName : 'project', pkey: 'project_id', fkeys:[{table:'team',col:'allocated_team'}]},
+							{ tableName : 'project_contacts', pkey: 'id', fkeys:[{table:'project',col:'project_id'}]},
+							{ tableName : 'project_skills', pkey: 'id', fkeys:[{table:'skills',col:'skill'},{table:'project',col:'project_id'}]},
+							{ tableName : 'skills', pkey: 'skill_id'},
+							{ tableName : 'team', pkey: 'team_id'},
+							{ tableName : 'students_in_teams', pkey: 'student_id', fkeys:[{table:'team',col:'team_id'},{table:'students',col:'student_id'}]},
+							{ tableName : 'students', pkey: 'student_id'}
+						];
+						var nestedResults = mysql_nest.convertToNested(results, nestingOptions);
+					con.release();
+					resolve(nestedResults);
+				});
+			});
+		});
+    };
+	
+			// get project data
+    this.getTeamProject = function (teamId) {
+		return new Promise(function(resolve, reject) {
+			// initialize database connection
+			connection.init();
+			// calling acquire methods and passing callback method that will be execute query
+			// return response to server
+			connection.acquire(function (err, con) {
+				var options = { sql: projectSql + joinSql + projectContactsSql + joinSql + projectSkillsSql + joinSql + skillsSql + joinSql + teamSql + joinSql + inTeamsSql + joinSql + studentsSql + "  WHERE project.allocated_team = ?", nestTables: true };
+				con.query(options, [teamId],function (err, results, fields) {
 						var nestingOptions = [
 							{ tableName : 'project', pkey: 'project_id', fkeys:[{table:'team',col:'allocated_team'}]},
 							{ tableName : 'project_contacts', pkey: 'id', fkeys:[{table:'project',col:'project_id'}]},

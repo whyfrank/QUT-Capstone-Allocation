@@ -13,7 +13,7 @@ var skillsSql = "student_skills ON students_in_teams.student_id = student_skills
 
     // get all teams data
     this.getAllTeams = function (query, isStudent, includeRequests) {
-		var inTeamSql = " WHERE students_in_teams.is_approved = 1";
+		var inTeamSql = "AND students_in_teams.is_approved = 1";
 		if (includeRequests) {
 			inTeamSql = "";
 		}
@@ -44,7 +44,7 @@ var skillsSql = "student_skills ON students_in_teams.student_id = student_skills
 			// calling acquire methods and passing callback method that will be execute query
 			// return response to server
 			connection.acquire(function (err, con) {
-				var options = { sql: 'SELECT * FROM team LEFT JOIN students_in_teams ON team.team_id = students_in_teams.team_id LEFT JOIN students ON students_in_teams.student_id = students.student_id' + joinSql + skillsSql + inTeamSql + appendedFilters + statusFilter, nestTables: true };
+				var options = { sql: 'SELECT * FROM team LEFT JOIN students_in_teams ON team.team_id = students_in_teams.team_id ' + inTeamSql + ' LEFT JOIN students ON students_in_teams.student_id = students.student_id' + joinSql + skillsSql + appendedFilters + statusFilter, nestTables: true };
 				console.log (options.sql);
 				con.query(options, function (err, results, fields) {
 					    var nestingOptions = [

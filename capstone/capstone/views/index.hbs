@@ -1,5 +1,4 @@
 <div id='left-menu'>
-	<a href='#'><span>Home</span></a>
 	{{#compare session_data.staff_type '===' 'staff'}}
 	<span class='menu-head'>Projects</span>
 		<a id='viewprojects' onclick="getApp('viewprojects')" href='#'><span>View Projects</span></a>
@@ -7,15 +6,21 @@
 		<a id="proposals" onclick="getApp('proposals')" href='#'><span>Proposals</span></a>
 	<span class='menu-head'>Students</span>
 		<a id="viewstudents" onclick="getApp('viewstudents')" href='#'><span>View Students</span></a>
+	<script>var initialPage = 'viewprojects'</script>
 	{{/compare}}
 	<span class='menu-head'>Teams</span>
 	{{#compare session_data.staff_type '===' 'student'}}
 		{{#session_data.in_team}}
 			<a id="viewmyteam" onclick="getApp('viewmyteam')" href='#'><span>My Team</span></a>
+			<a id="editteam" onclick="getApp('editteam')" href='#'><span>Edit Team</span></a>
+			<a id="viewteams" onclick="getApp('viewteams')" href='#'><span>View Teams</span></a>
+			<script>var initialPage = 'viewmyteam'</script>
 		{{else}}
 			<a id="viewteams" onclick="getApp('viewteams')" href='#'><span>Join Team</span></a>
+			<a id="editteam" onclick="getApp('editteam')" href='#'><span>Create Team</span></a>
+			<script>var initialPage = 'jointeam'</script>
 		{{/session_data.in_team}}
-		<a id="editteam" onclick="getApp('editteam')" href='#'><span>{{#session_data.in_team}}Edit Team{{else}}Create Team{{/session_data.in_team}}</span></a>
+	{{else}}
 		<a id="viewteams" onclick="getApp('viewteams')" href='#'><span>View Teams</span></a>
 	{{/compare}}
 
@@ -28,3 +33,7 @@
 <div id='content'>
 
 </div>
+<script>
+// Load the default page when the index page has loaded.
+window.onload=getApp(initialPage);
+</script>

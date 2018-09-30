@@ -1,8 +1,38 @@
-<h1>{{team.team_name}}</h1>
+<h1 id="app-name">{{team.team_name}}</h1>
 
 <!-- This is where the main 'app' on the page resides. Will make this update contents by AJAX, rather than reloading entire site. -->
 <div id='app'>
+	<div id='project-information'></div>
+	<div class="send-request-confirm" id="action-allocation">
+		<h2 id="request-confirm-name"></h2>
+		<p>Are you sure you want to <span id="tempAllocOption"></span> the project, {{project.project_name}} from {{project.company_name}}?</p>
+		<button class="prop-action-btn-ctr" onclick="allocOptionCancel()" id="cancel-btn">No</button>
+		<button class="prop-action-btn-ctr" onclick="allocOptionAccept()" id="confirm-btn">Yes</button>
+	</div>
 	<div class='students-view myteam_list' id='students-view'>
+	{{#compare project '!=' undefined}}
+		<div class="email-editor-title"><b>Preliminary Assignment of Project</b></i></div>
+		<div class='project'>
+		<span class='tag-icon {{project_milestone project}}'>{{project_milestone project}}</span>
+		<h3>{{project.company_name}} - {{project.project_name}}</h3>
+		<div class="project-details">
+			{{#is (project_milestone project) "PA"}}
+				<div class="acceptance-states">
+					<i class="fa fa-square {{project.team_accepted}}"></i>&nbspTeam Acceptance: {{project.team_accepted}}&nbsp&nbsp&nbsp
+					<i class="fa fa-square {{project.partner_accepted}}"></i> Industry Acceptance: {{project.partner_accepted}}
+				</div>
+			{{/is}}
+			<!-- Quick and dirty way for now.-->
+			{{#is (project_milestone project) "DA"}}
+				<div class="acceptance-states">
+					<i class="fa fa-square {{team_accepted}}"></i>&nbspTeam Acceptance: {{team_accepted}}&nbsp&nbsp&nbsp
+					<i class="fa fa-square {{partner_accepted}}"></i> Industry Acceptance: {{partner_accepted}}
+				</div>
+			{{/is}}
+		</div>
+		<a class='right-link' href='#' onclick="openTeamProject()">Open Project</a>
+	</div>
+	{{/compare}}
 		<div class="email-editor-title"><b>Team Members in {{team.team_name}}</b></i></div>
 		{{#team.students_in_teams}}
 			{{#compare is_approved '===' 1}}
@@ -24,8 +54,8 @@
 
 				</div>
 				<a class='right-link' href='mailto:{{students.qut_email}}'>Contact student</a>
-				<button class='project-block-btn' onclick=''>Approve join request</button>
-				<button class='project-block-btn request_decline_btn' onclick=''>Decline join request</button>
+				<button class='project-block-btn' onclick="actionAllocation(true)">Approve join request</button>
+				<button class='project-block-btn request_decline_btn' onclick="actionAllocation(false)">Decline join request</button>
 			  </div>
 			{{/compare}}
 		{{/team.students_in_teams}}

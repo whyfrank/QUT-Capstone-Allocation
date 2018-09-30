@@ -1,43 +1,51 @@
 <div id='project-individual'>
 	<div class='project-options'>
-		<button onclick="location.href='#';" class='project-block-btn'>Assign Team <i class="fa fa-users"></i></button>
-		<span>{{project.company_name}} - {{project.project_name}}</span>
-		<button onclick="location.href='#';" class='project-block-btn delete'>Delete Project <i class="fa fa-trash"></i></button>
-		<button onclick="location.href='#';" class='project-block-btn edit'>Edit Project <i class="fa fa-edit"></i></button>
+		{{#compare session_data.staff_type '===' 'staff'}}
+			<button onclick="location.href='#';" class='project-block-btn'>Assign Team <i class="fa fa-users"></i></button>
+			<span>{{project.company_name}} - {{project.project_name}}</span>
+			<button onclick="location.href='#';" class='project-block-btn delete'>Delete Project <i class="fa fa-trash"></i></button>
+			<button onclick="location.href='#';" class='project-block-btn edit'>Edit Project <i class="fa fa-edit"></i></button>
+		{{else}}
+			<span>{{project.company_name}} - {{project.project_name}}</span>
+			<button onclick="actionAllocation(false)" class='project-block-btn delete'>Decline Allocation</button>
+			<button onclick="actionAllocation(true)" class='project-block-btn edit'>Accept Allocation</button>
+		{{/compare}}
 	</div>
-	<div class='people-blocks' id='team'>
-		<div class='people-block-top'>
-			<span class='people-block-title'>Assigned Team - {{project.team.team_name}}</span>
-			<div class="people-block-btn-ext">
-				<span class="tooltiptext">Team Profile</span>
-				<button onclick="location.href='/team?id={{project.team.team_id}}';" class='people-block-btn'><i class="fa fa-users"></i></button>
+	{{#compare session_data.staff_type '===' 'staff'}}
+		<div class='people-blocks' id='team'>
+			<div class='people-block-top'>
+				<span class='people-block-title'>Assigned Team - {{project.team.team_name}}</span>
+				<div class="people-block-btn-ext">
+					<span class="tooltiptext">Team Profile</span>
+					<button onclick="location.href='/team?id={{project.team.team_id}}';" class='people-block-btn'><i class="fa fa-users"></i></button>
+				</div>
+				<div class="people-block-btn-ext">
+					<span class="tooltiptext">Send Bulk E-mail</span>
+					<button onclick="location.href='mailto:em@i.l';" class='people-block-btn'><i class="fa fa-envelope"></i></button>
+				</div>
 			</div>
-			<div class="people-block-btn-ext">
-				<span class="tooltiptext">Send Bulk E-mail</span>
-				<button onclick="location.href='mailto:em@i.l';" class='people-block-btn'><i class="fa fa-envelope"></i></button>
-			</div>
+			{{#project.team.students_in_teams}}
+				<div class='people-block'>
+					<div class='people-block-info'>
+						<h3>{{students.first_name}} {{students.last_name}}</h3>
+						<span>Student ID: {{students.student_id}}</span><br>
+						<span>Email: {{students.qut_email}}</span>
+					</div>
+					<div class='people-block-buttons'>
+						<div class="people-block-btn-ext">
+							<span class="tooltiptext">Student Profile</span>
+							<button onclick="location.href='/student?id={{students.student_id}}';" class='people-block-btn'><i class="fa fa-user"></i></button>
+						</div>
+						<div class="people-block-btn-ext">
+							<span class="tooltiptext">Send E-mail</span>
+							<button onclick="location.href='mailto:{{students.qut_email}}';" class='people-block-btn'><i class="fa fa-envelope"></i></button>
+						</div>
+					</div>
+				</div>
+			{{/project.team.students_in_teams}}
+			<div class='grp-bg' id='grp-team'><div class='grp-icon'><i class="fa fa-users"></i></div></div>
 		</div>
-		{{#project.team.students_in_teams}}
-			<div class='people-block'>
-				<div class='people-block-info'>
-					<h3>{{students.first_name}} {{students.last_name}}</h3>
-					<span>Student ID: {{students.student_id}}</span><br>
-					<span>Email: {{students.qut_email}}</span>
-				</div>
-				<div class='people-block-buttons'>
-					<div class="people-block-btn-ext">
-						<span class="tooltiptext">Student Profile</span>
-						<button onclick="location.href='/student?id={{students.student_id}}';" class='people-block-btn'><i class="fa fa-user"></i></button>
-					</div>
-					<div class="people-block-btn-ext">
-						<span class="tooltiptext">Send E-mail</span>
-						<button onclick="location.href='mailto:{{students.qut_email}}';" class='people-block-btn'><i class="fa fa-envelope"></i></button>
-					</div>
-				</div>
-			</div>
-		{{/project.team.students_in_teams}}
-		<div class='grp-bg' id='grp-team'><div class='grp-icon'><i class="fa fa-users"></i></div></div>
-	</div>
+	{{/compare}}
 	<div class='people-blocks' id='industry-contact'>
 		<h3>Industry Partner - {{project.company_name}}</h3>
 		<div class='people-block'>
