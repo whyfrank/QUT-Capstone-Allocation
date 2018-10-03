@@ -14,44 +14,45 @@
 
 {{#teams}}
 	{{#compare team_id '!=' ../team.team_id}}
-		<div class='project'>
-			<h3>{{team_name}}</h3>
-			<div class="project-details">
-				<div class="detail-header">Team members:</div>
-				<div class="detail-information">
-					{{#students_in_teams}}
-						{{#if @first}}{{else}},{{/if}}
-						{{#students}}
-							{{first_name}} {{last_name}}
-						{{/students}}
-					{{/students_in_teams}}
+		{{#teamVisible this ../session_data.staff_type}}
+			<div class='project'>
+				<h3>{{team_name}}</h3>
+				<div class="project-details">
+					<div class="detail-header">Team members:</div>
+					<div class="detail-information">
+						{{#students_in_teams}}
+							{{#if @first}}{{else}},{{/if}}
+							{{#students}}
+								{{first_name}} {{last_name}}
+							{{/students}}
+						{{/students_in_teams}}
+					</div>
+					<br><br>
+					<div class="detail-header">Total members:</div>
+					<div class="detail-information">
+						{{students_in_teams.length}}
+						&nbsp&nbsp&nbsp
+					</div>
+					<div class="detail-header">Course Combination:</div>
+					<div class="detail-information">
+						CCII
+					</div>
+					<div class="acceptance-states">
+					</div>
 				</div>
-				<br><br>
-				<div class="detail-header">Total members:</div>
-				<div class="detail-information">
-					{{students_in_teams.length}}
-					&nbsp&nbsp&nbsp
-				</div>
-				<div class="detail-header">Course Combination:</div>
-				<div class="detail-information">
-					CCII
-				</div>
-				<div class="acceptance-states">
-				</div>
-			</div>
 
 
-			{{#compare ../session_data.staff_type '===' 'staff'}}
-				<a class='right-link' href='#'>Open Team</a>
-			{{/compare}}
-			{{#compare ../session_data.staff_type '===' 'student'}}
-				{{#compare ../team '==' false}}
-					<button class='project-block-btn' onclick='joinTeam({{team_id}})'>Request to join</button>
-				{{else}}
-					<button class='project-block-btn' onclick='confirmJoinTeam("{{team_name}}")'>Cancel Current Request & Request to join</button>
+				{{#compare ../session_data.staff_type '===' 'staff'}}
+					<a class='right-link' href='#'>Open Team</a>
 				{{/compare}}
-			{{/compare}}
-
-		</div>
+				{{#compare ../session_data.staff_type '===' 'student'}}
+					{{#compare ../team '==' false}}
+						<button class='project-block-btn' onclick='joinTeam({{team_id}})'>Request to join</button>
+					{{else}}
+						<button class='project-block-btn' onclick='confirmJoinTeam("{{team_name}}")'>Cancel Current Request & Request to join</button>
+					{{/compare}}
+				{{/compare}}
+			</div>
+		{{/teamVisible}}
 	{{/compare}}
 {{/teams}}

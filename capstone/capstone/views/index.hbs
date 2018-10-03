@@ -11,13 +11,19 @@
 	<span class='menu-head'>Teams</span>
 	{{#compare session_data.staff_type '===' 'student'}}
 		{{#session_data.in_team}}
+		<!-- If the student is in a team, display the team related pages. -->
 			<a id="viewmyteam" onclick="getApp('viewmyteam')" href='#'><span>My Team</span></a>
-			<a id="editteam" onclick="getApp('editteam')" href='#'><span>Edit Team</span></a>
-			<a id="viewteams" onclick="getApp('viewteams')" href='#'><span>View Teams</span></a>
+			{{#compare session_data.team_approved '===' 1}}
+				<a id="editteam" onclick="getApp('editteam')" href='#'><span>Edit Team</span></a>
+			{{else}}
+				<a id="editteam" onclick="getApp('editteam')" href='#'><span>Create Team</span></a>
+				<a id="viewteams" onclick="getApp('viewteams')" href='#'><span>Join Team</span></a>
+			{{/compare}}
 			<script>var initialPage = 'viewmyteam'</script>
 		{{else}}
-			<a id="viewteams" onclick="getApp('viewteams')" href='#'><span>Join Team</span></a>
+			<!-- These links will be available to all students who are not in a team, or are awaiting approval. -->
 			<a id="editteam" onclick="getApp('editteam')" href='#'><span>Create Team</span></a>
+			<a id="viewteams" onclick="getApp('viewteams')" href='#'><span>Join Team</span></a>
 			<script>var initialPage = 'jointeam'</script>
 		{{/session_data.in_team}}
 	{{else}}

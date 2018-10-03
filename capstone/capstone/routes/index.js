@@ -51,6 +51,25 @@ router.get('/action-project', async function(req, res, next) {
 	res.redirect('/viewmyteam');
 });
 
+/* GET action-joinrequest page. */
+router.get('/action-joinrequest', async function(req, res, next) {
+	var session_data = req.session;
+	var isAccept = "false";
+	if (req.query.is_accept == "true") {
+		isAccept = "true";
+	}
+	if (req.query.student != undefined) {
+		student = req.query.student;
+	}
+	
+	await teams_data.actionJoinRequest(student, isAccept, session_data.in_team).then(function (outcome) {
+		this.outcome = outcome;
+		console.log(outcome);
+	})
+	
+	res.redirect('/viewmyteam');
+});
+
 /* GET view allocation. */
 router.get('/allocation', async function(req, res, next) {
     res.render('allocation', {layout: false});
@@ -318,8 +337,12 @@ router.get('/viewmyteam', async function(req, res, next) {
 	})
 	
 	// If the student hasn't been accepted into the team, do not display team info.
-	if (inTeam.is_approved != 1) {
+	if (inTeam.is_approved == 0) {
 		res.render('team-approval-pending', {layout: false, session_data: session_data, team: this.team});
+	} else if (inTeam.is_approved == -1) {
+		await students_data.removeStudentFromTeam(session_data.student_id, session_data.in_team);
+		session_data.in_team = false;
+		res.render('team-approval-rejected', {layout: false, session_data: session_data, team: this.team});
 	} else {
 		res.render('viewmyteam', {layout: false, team: this.team, project: this.project});
 	}
@@ -342,12 +365,18 @@ router.get('/editteam', async function(req, res, next) {
 			console.log(this.inTeam);
 		})
 	}
-  
+	if (inTeam != undefined) {
+		if (inTeam.is_approved == -1) {
+			await students_data.removeStudentFromTeam(session_data.student_id, session_data.in_team);
+			session_data.in_team = false;
+		}
+		if (!isNewTeam && inTeam.is_approved == 0) {
+			res.render('team-approval-pending', {layout: false, session_data: session_data, team: this.team});
+		} 
+	}
   	// If the student hasn't been accepted into the team, do not display team info.
-	if (!isNewTeam && inTeam.is_approved != 1) {
-		res.render('team-approval-pending', {layout: false, session_data: session_data, team: this.team});
-	} else {
-		res.render('editteam', {layout: false, team: this.team, isNewTeam: isNewTeam});
+	else {
+		res.render('editteam', {layout: false, team: this.team, isNewTeam: isNewTeam, inTeam: this.inTeam});
 	}
 });
 
@@ -360,7 +389,7 @@ router.get('/team-list', async function(req, res, next) {
 	if (session_data.staff_type == 'student') {
 		isStudent = true;
 		this.joinTeamEnabled = true;
-		if (session_data.in_team != undefined) {
+		if (session_data.in_team != false) {
 			await teams_data.getStudentTeam(session_data.student_id, true).then(function (inTeam) {
 				this.inTeam = inTeam;
 				console.log(this.inTeam);
@@ -437,6 +466,10 @@ router.post('/login', async function(req, res, next) {
 			await teams_data.getStudentTeam(login.student_id).then(function (team) {
 				if (team != undefined) {
 					session_data.in_team = team.team_id;
+					session_data.team_approved = team.is_approved;
+				} else {
+					session_data.in_team = false;
+					session_data.team_approved = false;
 				}
 			})
 			session_data.qut_email = login.qut_email;

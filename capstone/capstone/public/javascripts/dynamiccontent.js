@@ -19,9 +19,6 @@ function getApp(app_name) {
   xmlhttp.onreadystatechange=function() {
 	// If the response is ready, and OK, then display the results in the contents section.
 	if (this.readyState==4 && this.status==200) {
-
-	  // Does nothing but show the loading screen for debugging purposes.
-	  sleep(300);
 	  document.getElementById("content").innerHTML=this.responseText;
 	  if (app_name == "viewprojects") {
 		grabProjectList();
@@ -34,8 +31,6 @@ function getApp(app_name) {
     }
 	} else if (this.readyState==4 && this.status==404) {
 	  document.getElementById("content").innerHTML="<h2>This resource cannot be found: Error " + this.status + ".</h2>";
-	} else if (this.readyState==4) {
-	  document.getElementById("content").innerHTML="<h2>An error has occured: Error " + this.status + ".</h2>";
 	}
   }
   xmlhttp.open("GET",app_name,true);

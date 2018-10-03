@@ -5,6 +5,7 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var mysql_nesting = require('node-mysql-nesting');
 
+var capstoneConfiguration = require('./configuration/CapstoneConfiguration');
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 
@@ -49,6 +50,19 @@ hbs.registerHelper('test', function(variable,context){
 	return new hbs.SafeString(variable);
 });
 
+// A helper used to determine if a team should be visible within a team-list, in regards to teams
+// that students should NOT be able to register into.
+hbs.registerHelper('teamVisible', function(team, staff_type, context){
+	// If the user is a student, and this team has more than 3 members, then do not display the team.
+	if (team.students_in_teams.length >= capstoneConfiguration.MAX_STUDENTS_PER_TEAM && staff_type == "student") {
+		return context.inverse(this);
+	} else {
+		return context.fn(this);
+	}
+});
+
+//Sets various codes for displaying a project milestone, depending on multiple factors of the
+//current allocation progress for a project.
 hbs.registerHelper('project_milestone', function(project,context){
 	// Check if not assigned
 	if (project.allocated_team == null) {

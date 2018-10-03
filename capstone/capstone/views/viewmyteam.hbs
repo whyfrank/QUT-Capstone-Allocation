@@ -10,6 +10,9 @@
 		<button class="prop-action-btn-ctr" onclick="allocOptionAccept()" id="confirm-btn">Yes</button>
 	</div>
 	<div class='students-view myteam_list' id='students-view'>
+	
+	<!-- If a project has been assigned to the team, then display the relevant information -->
+	
 	{{#compare project '!=' undefined}}
 		<div class="email-editor-title"><b>Preliminary Assignment of Project</b></i></div>
 		<div class='project'>
@@ -33,7 +36,9 @@
 		<a class='right-link' href='#' onclick="openTeamProject()">Open Project</a>
 	</div>
 	{{/compare}}
-		<div class="email-editor-title"><b>Team Members in {{team.team_name}}</b></i></div>
+	
+	<!-- Display the list of students in the team -->
+	<div class="email-editor-title"><b>Team Members in {{team.team_name}}</b></i></div>
 		{{#team.students_in_teams}}
 			{{#compare is_approved '===' 1}}
 			  <div class='project'>
@@ -45,6 +50,8 @@
 			  </div>
 			{{/compare}}
 		{{/team.students_in_teams}}
+		
+		<!-- Display the list of students who have requested to join the team -->
 		<div class="email-editor-title"><b>Peers requesting to join {{team.team_name}}</b></i></div>
 		{{#team.students_in_teams}}
 			{{#compare is_approved '===' 0}}
@@ -54,8 +61,8 @@
 
 				</div>
 				<a class='right-link' href='mailto:{{students.qut_email}}'>Contact student</a>
-				<button class='project-block-btn' onclick="actionAllocation(true)">Approve join request</button>
-				<button class='project-block-btn request_decline_btn' onclick="actionAllocation(false)">Decline join request</button>
+				<button class='project-block-btn' onclick="actionJoinRequest(true, {{students.student_id}})">Approve join request</button>
+				<button class='project-block-btn request_decline_btn' onclick="actionJoinRequest(false, {{students.student_id}})">Decline join request</button>
 			  </div>
 			{{/compare}}
 		{{/team.students_in_teams}}

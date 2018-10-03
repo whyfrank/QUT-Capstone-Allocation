@@ -56,3 +56,7 @@ function closeTeamProject() {
 	document.getElementById("students-view").style.display = "block";
 	document.getElementById("app-name").innerHTML = teamName;
 }
+
+function actionJoinRequest(isApproved, studentId) {
+	getContent(null, 'content', 'action-joinrequest?is_accept=' + isApproved + "&student=" + studentId, false);
+}
