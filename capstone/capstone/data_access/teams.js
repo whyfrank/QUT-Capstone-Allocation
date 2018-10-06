@@ -106,6 +106,27 @@ var skillsSql = "student_skills ON students_in_teams.student_id = student_skills
 			});
 		});
     };
+	
+	this.actionJoinRequest = function (student, isApproved, teamId) {
+		
+		var state = -1;
+		if (isApproved == 'true') {
+			state = 1;
+		}
+		return new Promise(function(resolve, reject) {
+			// initialize database connection
+			connection.init();
+			// calling acquire methods and passing callback method that will be execute query
+			// return response to server
+			connection.acquire(function (err, con) {
+				var options = { sql: "UPDATE students_in_teams SET is_approved = ? WHERE student_id = ? AND team_id = ?", nestTables: true };
+				con.query(options, [state, student, teamId], function (err, results, fields) {
+					con.release();
+					resolve(true);
+				});
+			});
+		});
+    };
 
 
 }

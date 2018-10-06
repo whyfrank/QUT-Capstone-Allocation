@@ -57,6 +57,20 @@ function Students() {
         });
       });
     }
+	
+	// Will remove a student from a team.
+    this.removeStudentFromTeam = function(student_id, team_id){
+      return new Promise(function(resolve, reject) {
+        connection.init();
+        connection.acquire(function (err, con) {
+          var options = { sql: 'DELETE FROM students_in_teams WHERE student_id = ? AND team_id = ?' };
+          con.query(options, [student_id, team_id], function (err, results, fields) {
+          resolve();
+          con.release();
+          });
+        });
+      });
+    }
 }
 
 module.exports = new Students();
