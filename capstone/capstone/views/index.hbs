@@ -13,11 +13,13 @@
 		{{#session_data.in_team}}
 		<!-- If the student is in a team, display the team related pages. -->
 			<a id="viewmyteam" onclick="getApp('viewmyteam')" href='#'><span>My Team</span></a>
+			<!-- Show only Edit Team if this student has been approved by the tea, -->
 			{{#compare session_data.team_approved '===' 1}}
 				<a id="editteam" onclick="getApp('editteam')" href='#'><span>Edit Team</span></a>
-			{{else}}
+			{{else}}				
 				<a id="editteam" onclick="getApp('editteam')" href='#'><span>Create Team</span></a>
 				<a id="viewteams" onclick="getApp('viewteams')" href='#'><span>Join Team</span></a>
+				<a id="cancelrequest" href='cancelRequest'><span>Cancel Join Request</span></a>
 			{{/compare}}
 			<script>var initialPage = 'viewmyteam'</script>
 		{{else}}

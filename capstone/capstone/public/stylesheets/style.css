@@ -948,3 +948,7 @@ header span {
 	display: none;
 	height: calc(100% - 50px);
 }
+
+.cancelRequestBtn {
+	text-align: center;
+}
