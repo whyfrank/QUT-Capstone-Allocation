@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>QUT Capstone</title>
+		<link rel='stylesheet' href='/stylesheets/style.css' />
+		<script src="javascripts/alertify.js"></script>
+		<link rel="stylesheet" href="stylesheets/alertify.core.css" />
+		<link rel="stylesheet" href="stylesheets/alertify.default.css" />
+	</head>
+	<body>
+		<div class="proposal-section">
+
+			<form id="proposalForm" method="POST">
+				<h2>Industry Project Proposal Form</h2>
+
+				<label for="companyName">Company Name: </label>
+				<br>
+				<input class="login-field" type="text" placeholder="Enter Company Name" id="companyname" name="companyname" required>
+				<br>
+				<label for="projectName">Project Name: </label>
+				<br>
+				<input class="login-field" type="text" placeholder="Enter Project Name" id="projectname" name="projectname" required>
+				<br>
+				<label for="industry">Industry: </label>
+				<br>
+				<input class="login-field" type="text" placeholder="Enter Industry" id="industry" name="industry" required>
+				<br>
+				<label for="description">Description: </label>
+				<br>
+				<input class="login-field" type="text" placeholder="Enter a Description" id="description" name="description" required>
+				<br>
+
+				<!-- <br>
+				<label for="difficulty">Difficulty: </label>
+				<br>
+				<select name="difficulty" placeholder="Select Difficulty" id="difficulty" required>
+						{{#difficulty}}
+								<option>{{item}}</option>
+						{{/difficulty}}
+				</select>
+				<br> -->
+
+
+
+				<button type="button" class="login-button" id="submit">Submit Proposal</button>
+			</form>
+		</div>
+
+
+
+
+
+			{{#if submitFailure}}
+				<script>
+					alertify.error("Please fill in all fields.");
+				</script>
+			{{/if}}
+
+	</body>
+</html>

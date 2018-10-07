@@ -10,6 +10,9 @@ var teams_data = require('../data_access/teams');
 var students_data = require('../data_access/students');
 var login_data = require('../data_access/login');
 var register_data = require('../data_access/register');
+var proposal_data = require('../data_access/industryproposal');
+
+
 
 var project_assign = require('../utils/project_assign');
 var outlook_auth = require('../utils/outlook_auth');
@@ -42,12 +45,12 @@ router.get('/action-project', async function(req, res, next) {
 		this.project = project[0];
 		console.log(project);
 	})
-	
+
 	await projects_data.actionProject(project.project_id, isAccept, session_data.staff_type).then(function (outcome) {
 		this.outcome = outcome;
 		console.log(outcome);
 	})
-	
+
 	res.redirect('/viewmyteam');
 });
 
@@ -61,12 +64,12 @@ router.get('/action-joinrequest', async function(req, res, next) {
 	if (req.query.student != undefined) {
 		student = req.query.student;
 	}
-	
+
 	await teams_data.actionJoinRequest(student, isAccept, session_data.in_team).then(function (outcome) {
 		this.outcome = outcome;
 		console.log(outcome);
 	})
-	
+
 	res.redirect('/viewmyteam');
 });
 
@@ -173,7 +176,7 @@ router.post('/allocation-finalize', async function(req, res, next) {
 	this.teamImportance = req.body.teamImportance;
 	this.userEmail = req.body.userEmail;
 	this.isSuccessful = true; //TODO: Check with actual values
-	
+
 	await teams_data.getTeam(req.body.teamId, false).then(function (team) {
 		this.team = team[0];
 	})
@@ -182,14 +185,14 @@ router.post('/allocation-finalize', async function(req, res, next) {
 	})
 	var students = this.team.students_in_teams;
 	var teamEmails = [];
-	
+
 	for (var i = 0; i < students.length; i++) {
 		teamEmails.push(students[i].students.qut_email);
 		console.log(teamEmails[i]);
 	}
-	
+
 	var result = await outlook_actions.sendMail(token, teamSubject, teamImportance, teamBody, teamEmails, userEmail);
-	
+
 	projects_data.allocateProject(team.team_id, project.project_id);
 	res.render('allocation-finalized', {layout: false, project: project, team: team, isSuccessful, isSuccessful});
 });
@@ -236,21 +239,21 @@ router.get('/project', async function(req, res, next) {
 	var session_data = req.session;
 	if (req.session.staff_type == "staff") {
 		this.id = req.query.id;
-		
+
 		await projects_data.getProject(this.id).then(function (project) {
 			this.project = project[0];
 			console.log(project);
 		})
-	} else {	
+	} else {
 		await teams_data.getStudentTeam(session_data.student_id, true).then(function (inTeam) {
 			this.inTeam = inTeam;
 			console.log(this.inTeam);
 		})
-		
+
 		if (this.inTeam.is_approved != 1) {
 			res.render('team-approval-pending', {layout: false, session_data: session_data, team: this.team});
 			return;
-		} else {			
+		} else {
 			await projects_data.getTeamProject(session_data.in_team).then(function (project) {
 				this.project = project[0];
 				console.log(project);
@@ -317,7 +320,7 @@ router.get('/jointeam', async function(req, res, next) {
 	var session_data = req.session;
 	var team_id = req.query.team_id;
 	session_data.in_team = team_id;
-	
+
 	await students_data.requestJoinTeam(session_data.student_id, team_id).then(function (result) {
 		this.result = result;
 		console.log(result);
@@ -328,17 +331,17 @@ router.get('/jointeam', async function(req, res, next) {
 /* GET view my team. */
 router.get('/viewmyteam', async function(req, res, next) {
 	var session_data = req.session;
-	
+
 	await teams_data.getTeam(session_data.in_team, true).then(function (team) {
 		this.team = team[0];
 		console.log(team);
 	})
-	
+
 	await teams_data.getStudentTeam(session_data.student_id, true).then(function (inTeam) {
 		this.inTeam = inTeam;
 		console.log(this.inTeam);
 	})
-	
+
 	this.project;
 	await projects_data.getAllProjects().then(function (projects) {
 		for (var i = 0; i < projects.length; i++) {
@@ -349,6 +352,7 @@ router.get('/viewmyteam', async function(req, res, next) {
 			}
 		}
 	})
+<<<<<<< HEAD
 	if (inTeam != undefined) {
 		// If the student hasn't been accepted into the team, do not display team info.
 		if (inTeam.is_approved == 0) {
@@ -360,6 +364,16 @@ router.get('/viewmyteam', async function(req, res, next) {
 		} else {
 			res.render('viewmyteam', {layout: false, team: this.team, project: this.project});
 		}
+=======
+
+	// If the student hasn't been accepted into the team, do not display team info.
+	if (inTeam.is_approved == 0) {
+		res.render('team-approval-pending', {layout: false, session_data: session_data, team: this.team});
+	} else if (inTeam.is_approved == -1) {
+		await students_data.removeStudentFromTeam(session_data.student_id, session_data.in_team);
+		session_data.in_team = false;
+		res.render('team-approval-rejected', {layout: false, session_data: session_data, team: this.team});
+>>>>>>> origin/master
 	} else {
 		res.redirect('/');
 	}
@@ -382,6 +396,7 @@ router.get('/editteam', async function(req, res, next) {
 			console.log(this.inTeam);
 		})
 	}
+
 	if (inTeam != undefined) {
 		if (inTeam.is_approved == -1) {
 			await students_data.removeStudentFromTeam(session_data.student_id, session_data.in_team);
@@ -389,7 +404,7 @@ router.get('/editteam', async function(req, res, next) {
 		}
 		if (!isNewTeam && inTeam.is_approved == 0) {
 			res.render('team-approval-pending', {layout: false, session_data: session_data, team: this.team});
-		} 
+		}
 	}
   	// If the student hasn't been accepted into the team, do not display team info.
 	else {
@@ -414,7 +429,7 @@ router.get('/team-list', async function(req, res, next) {
 					this.joinTeamEnabled = false;
 				}
 			})
-			
+
 			await teams_data.getTeam(inTeam.team_id, true).then(function (team) {
 				this.team = team[0];
 				console.log(this.team);
@@ -551,6 +566,51 @@ router.post('/register', async function(req, res, next) {
       res.redirect('/login');
     }
 });
+
+
+/* GET Industry Project Proposal Form. */
+router.get('/industryproposal', async function(req, res, next) {
+	// await proposal_data.getDifficulty().then(function (difficulty) {
+	// 	this.difficulty = difficulty;
+	// 	console.log(difficulty);
+	// })
+	//
+	// await proposal_data.getPriority().then(function (priority) {
+	// 	this.priority = priority;
+	// 	console.log(priority);
+	// })
+	//
+	// await proposal_data.getPreferredCourseCombination().then(function (preferredcombination) {
+	// 	this.preferredcombination = preferredcombination;
+	// 	console.log(preferredcombination);
+	// })
+	res.render('industryproposal', {layout: false});
+
+  // res.render('industryproposal', {layout: false, difficulty: this.difficulty, priority: this.priority, preferredcombination: this.preferredcombination});
+});
+
+/* POST Industry Project Proposal Form. */
+router.post('/industryproposal', async function(req, res, next) {
+  var proposal={
+        company_name:req.body.companyname,
+        project_name:req.body.projectname,
+        industry:req.body.industry,
+        description:req.body.description
+    }
+
+  await proposal_data.submitProposal(proposal).then(function (submit) {
+      this.submit = submit;
+      console.log(submit);
+    })
+    if (submit == false) {
+      res.render('industryproposal', {layout: false, submitFailure: true});
+    } else {
+      res.redirect('/');
+    }
+});
+
+
+
 
 
 module.exports = router;
