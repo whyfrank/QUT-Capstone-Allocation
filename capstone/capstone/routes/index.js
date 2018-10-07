@@ -352,7 +352,6 @@ router.get('/viewmyteam', async function(req, res, next) {
 			}
 		}
 	})
-<<<<<<< HEAD
 	if (inTeam != undefined) {
 		// If the student hasn't been accepted into the team, do not display team info.
 		if (inTeam.is_approved == 0) {
@@ -364,16 +363,6 @@ router.get('/viewmyteam', async function(req, res, next) {
 		} else {
 			res.render('viewmyteam', {layout: false, team: this.team, project: this.project});
 		}
-=======
-
-	// If the student hasn't been accepted into the team, do not display team info.
-	if (inTeam.is_approved == 0) {
-		res.render('team-approval-pending', {layout: false, session_data: session_data, team: this.team});
-	} else if (inTeam.is_approved == -1) {
-		await students_data.removeStudentFromTeam(session_data.student_id, session_data.in_team);
-		session_data.in_team = false;
-		res.render('team-approval-rejected', {layout: false, session_data: session_data, team: this.team});
->>>>>>> origin/master
 	} else {
 		res.redirect('/');
 	}
