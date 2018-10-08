@@ -92,8 +92,8 @@ function IndustryProposal() {
         // return response to server
         connection.acquire(function (err, con) {
 
-			  var options = { sql: 'INSERT INTO project (company_name, project_name, industry, description) VALUES (?, ?, ?, ?)' };
-              con.query(options, [proposal.company_name, proposal.project_name, proposal.industry, proposal.description], function (error, response) {
+			  var options = { sql: 'INSERT INTO project (company_name, project_name, industry, description, status, liaison_accepted, academic_accepted, partner_accepted, team_accepted) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)' };
+              con.query(options, [proposal.company_name, proposal.project_name, proposal.industry, proposal.description, "Not Assigned", "Pending","Pending","Pending", "Pending"], function (error, response) {
                 if (error) throw error;
                 resolve(true);
 

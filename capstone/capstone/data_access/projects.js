@@ -97,8 +97,10 @@ var studentsSql = "students ON students_in_teams.student_id = students.student_i
 			userAccepted = "academic_accepted"
 		} else if (staffType == "student") {
 			userAccepted = "team_accepted"
-		}
-		
+		} else if (staffType == "industry"){
+      userAccepted = "liaison_accepted"
+    }
+
 		var state = 'Declined';
 		if (isApproved == 'true') {
 			state = 'Approved';
@@ -169,7 +171,7 @@ var studentsSql = "students ON students_in_teams.student_id = students.student_i
 			});
 		});
     };
-	
+
 			// get project data
     this.getTeamProject = function (teamId) {
 		return new Promise(function(resolve, reject) {
@@ -196,7 +198,7 @@ var studentsSql = "students ON students_in_teams.student_id = students.student_i
 			});
 		});
     };
-	
+
 	// Set a team for a project.
     this.allocateProject = function (teamId, projectId) {
 		return new Promise(function(resolve, reject) {

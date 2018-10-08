@@ -76,14 +76,14 @@ router.get('/action-joinrequest', async function(req, res, next) {
 /* GET cancelRequest page. */
 router.get('/cancelRequest', async function(req, res, next) {
 	var session_data = req.session;
-	
+
 	await students_data.removeStudentFromTeam(session_data.student_id, session_data.in_team).then(function (outcome) {
 		this.outcome = outcome;
 		console.log(outcome);
 	})
-	
+
 	session_data.in_team == false;
-	
+
 	res.redirect('/');
 });
 
@@ -471,8 +471,12 @@ router.post('/login', async function(req, res, next) {
 			session_data.qut_email = login.qut_email;
 			session_data.first_name = login.First_name;
 			session_data.last_name = login.last_name;
-			session_data.staff_type = "staff";
 
+			if (login.staff_type == "Industry Liason"){
+				session_data.staff_type = "industry";
+			} else {
+				session_data.staff_type = "staff";
+			}
 			res.redirect('/');
 		}
 
