@@ -92,12 +92,12 @@ function IndustryProposal() {
         // return response to server
         connection.acquire(function (err, con) {
 
-			  options = { sql: 'INSERT INTO project (company_name, project_name, industry, description) VALUES (?, ?, ?, ?)' };
-              con.query(options, [proposal.companyname, proposal.projectname, proposal.industry, proposal.description], function (error, response) {
+			  var options = { sql: 'INSERT INTO project (company_name, project_name, industry, description) VALUES (?, ?, ?, ?)' };
+              con.query(options, [proposal.company_name, proposal.project_name, proposal.industry, proposal.description], function (error, response) {
                 if (error) throw error;
                 resolve(true);
 
-				            con.release();
+				      con.release();
               });
             });
         });
