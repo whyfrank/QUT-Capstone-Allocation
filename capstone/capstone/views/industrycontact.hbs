@@ -1,0 +1,56 @@
+<!-- <div id="proposal-wrapper">
+	<div id="proposal-confirmation">
+		<div id="proposal-confirmation-content">
+			<h3>Confirm the following action for {{proposal.company_name}} - {{proposal.project_name}}:</h3>
+			<h2 id="action-name"></h2>
+			<button class="prop-action-btn-ctr" onclick="approveCancel()" id="cancel-btn">Cancel</button>
+			<button class="prop-action-btn-ctr" onclick="proposalConfirm({{proposal.project_id}})" id="confirm-btn">Confirm</button>
+		</div>
+	</div>
+	<div id="proposal-content">
+		<div class="proposal-element">
+			<span><b>Title of the proposed project: </b></span><p style="font-size: 20px">{{proposal.project_name}}</p>
+		</div>
+		<div class="proposal-element">
+			<span><b>Discipline Area of the Project: </b></span><p>{{proposal.industry}}</p>
+		</div>
+		<h2 class="proposal-header">Industry Partner Key Contact Details</h2>
+		<div class="proposal-element">
+			<span><b>Industry Partner: </b></span>
+			<p>Organisation Name: {{proposal.company_name}}</p>
+			<p>Address: {{proposal.address}}</p>
+			<p>ABN: {{proposal.abn}}</p>
+		</div>
+		<div class="proposal-element">
+			{{#proposal.project_contacts}}
+				<span><b>Supervisor: </b></span><br><br>
+				<p>Name: {{first_name}} {{last_name}}</p>
+				<p>Email: {{email}}</p>
+				<p>Phone: {{phone}}</p>
+			{{/proposal.project_contacts}}
+		</div>
+		<h2 class="proposal-header">Project Details</h2>
+		<div class="proposal-element">
+			<span><b>Your Organisation: </b></span><p>{{proposal.about_company}}</p>
+		</div>
+		<div class="proposal-element">
+			<span><b>Project Description: </b></span><p>{{proposal.description}}</p>
+			<span><b>Project Deliverables: </b></span><p>{{proposal.scope_deliverables}}</p>
+		</div>
+		<div class="proposal-element">
+			<span><b>Required Knowledge: </b></span><p>{{proposal.req_knowledge}}</p>
+			<span><b>Required Skills: </b></span>{{#proposal.project_skills}}<p>&#8226; {{skills.skill_name}}</p>{{/proposal.project_skills}}
+		</div>
+	</div>
+</div>
+<div id="prop-action-bar">
+	<button class="prop-action-btn" onclick="proposalDisplayConfirm(true)" id="acc-btn">Accept</button>
+	<button class="prop-action-btn" onclick="proposaldeclineForm()" id="dec-btn">Decline</button>
+</div>
+<div id="prop-decline-bar">
+	<form action='#'>
+		<textarea name="decline-message" id="decline-message" placeholder="Provide an explanation for rejection of this proposal."></textarea>
+		<button class="prop-action-btn" onclick="proposalDisplayConfirm(false)" id="submit-btn">Submit</button>
+		<button class="prop-action-btn" onclick="rejectCancel()" id="cancel-btn">Cancel</button>
+	</form>
+</div> -->

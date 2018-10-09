@@ -1,0 +1,28 @@
+<h1>Pending Industry Partner Contact Details to be Updated</h1>
+
+<!-- This is where the main 'app' on the page resides. Will make this update contents by AJAX, rather than reloading entire site. -->
+<div id='app'>
+	<div class='proposals-view'>
+		{{#proposals}}
+			<a class='project-li' id="{{project.project_id}}" onclick="getContent('{{project.project_id}}', 'proposal-view', 'proposal', true)">
+				<h3>{{project.company_name}} - {{project.project_name}}</h3>
+			</a>
+		{{/proposals}}
+<!-- 		<a class='project-li' id="43" onclick="getProposal('43')">
+			<h3>Koogle - Matroid Security Enhancements</h3>
+		</a>
+		<a class='project-li'>
+			<h3>Disco Systems - Enterprise Router Functional Analysis</h3>
+		</a>
+		<a class='project-li'>
+			<h3>Brisbane Technology Services - Technology Servicing</h3>
+		</a> -->
+	</div>
+	<div id='proposal-view'>
+		{{#if isEmpty}}
+			<div id='proposal-helper'>&nbsp&nbsp&nbsp All caught up! No partners to update.</div>
+		{{else}}
+			<div id='proposal-helper'><i class="fa fa-hand-o-left"></i>&nbsp&nbsp&nbsp Click on a partner to update</div>
+		{{/if}}
+	</div>
+</div>

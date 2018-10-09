@@ -302,6 +302,44 @@ router.get('/proposals', async function(req, res, next) {
   res.render('proposals', {layout: false, proposals: this.proposals, isEmpty: this.isEmpty});
 });
 
+/* GET Industry Partner Contact Details. */
+router.get('/industrycontacts', async function(req, res, next) {
+	// await projects_data.getAllProposals().then(function (proposals) {
+	// 	this.proposals = proposals;
+	// 	console.log(proposals);
+	// })
+	// var isEmpty;
+	// if (proposals.length > 0) {
+	// 	isEmpty = false;
+	// } else {
+	// 	isEmpty = true;
+	// }
+	// console.log(isEmpty);
+  // res.render('industrycontacts', {layout: false, proposals: this.proposals, isEmpty: this.isEmpty});
+	res.render('industrycontacts', {layout: false, proposals: this.proposals});
+
+});
+
+// /* GET Industry Contact. */
+// router.get('/industrycontact', async function(req, res, next) {
+// 	var id = req.query.id;
+// 	await projects_data.getProposal(id).then(function (proposal) {
+// 		this.proposal = proposal[0];
+// 		console.log(proposal);
+// 	})
+//   res.render('industrycontact', {layout: false, proposal: this.proposal});
+// });
+//
+// /* POST Industry Contact. */
+// router.post('/industrycontact', async function(req, res, next) {
+// 	var id = req.query.id;
+// 	await projects_data.getProposal(id).then(function (proposal) {
+// 		this.proposal = proposal[0];
+// 		console.log(proposal);
+// 	})
+//   res.render('industrycontact', {layout: false, proposal: this.proposal});
+// });
+
 /* GET view teams. */
 router.get('/viewteams', async function(req, res, next) {
 	var session_data = req.session;

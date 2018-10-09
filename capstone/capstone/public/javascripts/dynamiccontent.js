@@ -28,7 +28,10 @@ function getApp(app_name) {
     grabTeamList();
     } else if (app_name == "allocation"){
     grabAllocation(false);
-    }
+  }
+
+
+
 	} else if (this.readyState==4 && this.status==404) {
 	  document.getElementById("content").innerHTML="<h2>This resource cannot be found: Error " + this.status + ".</h2>";
 	}
@@ -47,7 +50,7 @@ function getContent(id, div, template, isMenu, concatQuery) {
 	template = template + "?id=" + id;
   }
   if (concatQuery != null) {
-	 template = template + concatQuery; 
+	 template = template + concatQuery;
   }
 
   if (isMenu) {
@@ -101,6 +104,7 @@ function sleep(milliseconds) {
     }
   }
 }
+
 
 /* STUDENTS functions */
 
