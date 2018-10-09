@@ -1,13 +1,12 @@
 <h1>Pending Industry Partner Contact Details to be Updated</h1>
 
-<!-- This is where the main 'app' on the page resides. Will make this update contents by AJAX, rather than reloading entire site. -->
 <div id='app'>
 	<div class='proposals-view'>
-		{{#proposals}}
-			<a class='project-li' id="{{project.project_id}}" onclick="getContent('{{project.project_id}}', 'proposal-view', 'proposal', true)">
-				<h3>{{project.company_name}} - {{project.project_name}}</h3>
+		{{#partners}}
+		<a class='project-li' id="{{project_contacts.id}}" onclick="getContent('{{project_contacts.id}}', 'proposal-view', 'partner', true)">
+				<h3>{{project_contacts.id}} - {{project_contacts.project_id}}</h3>
 			</a>
-		{{/proposals}}
+		{{/partners}}
 <!-- 		<a class='project-li' id="43" onclick="getProposal('43')">
 			<h3>Koogle - Matroid Security Enhancements</h3>
 		</a>

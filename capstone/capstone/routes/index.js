@@ -304,19 +304,18 @@ router.get('/proposals', async function(req, res, next) {
 
 /* GET Industry Partner Contact Details. */
 router.get('/industrycontacts', async function(req, res, next) {
-	// await projects_data.getAllProposals().then(function (proposals) {
-	// 	this.proposals = proposals;
-	// 	console.log(proposals);
-	// })
-	// var isEmpty;
-	// if (proposals.length > 0) {
-	// 	isEmpty = false;
-	// } else {
-	// 	isEmpty = true;
-	// }
-	// console.log(isEmpty);
-  // res.render('industrycontacts', {layout: false, proposals: this.proposals, isEmpty: this.isEmpty});
-	res.render('industrycontacts', {layout: false, proposals: this.proposals});
+	await proposal_data.getAllPendingPartners().then(function (partners) {
+		this.partners = partners;
+		console.log(partners);
+	})
+	var isEmpty;
+	if (partners.length > 0) {
+		isEmpty = false;
+	} else {
+		isEmpty = true;
+	}
+	console.log(isEmpty);
+  res.render('industrycontacts', {layout: false, partners: this.partners, isEmpty: this.isEmpty});
 
 });
 

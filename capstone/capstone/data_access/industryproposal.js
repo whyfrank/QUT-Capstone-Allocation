@@ -93,15 +93,45 @@ function IndustryProposal() {
         connection.acquire(function (err, con) {
 
 			  var options = { sql: 'INSERT INTO project (company_name, project_name, industry, description, status, liaison_accepted, academic_accepted, partner_accepted, team_accepted) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)' };
-              con.query(options, [proposal.company_name, proposal.project_name, proposal.industry, proposal.description, "Not Assigned", "Pending","Pending","Pending", "Pending"], function (error, response) {
-                if (error) throw error;
-                resolve(true);
+        con.query(options, [proposal.company_name, proposal.project_name, proposal.industry, proposal.description, "Not Assigned", "Pending","Pending","Pending", "Pending"], function (error, response) {
+          if (error) throw error;
+          resolve(true);
+          });
 
-				      con.release();
-              });
+          var project_id;
+
+          // get ID of project and insert into new row of project_contacts
+          options = { sql: "SELECT project_id FROM project WHERE company_name = ?"}
+          con.query(options, [proposal.company_name], function(err, results, fields){
+  					resolve(results[0]);
+            project_id = results[0].project_id;
+            console.log(project_id);
+
+            options = { sql: "INSERT INTO project_contacts (project_id) VALUES (?)"};
+            con.query(options, [project_id], function (error, response){
+              if (error) throw error;
+              resolve(true);
+              con.release();
+            })
+          })
             });
         });
       }
+
+      this.getAllPendingPartners = function(){
+        return new Promise(function(resolve, reject) {
+          connection.init();
+          connection.acquire(function (err, con) {
+            var options = { sql: "SELECT * FROM project_contacts WHERE first_name IS NULL OR last_name IS NULL OR phone IS NULL OR email IS NULL" };
+
+          con.query(options, function (err, results, fields) {
+          resolve(results);
+          con.release();
+                });
+          });
+        });
+      };
+
     }
 
 module.exports = new IndustryProposal();
