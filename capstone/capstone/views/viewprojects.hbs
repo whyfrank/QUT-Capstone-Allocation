@@ -3,6 +3,12 @@
 <!-- This is where the main 'app' on the page resides. Will make this update contents by AJAX, rather than reloading entire site. -->
 <div id='app'>
 	<div id='project-information'></div>
+	<div class="send-request-confirm" id="remove-team-confirm">
+		<h2 id="remove-team-confirm-name"></h2>
+		<p>Are you sure you want to remove the team from the project?</p>
+		<button class="prop-action-btn-ctr" onclick="confirmCancel()" id="cancel-btn">No</button>
+		<button class="prop-action-btn-ctr" onclick="removeTeamConfirm()" id="confirm-btn">Yes</button>
+	</div>
 	<div id="projects-section">
 		<div class='projects-view' id='projects-view'>
 		</div>

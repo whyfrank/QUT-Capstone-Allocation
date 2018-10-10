@@ -1,37 +1,33 @@
-{{#if allocation.projects}}
-	{{#allocation.projects}}
-		<div class='project'>
-			<span class='tag-icon A'>H</span>
-			<h3>{{company_name}} - {{project_name}}</h3>
-			<div>Difficulty: <b>{{difficulty}}</b> | Preferred Course Combination: <b>{{preferred_course_combination}}</b></div><br>
-			<div class="project-details">
-					<div class="detail-header">Best Team Matches:</div><br><br>
-					<div class="team-matches">
-						{{#team_matches}}
-								<div class="team-match" onclick='toggleElement("team_{{@../index}}_{{@index}}")')>
-									<b>{{add @index 1}}.&nbsp;{{team_name}}</b>&nbsp;- {{#student_names}}{{#if @first}}{{else}}, {{/if}}{{this}}{{/student_names}} <br>Average&nbsp;GPA:&nbsp;<b>{{team_gpa}}</b> | Skill&nbsp;Match:&nbsp;<b>{{matched_skills_percentage}}%</b>| Course&nbsp;Combination:&nbsp;<b>{{course_combination}}</b>
-									<button onclick="location.href='#';" class='project-block-btn alloc-team-btn'>Assign Team <i class="fa fa-users"></i></button>
-									<div class="team-match-info" id="team_{{@../index}}_{{@index}}">
-										<div class="team-match-info-sec">Lowest GPA in team: <b>{{team_min_gpa}}</b>&nbsp;&nbsp;&nbsp;Highest GPA in team: <b>{{team_max_gpa}}</b></div>
-										<table class="skills-table">
-											<tr>
-												<th>All Team Skills</th>
-												<th>Required Skills</th>
-												<th>Supporting Skills</th>
-											</tr>
-											<tr>
-												<td>Back-End Web Development, Security, Object Oriented Programming, C#, Java, Web Design</td>
-												<td><b>Matched Skills:</b><br> {{#matched_skills}}{{#if @first}}{{else}}, {{/if}}{{skills.skill_name}}{{/matched_skills}}<br><br><b>Missing Skills:</b><br>{{#unmatched_skills}}{{#if @first}}{{else}}, {{/if}}{{skills.skill_name}}{{/unmatched_skills}}</td> 
-												<td><b>Matched Skills:</b><br>{{#matched_nonreq_skills}}{{#if @first}}{{else}}, {{/if}}{{skills.skill_name}}{{/matched_nonreq_skills}}<br><br><b>Missing Skills:</b><br> {{#unmatched_nonreq_skills}}{{#if @first}}{{else}}, {{/if}}{{skills.skill_name}}{{/unmatched_nonreq_skills}}</td>
-											</tr>
-										</table>
-									</div>
+{{#allocation.projects}}
+	<div class='project'>
+		<span class='tag-icon A'>H</span>
+		<h3>{{company_name}} - {{project_name}}</h3>
+		<div>Difficulty: <b>{{difficulty}}</b> | Preferred Course Combination: <b>{{preferred_course_combination}}</b></div><br>
+		<div class="project-details">
+				<div class="detail-header">Best Team Matches:</div><br><br>
+				<div class="team-matches">
+					{{#team_matches}}
+							<div class="team-match" onclick='toggleElement("team_{{@../index}}_{{@index}}")')>
+								<b>{{add @index 1}}.&nbsp;{{team_name}}</b>&nbsp;- {{#student_names}}{{#if @first}}{{else}}, {{/if}}{{this}}{{/student_names}} <br>Average&nbsp;GPA:&nbsp;<b>{{team_gpa}}</b> | Skill&nbsp;Match:&nbsp;<b>{{matched_skills_percentage}}%</b>| Course&nbsp;Combination:&nbsp;<b>{{course_combination}}</b>
+								<button onclick="location.href='#';" class='project-block-btn alloc-team-btn'>Assign Team <i class="fa fa-users"></i></button>
+								<div class="team-match-info" id="team_{{@../index}}_{{@index}}">
+									<div class="team-match-info-sec">Lowest GPA in team: <b>{{team_min_gpa}}</b>&nbsp;&nbsp;&nbsp;Highest GPA in team: <b>{{team_max_gpa}}</b></div>
+									<table class="skills-table">
+										<tr>
+											<th>All Team Skills</th>
+											<th>Required Skills</th>
+											<th>Supporting Skills</th>
+										</tr>
+										<tr>
+											<td>Back-End Web Development, Security, Object Oriented Programming, C#, Java, Web Design</td>
+											<td><b>Matched Skills:</b><br> {{#matched_skills}}{{#if @first}}{{else}}, {{/if}}{{skills.skill_name}}{{/matched_skills}}<br><br><b>Missing Skills:</b><br>{{#unmatched_skills}}{{#if @first}}{{else}}, {{/if}}{{skills.skill_name}}{{/unmatched_skills}}</td> 
+											<td><b>Matched Skills:</b><br>{{#matched_nonreq_skills}}{{#if @first}}{{else}}, {{/if}}{{skills.skill_name}}{{/matched_nonreq_skills}}<br><br><b>Missing Skills:</b><br> {{#unmatched_nonreq_skills}}{{#if @first}}{{else}}, {{/if}}{{skills.skill_name}}{{/unmatched_nonreq_skills}}</td>
+										</tr>
+									</table>
 								</div>
-						{{/team_matches}}
-					</div>
-			</div>
+							</div>
+					{{/team_matches}}
+				</div>
 		</div>
-	{{/allocation.projects}}
-{{else}}
-	<h2>Allocations have not yet been generated.</h2>
-{{/if}}
+	</div>
+{{/allocation.projects}}

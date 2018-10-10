@@ -9,7 +9,7 @@ var mysql_nest = require('../connection/mysql_nest');
 
 function Register() {
 
-  this.getOptions = function(){
+  this.getOptions = async function(){
     return new Promise(function(resolve, reject) {
       connection.init();
       connection.acquire(function (err, con) {
@@ -25,7 +25,7 @@ function Register() {
   };
 
 
-  this.registerStudent = function (student) {
+  this.registerStudent = async function (student) {
 
       //CHECK IF EMAIL ALREADY EXISTS
       return new Promise(function(resolve, reject) {
@@ -43,8 +43,8 @@ function Register() {
               resolve(false);
             } else {
               // ADD STUDENT INTO DATABASE
-			  options = { sql: 'INSERT INTO students (student_id, password, password_salt, first_name, last_name, qut_email, gpa, course_code, course_title, study_area_a, study_area_b) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)' };
-              con.query(options, [student.student_id, student.password, "a", student.first_name, student.last_name, student.qut_email, student.gpa, student.course_code, student.course_title, student.study_area_a, student.study_area_b], function (error, response) {
+			  options = { sql: 'INSERT INTO students (student_id, password, password_salt, first_name, last_name, qut_email, gpa, course_code, course_title, study_area_a, study_area_b, goals, urls, other_skills) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)' };
+              con.query(options, [student.student_id, student.password, "a", student.first_name, student.last_name, student.qut_email, student.gpa, student.course_code, student.course_title, student.study_area_a, student.study_area_b, student.goals, student.urls, student.oskills], function (error, response) {
                 if (error) throw error;
                 resolve(true);
 
@@ -55,5 +55,26 @@ function Register() {
       });
     });
   }
-}
+  
+  	// Set a team for a project.
+    this.registerStudentSkills = function (skills, studentId) {
+		return new Promise(function(resolve, reject) {
+			// initialize database connection
+			connection.init();
+			// calling acquire methods and passing callback method that will be execute query
+			// return response to server
+			connection.acquire(function (err, con) {
+				var options = { sql: "INSERT IGNORE INTO student_skills (student_id, skill) VALUES (?, ?)", nestTables: true };
+				for (var i = 0; i < skills.length; i++) {
+					con.query(options, [studentId, skills[i]], function (err, results, fields) {
+
+					});
+				}
+				con.release();
+				resolve(true);
+			});
+		});
+	}
+};
+
 module.exports = new Register();

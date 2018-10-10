@@ -119,6 +119,18 @@ function allocateTeam(teamId, projectId) {
 	getContent(null, 'alloc-finalize', 'allocation-finalize' + queries, false);
 }
 
+// Displays team deallocation confirmation screen
+var deallocatingTeamProjectId;
+function deallocateTeam(projectId) {
+	deallocatingTeamProjectId = projectId;
+	toggleElement("remove-team-confirm");
+}
+
+function removeTeamConfirm() {
+	getContent(null, 'content', 'deallocation-finalize?project_id=' + deallocatingTeamProjectId, false);
+	grabProjectList();
+}
+
 function microsoftAuthenticateAlloc(outlook_authenticate) {
 	var win = window.open(outlook_authenticate, '_blank');
 	win.focus();

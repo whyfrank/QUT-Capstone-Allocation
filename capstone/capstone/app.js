@@ -2,6 +2,7 @@ var createError = require('http-errors');
 var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
+var bodyParser = require('body-parser');
 var logger = require('morgan');
 var mysql_nesting = require('node-mysql-nesting');
 
@@ -26,6 +27,9 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
+
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
 
 var session = require('express-session');
 
@@ -68,15 +72,27 @@ hbs.registerHelper('project_milestone', function(project,context){
 	if (project.allocated_team == null) {
 		return new hbs.SafeString('NA');
 	}
+	// Assigned
+	else if(project.final_allocation == 1) {
+		return new hbs.SafeString('A');
+	}
+	// Declined Assignment
 	else if (project.partner_accepted == 'Declined' || project.team_accepted == 'Declined') {
 		return new hbs.SafeString('DA');
 	}
+	// Preliminary Assignment
 	else if (project.partner_accepted == 'Approved' && project.team_accepted == 'Approved') {
-		return new hbs.SafeString('A');
-	}
-	else if (project.partner_accepted == 'Pending' || project.team_accepted == 'Pending') {
 		return new hbs.SafeString('PA');
 	}
+	// Awaiting industry partner acceptance
+	else if (project.partner_accepted == 'Pending') {
+		return new hbs.SafeString('AP');
+	}
+	// Awaiting team acceptance
+	else if (project.team_accepted == 'Pending') {
+		return new hbs.SafeString('AT');
+	}
+	// If none of the above conditions have been met, display an 'E' for error.
 	return new hbs.SafeString('E');
 });
 

@@ -11,6 +11,9 @@ var students_data = require('../data_access/students');
 var login_data = require('../data_access/login');
 var register_data = require('../data_access/register');
 var proposal_data = require('../data_access/industryproposal');
+var skills_data = require('../data_access/skills');
+
+var capstone_config = require('../configuration/CapstoneConfiguration');
 
 
 
@@ -18,6 +21,7 @@ var project_assign = require('../utils/project_assign');
 var outlook_auth = require('../utils/outlook_auth');
 var outlook_actions = require('../utils/outlook_actions');
 var emails = require('../utils/emails');
+var security = require('../utils/security');
 
 //Contains User Session data
 router.use(session({secret:'XASDASDA', resave: false, saveUninitialized: false}));
@@ -196,6 +200,22 @@ router.post('/allocation-finalize', async function(req, res, next) {
 	projects_data.allocateProject(team.team_id, project.project_id);
 	res.render('allocation-finalized', {layout: false, project: project, team: team, isSuccessful, isSuccessful});
 });
+
+/* GET preview student email. */
+
+router.get('/deallocation-finalize', async function(req, res, next) {
+	var session_data = req.session;
+	var project_id = req.query.project_id
+	if (session_data.staff_type != "staff") {
+		res.status(403);
+		res.send();
+	} else {
+		projects_data.deallocateProject(project_id);
+		res.redirect('/viewprojects');
+	}
+});
+
+
 
 router.get('/student-email-preview', async function(req, res, next) {
 	var email = new HtmlEmail('teams-projectallocation', 'en');
@@ -561,18 +581,30 @@ router.get('/logout', function(req, res, next) {
 
 /* GET Register. */
 router.get('/register', async function(req, res, next) {
-
+	await skills_data.getSkills().then(function (skills) {
+		this.skills = skills;
+		console.log(skills);
+	})
+	
+	await skills_data.getSkillCategories().then(function (skillCategories) {
+		this.skillCategories = skillCategories;
+		console.log(skillCategories);
+	})
+	
+	// DEPRECATED
 	await register_data.getOptions().then(function (options) {
 		this.options = options;
 		console.log(options);
 	})
 
-  res.render('register', {layout: false, dropdownVals: this.options});
+  res.render('register', {layout: false, dropdownVals: this.options, config: capstone_config, skills: this.skills, skillCategories: this.skillCategories});
 });
 
 /* POST Register. */
 router.post('/register', async function(req, res, next) {
+	console.log(req.body);
   var today = new Date();
+  
   var student={
         first_name:req.body.firstname,
         last_name:req.body.lastname,
@@ -583,17 +615,26 @@ router.post('/register', async function(req, res, next) {
         study_area_a:req.body.studyareaa,
         study_area_b:req.body.studyareab,
         student_id:req.body.studentid,
-        password:req.body.password
+        password:req.body.password,
+		goals:req.body.goals,
+		urls:req.body.urls,
+		oskills:req.body.oskills,
     }
+	
+	console.log(student);
 
   await register_data.registerStudent(student).then(function (register) {
-      this.register = register;
-      console.log(register);
+		this.register = register;
+		console.log(register);
     })
     if (register == false) {
-      res.render('register', {layout: false, registerFailure: true});
+		res.render('register', {layout: false, registerFailure: true});
     } else {
-      res.redirect('/login');
+		await register_data.registerStudentSkills(req.body.skills, student.student_id).then(function (skills) {
+			this.skills = skills;
+			console.log(skills);
+		})
+		res.redirect('/login');
     }
 });
 
