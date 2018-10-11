@@ -328,6 +328,7 @@ router.get('/industrycontacts', async function(req, res, next) {
 		this.partners = partners;
 		console.log(partners);
 	})
+
 	var isEmpty;
 	if (partners.length > 0) {
 		isEmpty = false;
@@ -339,25 +340,48 @@ router.get('/industrycontacts', async function(req, res, next) {
 
 });
 
-// /* GET Industry Contact. */
-// router.get('/industrycontact', async function(req, res, next) {
-// 	var id = req.query.id;
-// 	await projects_data.getProposal(id).then(function (proposal) {
-// 		this.proposal = proposal[0];
-// 		console.log(proposal);
-// 	})
-//   res.render('industrycontact', {layout: false, proposal: this.proposal});
-// });
-//
-// /* POST Industry Contact. */
-// router.post('/industrycontact', async function(req, res, next) {
-// 	var id = req.query.id;
-// 	await projects_data.getProposal(id).then(function (proposal) {
-// 		this.proposal = proposal[0];
-// 		console.log(proposal);
-// 	})
-//   res.render('industrycontact', {layout: false, proposal: this.proposal});
-// });
+var id;
+/* GET Industry Contact. */
+router.get('/industrycontact', async function(req, res, next) {
+	id = req.query.id;
+	await proposal_data.getProject(id).then(function (project) {
+		this.project = project;
+		console.log(project);
+	})
+
+  res.render('industrycontact', {layout: false, project: this.project});
+});
+
+/* POST Industry Contact. */
+router.post('/industrycontact', async function(req, res, next) {
+	// var id = req.body.project_id;
+	var details={
+				first_name:req.body.first_name,
+				last_name:req.body.last_name,
+				phone:req.body.phone,
+				email:req.body.email
+		}
+
+  await proposal_data.updateDetails(id, details).then(function (submit) {
+      this.submit = submit;
+      console.log(submit);
+    })
+    if (submit == false) {
+      res.render('industrycontact', {layout: false, submitFailure: true});
+    } else {
+      res.redirect('/');
+    }
+
+
+
+
+
+
+
+
+
+  res.render('industrycontact', {layout: false, proposal: this.proposal});
+});
 
 /* GET view teams. */
 router.get('/viewteams', async function(req, res, next) {
@@ -585,12 +609,12 @@ router.get('/register', async function(req, res, next) {
 		this.skills = skills;
 		console.log(skills);
 	})
-	
+
 	await skills_data.getSkillCategories().then(function (skillCategories) {
 		this.skillCategories = skillCategories;
 		console.log(skillCategories);
 	})
-	
+
 	// DEPRECATED
 	await register_data.getOptions().then(function (options) {
 		this.options = options;
@@ -604,7 +628,7 @@ router.get('/register', async function(req, res, next) {
 router.post('/register', async function(req, res, next) {
 	console.log(req.body);
   var today = new Date();
-  
+
   var student={
         first_name:req.body.firstname,
         last_name:req.body.lastname,
@@ -620,7 +644,7 @@ router.post('/register', async function(req, res, next) {
 		urls:req.body.urls,
 		oskills:req.body.oskills,
     }
-	
+
 	console.log(student);
 
   await register_data.registerStudent(student).then(function (register) {

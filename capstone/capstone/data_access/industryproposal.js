@@ -118,19 +118,70 @@ function IndustryProposal() {
         });
       }
 
+      // this.getAllPendingPartners = function(){
+      //   return new Promise(function(resolve, reject) {
+      //     connection.init();
+      //     connection.acquire(function (err, con) {
+      //       var options = { sql: "SELECT * FROM project LEFT JOIN project_contacts ON project_contacts.project_id = project.project_id" };
+      //
+      //     con.query(options, function (err, results, fields) {
+      //       var nestingOptions = [
+      //       { tableName : 'project', pkey: 'project_id'},
+      //       { tableName : 'project_contacts', pkey: 'project_id', fkeys:[{table:'project',col:'project_id'}]},
+      //
+      //     ];
+      //     var nestedResults = mysql_nest.convertToNested(results, nestingOptions);
+      //
+      //     resolve(results);
+      //     con.release();
+      //           });
+      //     });
+      //   });
+      // };
+
       this.getAllPendingPartners = function(){
+              return new Promise(function(resolve, reject) {
+                connection.init();
+                connection.acquire(function (err, con) {
+                  var options = { sql: "SELECT * FROM project_contacts WHERE first_name IS NULL OR last_name IS NULL OR phone IS NULL OR email IS NULL" };
+
+                con.query(options, function (err, results, fields) {
+                resolve(results);
+                con.release();
+                      });
+                });
+              });
+            };
+
+      this.getProject = function(id){
         return new Promise(function(resolve, reject) {
           connection.init();
           connection.acquire(function (err, con) {
-            var options = { sql: "SELECT * FROM project_contacts WHERE first_name IS NULL OR last_name IS NULL OR phone IS NULL OR email IS NULL" };
-
-          con.query(options, function (err, results, fields) {
-          resolve(results);
-          con.release();
-                });
+          var options = { sql: "SELECT * FROM project WHERE project_id = ?" };
+          con.query(options, [id], function (err, results, fields) {
+            console.log(results)
+            resolve(results);
+            con.release();
           });
         });
-      };
+      });
+    };
+
+    this.updateDetails = function(id, details){
+      return new Promise(function(resolve, reject) {
+        connection.init();
+        connection.acquire(function (err, con) {
+        var options = { sql: 'UPDATE project_contacts SET first_name=?, last_name=?, phone=?, email=? WHERE project_id = ?' };
+        con.query(options, [details.first_name, details.last_name, details.phone, details.email, id], function (error, response) {
+          if (error) throw error;
+          resolve(true);
+          con.release();
+        });
+      });
+    });
+  };
+
+
 
     }
 
