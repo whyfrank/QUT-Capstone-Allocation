@@ -91,6 +91,16 @@ router.get('/cancelRequest', async function(req, res, next) {
 	res.redirect('/');
 });
 
+
+/* GET view team CV. */
+router.get('/teamcv', async function(req, res, next) {
+	await teams_data.getTeam(req.query.id).then(function (team) {
+		this.team = team[0];
+		console.log(team);
+	})
+    res.render('teamcv', {layout: false, team: this.team});
+});
+
 /* GET view allocation. */
 router.get('/allocation', async function(req, res, next) {
     res.render('allocation', {layout: false});
