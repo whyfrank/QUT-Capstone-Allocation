@@ -73,21 +73,44 @@ var studentsSql = "students ON students_in_teams.student_id = students.student_i
 		});
     };
 
-	// get all proposals data
-    this.getAllProposals = function () {
-		return new Promise(function(resolve, reject) {
-			// initialize database connection
-			connection.init();
-			// calling acquire methods and passing callback method that will be execute query
-			// return response to server
-			connection.acquire(function (err, con) {
-				var options = { sql: projectBareSql + " WHERE liaison_accepted = 'Approved' AND academic_accepted = 'Pending'", nestTables: true };
-				con.query(options, function (err, results, fields) {
-					con.release();
-					resolve(results);
-				});
-			});
-		});
+	// // get all proposals data
+  //   this.getAllProposals = function () {
+	// 	return new Promise(function(resolve, reject) {
+	// 		// initialize database connection
+	// 		connection.init();
+	// 		// calling acquire methods and passing callback method that will be execute query
+	// 		// return response to server
+	// 		connection.acquire(function (err, con) {
+	// 			var options = { sql: projectBareSql + " WHERE liaison_accepted = 'Approved' AND academic_accepted = 'Pending'", nestTables: true };
+	// 			con.query(options, function (err, results, fields) {
+	// 				con.release();
+	// 				resolve(results);
+	// 			});
+	// 		});
+	// 	});
+  //   };
+
+  // get all proposals data
+    this.getAllProposals = function (staff_type) {
+    return new Promise(function(resolve, reject) {
+      // initialize database connection
+      connection.init();
+      // calling acquire methods and passing callback method that will be execute query
+      // return response to server
+      var sqlquery;
+      if (staff_type == "industry"){
+        sqlquery = "SELECT * FROM project WHERE liaison_accepted = 'Pending' AND academic_accepted = 'Pending'";
+      } else if (staff_type == "staff"){
+        sqlquery = "SELECT * FROM project WHERE liaison_accepted = 'Approved' AND academic_accepted = 'Pending'";
+      }
+      connection.acquire(function (err, con) {
+        var options = { sql: sqlquery, nestTables: true };
+        con.query(options, function (err, results, fields) {
+          con.release();
+          resolve(results);
+        });
+      });
+    });
     };
 
 		// Set a project as either approved or declined.
@@ -215,7 +238,7 @@ var studentsSql = "students ON students_in_teams.student_id = students.student_i
 			});
 		});
     };
-	
+
 		// Remove a team from a project.
     this.deallocateProject = function (projectId) {
 		return new Promise(function(resolve, reject) {

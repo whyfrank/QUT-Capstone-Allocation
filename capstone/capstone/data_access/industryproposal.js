@@ -140,12 +140,33 @@ function IndustryProposal() {
       // };
 
       this.getAllPendingPartners = function(){
+        return new Promise(function(resolve, reject) {
+          connection.init();
+          connection.acquire(function (err, con) {
+            var options = { sql: "SELECT * FROM project LEFT JOIN project_contacts ON project_contacts.project_id = project.project_id WHERE project_contacts.first_name IS NULL OR project_contacts.last_name IS NULL OR project_contacts.phone IS NULL OR project_contacts.email IS NULL" };
+
+          con.query(options, function (err, results, fields) {
+            var nestingOptions = [
+            { tableName : 'project', pkey: 'project_id'},
+            { tableName : 'project_contacts', pkey: 'project_id', fkeys:[{table:'project',col:'project_id'}]},
+
+          ];
+          var nestedResults = mysql_nest.convertToNested(results, nestingOptions);
+
+          resolve(results);
+          con.release();
+                });
+          });
+        });
+      };
+
+      this.checkUpdatedDetails = function(id){
               return new Promise(function(resolve, reject) {
                 connection.init();
                 connection.acquire(function (err, con) {
-                  var options = { sql: "SELECT * FROM project_contacts WHERE first_name IS NULL OR last_name IS NULL OR phone IS NULL OR email IS NULL" };
+                  var options = { sql: "SELECT * FROM project_contacts WHERE project_id =? AND first_name IS NOT NULL AND last_name IS NOT NULL AND phone IS NOT NULL AND email IS NOT NULL" };
 
-                con.query(options, function (err, results, fields) {
+                con.query(options, [id],function (err, results, fields) {
                 resolve(results);
                 con.release();
                       });

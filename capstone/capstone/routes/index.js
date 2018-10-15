@@ -284,6 +284,25 @@ router.get('/project', async function(req, res, next) {
   res.render('project', {layout: false, project: this.project, session_data: session_data});
 });
 
+/* GET proposals. */
+router.get('/proposals', async function(req, res, next) {
+	var session_data = req.session;
+	console.log(session_data.staff_type);
+
+	await projects_data.getAllProposals(session_data.staff_type).then(function (proposals) {
+		this.proposals = proposals;
+		console.log(proposals);
+	})
+	var isEmpty;
+	if (proposals.length > 0) {
+		isEmpty = false;
+	} else {
+		isEmpty = true;
+	}
+	console.log(isEmpty);
+  res.render('proposals', {layout: false, proposals: this.proposals, isEmpty: this.isEmpty});
+});
+
 /* GET proposal. */
 router.get('/proposal', async function(req, res, next) {
 	var id = req.query.id;
@@ -291,7 +310,20 @@ router.get('/proposal', async function(req, res, next) {
 		this.proposal = proposal[0];
 		console.log(proposal);
 	})
-  res.render('proposal', {layout: false, proposal: this.proposal});
+
+	await proposal_data.checkUpdatedDetails(id).then(function (results){
+		this.results = results;
+	})
+
+	var bool;
+	if (results.length > 0) {
+		bool = true;
+	} else {
+		bool = false;
+	}
+	console.log(bool)
+//bool: this.bool
+  res.render('proposal', {layout: false, proposal: this.proposal, bool: this.bool});
 });
 
 /* GET approve_proposal. */
@@ -306,21 +338,6 @@ router.get('/action_proposal', async function(req, res, next) {
 	res.send("<h3>The project proposal was successfully approved.</h3>");
 });
 
-/* GET proposals. */
-router.get('/proposals', async function(req, res, next) {
-	await projects_data.getAllProposals().then(function (proposals) {
-		this.proposals = proposals;
-		console.log(proposals);
-	})
-	var isEmpty;
-	if (proposals.length > 0) {
-		isEmpty = false;
-	} else {
-		isEmpty = true;
-	}
-	console.log(isEmpty);
-  res.render('proposals', {layout: false, proposals: this.proposals, isEmpty: this.isEmpty});
-});
 
 /* GET Industry Partner Contact Details. */
 router.get('/industrycontacts', async function(req, res, next) {
@@ -371,13 +388,6 @@ router.post('/industrycontact', async function(req, res, next) {
     } else {
       res.redirect('/');
     }
-
-
-
-
-
-
-
 
 
   res.render('industrycontact', {layout: false, proposal: this.proposal});
