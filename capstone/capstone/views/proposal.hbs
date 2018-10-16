@@ -7,6 +7,7 @@
 			<button class="prop-action-btn-ctr" onclick="proposalConfirm({{proposal.project_id}})" id="confirm-btn">Confirm</button>
 		</div>
 	</div>
+
 	<div id="proposal-content">
 		<div class="proposal-element">
 			<span><b>Title of the proposed project: </b></span><p style="font-size: 20px">{{proposal.project_name}}</p>
@@ -41,7 +42,10 @@
 			<span><b>Required Knowledge: </b></span><p>{{proposal.req_knowledge}}</p>
 			<span><b>Required Skills: </b></span>{{#proposal.project_skills}}<p>&#8226; {{skills.skill_name}}</p>{{/proposal.project_skills}}
 		</div>
+
 	</div>
+
+
 </div>
 
 <div id="prop-action-bar">

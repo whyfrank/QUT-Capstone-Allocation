@@ -188,6 +188,18 @@ select:invalid {
 	border-radius: 3px;
 }
 
+.form-field {
+	width: 280px;
+	margin: 0px;
+	height: 25px;
+	font-size: 16px;
+	border: none;
+	border: 1px solid gray;
+	background-color: white;
+	border-radius: 3px;
+	resize: vertical;
+}
+
 .login-button {
 	-webkit-appearance: none;
 	color: white;
@@ -932,6 +944,10 @@ header span {
 
 #acc-btn {
 	background: #3e6d40;
+}
+
+#accbtn {
+	background: gray;
 }
 
 #dec-btn {

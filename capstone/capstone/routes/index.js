@@ -315,6 +315,19 @@ router.get('/proposal', async function(req, res, next) {
 		this.results = results;
 	})
 
+	await proposal_data.getDifficulty().then(function (difficulty){
+		this.difficulty = difficulty;
+	})
+
+	await proposal_data.getPriority().then(function (priority){
+		this.priority = priority;
+	})
+
+	await proposal_data.getPreferredCourseCombination().then(function (coursecombo){
+		this.coursecombo = coursecombo;
+		console.log(coursecombo);
+	})
+
 	var bool;
 	if (results.length > 0) {
 		bool = true;
@@ -322,8 +335,14 @@ router.get('/proposal', async function(req, res, next) {
 		bool = false;
 	}
 	console.log(bool)
+
+	var session_data = req.session;
+	if (session_data.staff_type == "industry"){
+		res.render('proposal', {layout: false, proposal: this.proposal, bool: this.bool});
+	} else if (session_data.staff_type == "staff"){
+		res.render('staffUpdateProposal', {layout: false, proposal: this.proposal, difficulty: this.difficulty, priority: this.priority, coursecombo: this.coursecombo});
+	}
 //bool: this.bool
-  res.render('proposal', {layout: false, proposal: this.proposal, bool: this.bool});
 });
 
 /* GET approve_proposal. */
@@ -331,6 +350,16 @@ router.get('/action_proposal', async function(req, res, next) {
 	var session_data = req.session;
 	var id = req.query.id;
 	var state = req.query.state;
+
+	// var proposal={
+  //       // company_name:req.body.companyname,
+	//
+  //   }
+
+	// if staff type is staff
+	// then take the fields from the form and pass to new function
+	// called updateProjectDetails
+
 	await projects_data.actionProject(id, state, session_data.staff_type).then(function (outcome) {
 		this.outcome = outcome;
 		console.log(outcome);
