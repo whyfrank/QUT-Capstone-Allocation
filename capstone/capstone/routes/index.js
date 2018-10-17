@@ -296,31 +296,12 @@ router.get('/project', async function(req, res, next) {
   res.render('project', {layout: false, project: this.project, session_data: session_data});
 });
 
-/* GET proposal. */
-router.get('/proposal', async function(req, res, next) {
-	var id = req.query.id;
-	await projects_data.getProposal(id).then(function (proposal) {
-		this.proposal = proposal[0];
-		console.log(proposal);
-	})
-  res.render('proposal', {layout: false, proposal: this.proposal});
-});
-
-/* GET approve_proposal. */
-router.get('/action_proposal', async function(req, res, next) {
-	var session_data = req.session;
-	var id = req.query.id;
-	var state = req.query.state;
-	await projects_data.actionProject(id, state, session_data.staff_type).then(function (outcome) {
-		this.outcome = outcome;
-		console.log(outcome);
-	})
-	res.send("<h3>The project proposal was successfully approved.</h3>");
-});
-
 /* GET proposals. */
 router.get('/proposals', async function(req, res, next) {
-	await projects_data.getAllProposals().then(function (proposals) {
+	var session_data = req.session;
+	console.log(session_data.staff_type);
+
+	await projects_data.getAllProposals(session_data.staff_type).then(function (proposals) {
 		this.proposals = proposals;
 		console.log(proposals);
 	})
@@ -334,12 +315,78 @@ router.get('/proposals', async function(req, res, next) {
   res.render('proposals', {layout: false, proposals: this.proposals, isEmpty: this.isEmpty});
 });
 
+/* GET proposal. */
+router.get('/proposal', async function(req, res, next) {
+	var id = req.query.id;
+	await projects_data.getProposal(id).then(function (proposal) {
+		this.proposal = proposal[0];
+		console.log(proposal);
+	})
+
+	await proposal_data.checkUpdatedDetails(id).then(function (results){
+		this.results = results;
+	})
+
+	await proposal_data.getDifficulty().then(function (difficulty){
+		this.difficulty = difficulty;
+	})
+
+	await proposal_data.getPriority().then(function (priority){
+		this.priority = priority;
+	})
+
+	await proposal_data.getPreferredCourseCombination().then(function (coursecombo){
+		this.coursecombo = coursecombo;
+		console.log(coursecombo);
+	})
+
+	var bool;
+	if (results.length > 0) {
+		bool = true;
+	} else {
+		bool = false;
+	}
+	console.log(bool)
+
+	var session_data = req.session;
+	if (session_data.staff_type == "industry"){
+		res.render('proposal', {layout: false, proposal: this.proposal, bool: this.bool});
+	} else if (session_data.staff_type == "staff"){
+		res.render('staffUpdateProposal', {layout: false, proposal: this.proposal, difficulty: this.difficulty, priority: this.priority, coursecombo: this.coursecombo});
+	}
+//bool: this.bool
+});
+
+/* GET approve_proposal. */
+router.get('/action_proposal', async function(req, res, next) {
+	var session_data = req.session;
+	var id = req.query.id;
+	var state = req.query.state;
+
+	// var proposal={
+  //       // company_name:req.body.companyname,
+	//
+  //   }
+
+	// if staff type is staff
+	// then take the fields from the form and pass to new function
+	// called updateProjectDetails
+
+	await projects_data.actionProject(id, state, session_data.staff_type).then(function (outcome) {
+		this.outcome = outcome;
+		console.log(outcome);
+	})
+	res.send("<h3>The project proposal was successfully approved.</h3>");
+});
+
+
 /* GET Industry Partner Contact Details. */
 router.get('/industrycontacts', async function(req, res, next) {
 	await proposal_data.getAllPendingPartners().then(function (partners) {
 		this.partners = partners;
 		console.log(partners);
 	})
+
 	var isEmpty;
 	if (partners.length > 0) {
 		isEmpty = false;
@@ -351,25 +398,41 @@ router.get('/industrycontacts', async function(req, res, next) {
 
 });
 
-// /* GET Industry Contact. */
-// router.get('/industrycontact', async function(req, res, next) {
-// 	var id = req.query.id;
-// 	await projects_data.getProposal(id).then(function (proposal) {
-// 		this.proposal = proposal[0];
-// 		console.log(proposal);
-// 	})
-//   res.render('industrycontact', {layout: false, proposal: this.proposal});
-// });
-//
-// /* POST Industry Contact. */
-// router.post('/industrycontact', async function(req, res, next) {
-// 	var id = req.query.id;
-// 	await projects_data.getProposal(id).then(function (proposal) {
-// 		this.proposal = proposal[0];
-// 		console.log(proposal);
-// 	})
-//   res.render('industrycontact', {layout: false, proposal: this.proposal});
-// });
+var id;
+/* GET Industry Contact. */
+router.get('/industrycontact', async function(req, res, next) {
+	id = req.query.id;
+	await proposal_data.getProject(id).then(function (project) {
+		this.project = project;
+		console.log(project);
+	})
+
+  res.render('industrycontact', {layout: false, project: this.project});
+});
+
+/* POST Industry Contact. */
+router.post('/industrycontact', async function(req, res, next) {
+	// var id = req.body.project_id;
+	var details={
+				first_name:req.body.first_name,
+				last_name:req.body.last_name,
+				phone:req.body.phone,
+				email:req.body.email
+		}
+
+  await proposal_data.updateDetails(id, details).then(function (submit) {
+      this.submit = submit;
+      console.log(submit);
+    })
+    if (submit == false) {
+      res.render('industrycontact', {layout: false, submitFailure: true});
+    } else {
+      res.redirect('/');
+    }
+
+
+  res.render('industrycontact', {layout: false, proposal: this.proposal});
+});
 
 /* GET view teams. */
 router.get('/viewteams', async function(req, res, next) {
@@ -599,12 +662,12 @@ router.get('/register', async function(req, res, next) {
 		this.skills = skills;
 		console.log(skills);
 	})
-	
+
 	await skills_data.getSkillCategories().then(function (skillCategories) {
 		this.skillCategories = skillCategories;
 		console.log(skillCategories);
 	})
-	
+
 	// DEPRECATED
 	await register_data.getOptions().then(function (options) {
 		this.options = options;

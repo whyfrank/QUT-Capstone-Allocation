@@ -124,7 +124,7 @@ select:invalid {
 }
 
 .skill-checkbox {
-	display: inline-block;	
+	display: inline-block;
 	float: right;
 	width: 40px;
 	height: 40px;
@@ -188,6 +188,18 @@ select:invalid {
 	border-radius: 3px;
 }
 
+.form-field {
+	width: 280px;
+	margin: 0px;
+	height: 25px;
+	font-size: 16px;
+	border: none;
+	border: 1px solid gray;
+	background-color: white;
+	border-radius: 3px;
+	resize: vertical;
+}
+
 .login-button {
 	-webkit-appearance: none;
 	color: white;
@@ -245,7 +257,28 @@ select:invalid {
 	border: 1px solid gray;
 	border-radius: 3px;
 	overflow-y: auto;
+}
 
+/* Industry Partner Menu */
+.contact-section {
+	color: white;
+	font-family: sans-serif;
+	font-size: 15px;
+	text-align: left;
+	padding-left: 15%;
+	background: #004377;
+	position: inherit;
+
+	/* position: absolute;
+
+	height: 80%;
+	width: 60%;
+    top: 10%;
+    left: 15%;
+	box-shadow: 0px 0px 100px gray;
+	border: 1px solid gray;
+	border-radius: 3px;
+	overflow-y: auto; */
 }
 
 
@@ -911,6 +944,10 @@ header span {
 
 #acc-btn {
 	background: #3e6d40;
+}
+
+#accbtn {
+	background: gray;
 }
 
 #dec-btn {

@@ -3,19 +3,11 @@
 <div id='app'>
 	<div class='proposals-view'>
 		{{#partners}}
-		<a class='project-li' id="{{project_contacts.id}}" onclick="getContent('{{project_contacts.id}}', 'proposal-view', 'partner', true)">
-				<h3>{{project_contacts.id}} - {{project_contacts.project_id}}</h3>
+		<a class='project-li' id="{{project_id}}" onclick="getContent('{{project_id}}', 'proposal-view', 'industrycontact', true)">
+				<h3>{{project_name}}, Project ID: {{project_id}}</h3>
 			</a>
 		{{/partners}}
-<!-- 		<a class='project-li' id="43" onclick="getProposal('43')">
-			<h3>Koogle - Matroid Security Enhancements</h3>
-		</a>
-		<a class='project-li'>
-			<h3>Disco Systems - Enterprise Router Functional Analysis</h3>
-		</a>
-		<a class='project-li'>
-			<h3>Brisbane Technology Services - Technology Servicing</h3>
-		</a> -->
+
 	</div>
 	<div id='proposal-view'>
 		{{#if isEmpty}}

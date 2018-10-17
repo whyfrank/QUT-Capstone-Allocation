@@ -5,7 +5,7 @@ function grabProjectList() {
 	for (let milestone of milestones) {
 		milestoneQueries = milestoneQueries + milestone.value + "=" + milestone.checked + "&";
 	}
-	
+
 	var searchQuery = document.getElementById("sch-bar").value;
 	getContent(null, 'projects-view', 'project-list?query=' + searchQuery + milestoneQueries, false);
 }
@@ -23,7 +23,7 @@ function searchProjectByMilestone() {
 	for (let milestone of milestones) {
 		queries = queries + milestone.value + "=" + milestone.checked + "&";
 	}
-	
+
 	getContent(null, 'projects-view', 'project-list', false, queries);
 }
 
@@ -81,6 +81,10 @@ function proposalDisplayConfirm(isAccept) {
 
 var isApproved;
 
+function enableButton(){
+	document.getElementById("accbtn").style.cssText = '	background: #3e6d40';
+}
+
 // Requests to accept or decline when the user has either confirmed, or declined a proposal.
 function proposalConfirm(id) {
 	getContent(id, 'proposal-wrapper', 'action_proposal', false, '&state=' + isApproved);
@@ -134,7 +138,7 @@ function removeTeamConfirm() {
 function microsoftAuthenticateAlloc(outlook_authenticate) {
 	var win = window.open(outlook_authenticate, '_blank');
 	win.focus();
-	
+
 	document.getElementById('continue-message').style.display = 'block';
 	document.getElementById('login-msft').style.display = 'none';
 	document.getElementById('login-next').style.display = 'block';

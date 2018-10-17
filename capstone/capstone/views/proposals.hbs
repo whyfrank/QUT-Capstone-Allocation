@@ -8,21 +8,13 @@
 				<h3>{{project.company_name}} - {{project.project_name}}</h3>
 			</a>
 		{{/proposals}}
-<!-- 		<a class='project-li' id="43" onclick="getProposal('43')">
-			<h3>Koogle - Matroid Security Enhancements</h3>
-		</a>
-		<a class='project-li'>
-			<h3>Disco Systems - Enterprise Router Functional Analysis</h3>
-		</a>
-		<a class='project-li'>
-			<h3>Brisbane Technology Services - Technology Servicing</h3>
-		</a> -->
+
 	</div>
 	<div id='proposal-view'>
 		{{#if isEmpty}}
 			<div id='proposal-helper'>&nbsp&nbsp&nbsp All caught up! No proposals to assess.</div>
 		{{else}}
-			<div id='proposal-helper'><i class="fa fa-hand-o-left"></i>&nbsp&nbsp&nbsp Click on a project to assess</div>
+			<div id='proposal-helper'><i class="fa fa-hand-o-left"></i>&nbsp&nbsp&nbsp Click on a project to assess. <br><br> Contact details must be confirmed before a project can be assessed.</div>
 		{{/if}}
 	</div>
 </div>

@@ -92,7 +92,7 @@ function Students() {
         });
       });
     }
-	
+
 	// Will remove a student from a team. The team ID is there to check if the student who is being removed, is
 	// actually a part of their team, to avoid any malicious attempts to remove a student from another team.
     this.removeStudentFromTeam = function(student_id, team_id){
