@@ -11,24 +11,35 @@
 	<body>
 		<div class="registration-section">
 			<h1>{{team.team_name}}</h1>
-				<div class="email-editor-title"><b>About the team</b> <i class="fa fa-edit"></i></div>
-				<div class="email-editor">
-					<p class="info-paragraph">Our Members</p>
-					<table class="info-paragraph">
+			<div class="email-editor-title"><b>About the team</b></div>
+			<div class="email-editor">
+				<p class="info-paragraph">Our Members</p>
+				<table class="info-paragraph">
+					<tr>
+						<th>Student Name</th> 
+						<th>Main role in the team</th>
+					</tr>
+					{{#team.students_in_teams}}
 						<tr>
-							<th>Student Name</th> 
-							<th>Main role in the team</th>
+							<td>{{this.students.first_name}} {{this.students.last_name}}</td>
+							<td>{{this.role}}</td>
 						</tr>
-						{{#team.students_in_teams}}
-							<tr>
-								<td>{{this.students.first_name}} {{this.students.last_name}}</td>
-								<td>{{this.role}}</td>
-							</tr>
-						{{/team.students_in_teams}}
-					</table>
-					<p class="info-paragraph">{{team.team_summary}}</p>
+					{{/team.students_in_teams}}
+				</table>
+				<p class="info-paragraph">{{team.team_summary}}</p>
+			</div>
+			<div class="email-editor-title"><b>Our Members</b></div>
+			{{#team.students_in_teams}}
+				<h1>{{this.students.first_name}} {{this.students.last_name}}</h1>
+				{{#studentProfilePictureUploaded this.student_id}}
+					<img src="{{studentProfilePicture this.student_id}}" class="profile-picture"></img>
+				{{/studentProfilePictureUploaded}}
+				<div class="email-editor-title"><b>Contact Details</b></i></div>
+				<div class="email-editor">
+					<p class="info-paragraph">Email: <a href="mailto:{{this.students.qut_email}}">{{this.students.qut_email}}</a></p>
+					<p class="info-paragraph">Phone: <a href="tel:{{this.students.phone}}">{{this.students.phone}}</a></p>
 				</div>
-				<div class="email-editor-title"><b>Our Members</b> <i class="fa fa-edit"></i></div>
+			{{/team.students_in_teams}}
 		</div>
 	</body>
 </html>

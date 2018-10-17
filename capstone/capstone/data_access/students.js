@@ -1,5 +1,8 @@
 //methods for fetching mysql data
 var connection = require('../connection/db');
+var fs  = require('fs');
+var capstone_config = require('../configuration/CapstoneConfiguration');
+const sharp = require('sharp');
 
 //methods for nesting mysql data
 var mysql_nest = require('../connection/mysql_nest');
@@ -43,6 +46,38 @@ function Students() {
 			});
 		});
     };
+	
+	// Get a student's data
+    this.getStudent = function (student_id) {
+		return new Promise(function(resolve, reject) {
+			// initialize database connection
+			connection.init();
+			// calling acquire methods and passing callback method that will be execute query
+			// return response to server
+			connection.acquire(function (err, con) {
+        var options = { sql: 'SELECT * FROM students LEFT JOIN student_skills ON students.student_id = student_skills.student_id WHERE students.student_id = ?', nestTables: true};
+				con.query(options, [student_id], function (err, results, fields) {
+					    var nestingOptions = [
+							{ tableName : 'students', pkey: 'student_id'},
+							{ tableName : 'student_skills', pkey: 'id', fkeys:[{table:'skills',col:'skill_id'},{table:'students',col:'student_id'}]}
+						];
+						var nestedResults = mysql_nest.convertToNested(results, nestingOptions);
+					con.release();
+					var student = results[0].students;
+					student.urls = JSON.parse(student.urls);
+					console.log(student.other_skills.length);
+					if (student.urls.length < 1) {
+						delete student.urls;
+					}
+					student.other_skills = JSON.parse(student.other_skills);
+					if (student.other_skills.length < 1) {
+						delete student.other_skills;
+					}
+					resolve(student);
+				});
+			});
+		});
+    };
 
     // Will add a student to a team, but set their approval state as false.
     this.requestJoinTeam = function(student_id, team_id){
@@ -72,6 +107,13 @@ function Students() {
         });
       });
     }
+	
+	this.updateStudentProfilePicture = async function(student_id, imageBuffer) {
+		await sharp(imageBuffer)
+		    .resize(300, 300, {fit: sharp.fit.inside})
+		    .toFile(capstone_config.PROFILEPICTURE_DIR + student_id + '.jpg');
+	}
+	
 }
 
 module.exports = new Students();

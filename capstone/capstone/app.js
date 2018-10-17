@@ -5,15 +5,20 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var logger = require('morgan');
 var mysql_nesting = require('node-mysql-nesting');
+var multer = require('multer');
 
 var capstoneConfiguration = require('./configuration/CapstoneConfiguration');
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 
+
 var app = express();
+
+var fs = require('fs');
 
 var hbs = require('hbs');
 var helpers = require('handlebars-helpers')();
+const upload = multer({ dest: capstoneConfiguration.PROFILEPICTURE_DIR }); // multer configuration
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -63,6 +68,20 @@ hbs.registerHelper('teamVisible', function(team, staff_type, context){
 	} else {
 		return context.fn(this);
 	}
+});
+
+hbs.registerHelper('studentProfilePictureUploaded', function(student_id, context){
+	// If an image is located for the particular student, then return true.
+	if (fs.existsSync(capstoneConfiguration.PROFILEPICTURE_DIR + student_id + '.jpg')) {
+		return context.fn(this);
+	} else {
+		return context.inverse(this);
+	}
+});
+
+// A helper used to ge the URL for the profile picture of a particular student.
+hbs.registerHelper('studentProfilePicture', function(student_id, context) {
+	return new hbs.SafeString(capstoneConfiguration.PROFILEPICTURE_PUBLIC_DIR + student_id + '.jpg');
 });
 
 //Sets various codes for displaying a project milestone, depending on multiple factors of the

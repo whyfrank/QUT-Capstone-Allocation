@@ -6,38 +6,39 @@
 		<script src="javascripts/alertify.js"></script>
 		<link rel="stylesheet" href="stylesheets/alertify.core.css" />
 		<link rel="stylesheet" href="stylesheets/alertify.default.css" />
+		<link rel='stylesheet' href='/stylesheets/normalize.css' />
 		<script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
 	</head>
 	<body>
 		<div class="registration-section">
 
-			<form id="registrationForm" method="POST">
+			<form id="registrationForm" method="POST" enctype="multipart/form-data">
 				<h3>Register for IT Capstone</h3>
 				<div class="email-editor-title"><b>Access Details</b> <i class="fa fa-edit"></i></div>
 				<div class="email-editor">
-					<input type="email" placeholder="Email Address" id="useremail" name="useremail" required>
-					<input type="password" placeholder="Password" id="password" name="password" required>
-					<input type="password" placeholder="Confirm Password" id="confirmpassword" name="confirmpassword" required><br>
+					<input type="email" placeholder="Email Address" id="useremail" name="useremail" required value="{{student.qut_email}}">
+					<input type="password" placeholder="Password" id="password" name="password">
+					<input type="password" placeholder="Confirm Password" id="confirmpassword" name="confirmpassword"><br>
 					<p class="info-paragraph">Password Requirements:</p>
 					<p class="info-paragraph">Password length must be 8 characters or above, and below 65 characters. It must include at least one upper case letter, lowercase letter, number and special character.</p>
 				</div>
 				<div class="email-editor-title"><b>Student Details</b> <i class="fa fa-edit"></i></div>
 				<div class="email-editor">
 					<h4 class="light-header">Student Details</h4>
-					<input type="text" placeholder="First Name" id="firstname" name="firstname" required>
-					<input type="text" placeholder="Last Name" id="lastname" name="lastname" required>
-					<input type="number" placeholder="Student ID" id="studentid" name="studentid" required>
-					<input type="number" step="0.01" max="7.00" min="0.00" placeholder="GPA" id="gpa" name="gpa" required>
+					<input type="text" placeholder="First Name" id="firstname" name="firstname" required value="{{student.first_name}}">
+					<input type="text" placeholder="Last Name" id="lastname" name="lastname" required value="{{student.last_name}}">
+					<input type="number" placeholder="Student ID" id="studentid" name="studentid" required value="{{student.student_id}}">
+					<input type="number" step="0.01" max="7.00" min="0.00" placeholder="GPA" id="gpa" name="gpa" required value="{{student.gpa}}">
 					<h4 class="light-header">Course Details</h4>
-					<input type="text" placeholder="Course Code e.g. IN01" id="coursecode" name="coursecode" required>
-					<input type="text" placeholder="Course Title" id="coursetitle" name="coursetitle" required>
+					<input type="text" placeholder="Course Code e.g. IN01" id="coursecode" name="coursecode" required value="{{student.course_code}}">
+					<input type="text" placeholder="Course Title" id="coursetitle" name="coursetitle" required value="{{student.course_title}}">
 					<select id="studyareaa" name="studyareaa" required>
-						<option value="" disabled selected hidden>IT Study Area</option>
+						<option value="" disabled {{#compare student '===' undefined}}selected{{/compare}} hidden>IT Study Area</option>
 						{{#config.IT_MAJORS}}
-							<option value="{{this}}">{{this}}</option>
+							<option value="{{this}}" {{#compare student.study_area_a '===' this}}selected{{/compare}}>{{this}}</option>
 						{{/config.IT_MAJORS}}
 					</select>
-					<input type="text" placeholder="Other Study Area" id="studyareab" name="studyareab">
+					<input type="text" placeholder="Other Study Area" id="studyareab" name="studyareab" value="{{student.study_area_b}}">
 					<span class="if-applicable-span quiet-p">(if applicable)</span>
 					<p>&nbsp</p>
 				</div>
@@ -50,7 +51,7 @@
 							{{#compare ../this.skill_type '==' this.skill_type}}
 								<div class="skill-selector">
 									<span class="skill-name">{{this.skill_name}}</span>
-									<input class="skill-checkbox" id="skill_{{@index}}" type="checkbox" value={{this.skill_id}}>
+									<input class="skill-checkbox" id="skill_{{@index}}" type="checkbox" value={{this.skill_id}} {{#../../student.student_skills}}{{#compare this.skill '==' ../skill_id}}checked{{/compare}}{{/../../student.student_skills}}>
 								</div>
 							{{/compare}}
 						{{/../skills}}
@@ -61,40 +62,53 @@
 				<div class="email-editor">
 					<h4 class="light-header">Profile Picture</h4>
 					<p class="info-paragraph">A profile picture will be shown on your individual section of the team CV, if an image is selected.</p>
-					<input type='file' id="profile-pic-input" />
-					<img id="profile-pic-preview" src="#" alt="Profile Picture Preview" />
+					<input type='file' id="profile-pic-input" name="profilepicture"/>
+					<img id="profile-pic-preview" src="{{#studentProfilePictureUploaded student.student_id}}{{studentProfilePicture student.student_id}}{{else}}#{{/studentProfilePictureUploaded}}" alt="Profile Picture Preview" />
 					<h4 class="light-header">Web Presence</h4>
 					<p class="info-paragraph">  <b>This section is optional but warmly recommended:</b> give examples of previous projects or other activities
 						 where you have demonstrated (some of) the skills that you say you bring to the team.
 					</p>
 					<p class="info-paragraph">Paste any links directed to your professional web presence.<br>(Github, blog, personal webpage etc.)</p>
-					<div id="url-entries"></div>
+					<div id="url-entries">
+						{{#student.urls}}
+							<input type="text" id="url_{{@index}}" placeholder="Enter URL here" class="form-dynamic-text" value="{{this}}">
+						{{/student.urls}}
+					</div>
 					<button type="button" class="form-dynamic-entry-btn" onclick="addUrlEntry()">+ Add Entry</button>
 					<button type="button" class="form-dynamic-entry-btn" onclick="removeUrlEntry()">- Remove Entry</button>
 					<h4 class="light-header">Other Interests</h4>
 					<p class="info-paragraph"> While not directly related to your Degree, these will give the project partners an idea of where your passions
 						are, and if you will be equally passionate about the project.</p>
-					<div id="oskill-entries"></div>
+					<div id="oskill-entries">
+						{{#student.other_skills}}
+							<input type="text" id="oskill_{{@index}}" placeholder="Enter other skill here" class="form-dynamic-text" value="{{this}}">
+						{{/student.other_skills}}
+					</div>
 					<button type="button" class="form-dynamic-entry-btn" onclick="addOtherSkillEntry()">+ Add Entry</button>
 					<button type="button" class="form-dynamic-entry-btn" onclick="removeOtherSkillEntry()">- Remove Entry</button>
 					<h4 class="light-header">Goals</h4>
 					<p class="info-paragraph"> Write something about yourself and your expectations for the Capstone project.</p>
-					<textarea class="registration-freetext-area" rows="10" name="goals" required></textarea>
+					<textarea class="registration-freetext-area" rows="10" name="goals" required>{{student.goals}}</textarea>
 				</div>
 				<!-- Hidden Inputs -->
 				<input type="hidden" name="urls" id="urls">
 				<input type="hidden" name="oskills" id="oskills">
 				<input type="hidden" name="skills" id="skills">
 				<div class="action-buttons">
+				{{#if update}}
+					<button type="button" class="login-button" onclick="validateForm()" id="acc-btn">Update</button>
+					<button type="button" class="login-button" onclick="location.href='/';" id="back-btn">Return to Home</button>
+				{{else}}
 					<button type="button" class="login-button" onclick="validateForm()" id="acc-btn">Register</button>
 					<button type="button" class="login-button" onclick="location.href='/login';" id="back-btn">Return to Login</button>
+				{{/if}}
 				</div>
 			</form>
 		</div>
 
 		<script>
-		var urlEntryCount = 0;
-		var oSkillsEntryCount = 0;
+		var urlEntryCount = {{#compare student.urls.length '!=' undefined}}{{student.urls.length}}{{else}}0{{/compare}};
+		var oSkillsEntryCount = {{#compare student.other_skills.length '!=' undefined}}{{student.other_skills.length}}{{else}}0{{/compare}};
 		var maxOSkillsEntryCount = 5;
 		var maxUrlEntryCount = 5;
 		var noOfSkills = {{skills.length}};
@@ -121,22 +135,29 @@
 				newTextBox.setAttribute('class', 'form-dynamic-text');
 				document.getElementById('oskill-entries').appendChild(newTextBox);
 				oSkillsEntryCount++;
+				console.log(oSkillsEntryCount);
 			}
 		}
 		
 		function removeUrlEntry() {
-			if (urlEntryCount > 0) {
+			if (urlEntryCount >= 0) {
 				var urlEntryDiv = document.getElementById('url-entries');
 				urlEntryDiv.removeChild(urlEntryDiv.childNodes[urlEntryDiv.childElementCount - 1]);
-				urlEntryCount--;
+				if (urlEntryCount > 0) {
+					urlEntryCount--;
+				}
+				console.log(urlEntryCount);
 			}
 		}
 		
 		function removeOtherSkillEntry() {
-			if (oSkillsEntryCount > 0) {
+			if (oSkillsEntryCount >= 0) {
 				var oSkillEntryDiv = document.getElementById('oskill-entries');
 				oSkillEntryDiv.removeChild(oSkillEntryDiv.childNodes[oSkillEntryDiv.childElementCount - 1]);
-				oSkillsEntryCount--;
+				if (oSkillsEntryCount > 0) {
+					oSkillsEntryCount--;
+				}
+				console.log(oSkillsEntryCount);
 			}
 		}
 		
@@ -215,20 +236,20 @@
 				alertify.error("Passwords do not match");
 				return false;
 			}
-
+			
 			// Check that passwords meet standards - PENDING
 			var reg = new RegExp('^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[d$@$!%*?&#])[A-Za-z\\dd$@$!%*?&#]{8,}')
 			if (!reg.test(confirmpassword)){
 				alertify.error("Please ensure your password meets the required standards");
 				return false;
 			}
-			
+
 			// Need to do error checking!!
 			var urls = [];
 			for (var i = 0; i < urlEntryCount; i++) {
 				var currentUrl = document.getElementById("url_" + i);
 				// Only URLs which are filled in should be sent.
-				if (currentUrl.value != undefined || currentUrl.value != "") {
+				if (currentUrl.value != undefined || currentUrl.value != null) {
 					urls.push(currentUrl.value);
 				}
 			}
@@ -238,11 +259,11 @@
 			for (var i = 0; i < oSkillsEntryCount; i++) {
 				var currentOSkill = document.getElementById("oskill_" + i);
 				// Only other skills which are filled in should be sent.
-				if (currentOSkill.value != undefined || currentOSkill.value != "") {
+				if (currentOSkill.value != undefined || currentOSkill.value != null) {
 					oSkills.push(currentOSkill.value);
 				}
 			}
-			document.getElementById("oskills").value = JSON.stringify(oskills);
+			document.getElementById("oskills").value = JSON.stringify(oSkills);
 		
 			var skills = [];
 			for (var i = 0; i < noOfSkills; i++) {

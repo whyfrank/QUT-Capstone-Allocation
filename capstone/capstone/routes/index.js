@@ -3,6 +3,7 @@ var session = require('express-session');
 var router = express.Router();
 var crypto = require('crypto');
 const HtmlEmail = require('html-email');
+var multer = require('multer');
 
 //custom route for fetching data
 var projects_data = require('../data_access/projects');
@@ -15,7 +16,8 @@ var skills_data = require('../data_access/skills');
 
 var capstone_config = require('../configuration/CapstoneConfiguration');
 
-
+var storage = multer.memoryStorage()
+const upload = multer({ storage: storage }); // multer configuration
 
 var project_assign = require('../utils/project_assign');
 var outlook_auth = require('../utils/outlook_auth');
@@ -458,8 +460,10 @@ router.get('/editteam', async function(req, res, next) {
 			await students_data.removeStudentFromTeam(session_data.student_id, session_data.in_team);
 			session_data.in_team = false;
 		}
-		if (!isNewTeam && inTeam.is_approved == 0) {
+		else if (!isNewTeam && inTeam.is_approved == 0) {
 			res.render('team-approval-pending', {layout: false, session_data: session_data, team: this.team});
+		} else {
+			res.render('editteam', {layout: false, team: this.team, isNewTeam: isNewTeam, inTeam: this.inTeam});
 		}
 	}
   	// If the student hasn't been accepted into the team, do not display team info.
@@ -611,41 +615,38 @@ router.get('/register', async function(req, res, next) {
 });
 
 /* POST Register. */
-router.post('/register', async function(req, res, next) {
-	console.log(req.body);
-  var today = new Date();
-  
-  var student={
-        first_name:req.body.firstname,
-        last_name:req.body.lastname,
-        qut_email:req.body.useremail,
-        gpa:req.body.gpa,
-        course_code:req.body.coursecode,
-        course_title:req.body.coursetitle,
-        study_area_a:req.body.studyareaa,
-        study_area_b:req.body.studyareab,
-        student_id:req.body.studentid,
-        password:req.body.password,
-		goals:req.body.goals,
-		urls:req.body.urls,
-		oskills:req.body.oskills,
-    }
-	
-	console.log(student);
+router.post('/register', upload.single('profilepicture'), async function(req, res, next) {
+	register_data.registrationProcess(req, res, false);
+});
 
-  await register_data.registerStudent(student).then(function (register) {
-		this.register = register;
-		console.log(register);
-    })
-    if (register == false) {
-		res.render('register', {layout: false, registerFailure: true});
-    } else {
-		await register_data.registerStudentSkills(req.body.skills, student.student_id).then(function (skills) {
+/* POST updateaccount. */
+router.post('/updateaccount', upload.single('profilepicture'), async function(req, res, next) {
+	register_data.registrationProcess(req, res, true);
+});
+
+/* GET Update Account. */
+router.get('/updateaccount', async function(req, res, next) {
+	var session_data = req.session;
+	isStudent = false;
+	if (session_data.staff_type == 'student') {
+		await skills_data.getSkills().then(function (skills) {
 			this.skills = skills;
 			console.log(skills);
 		})
-		res.redirect('/login');
-    }
+		
+		await skills_data.getSkillCategories().then(function (skillCategories) {
+			this.skillCategories = skillCategories;
+			console.log(skillCategories);
+		})
+		
+		await students_data.getStudent(req.session.student_id).then(function (student) {
+			this.student = student;
+			console.log(student);
+		})
+	
+		res.render('register', {layout: false, dropdownVals: this.options, config: capstone_config, 
+			skills: this.skills, skillCategories: this.skillCategories, update: true, student: this.student});
+	}
 });
 
 

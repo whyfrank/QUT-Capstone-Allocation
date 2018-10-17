@@ -1074,3 +1074,8 @@ header span {
 .cancelRequestBtn {
 	text-align: center;
 }
+
+.profile-picture {
+	max-width: 300px;
+	max-height: 300px;
+}
