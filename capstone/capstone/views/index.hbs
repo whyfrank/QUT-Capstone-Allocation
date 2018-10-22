@@ -52,9 +52,12 @@
 
 	<span class='menu-head'>Account Management</span>
 	{{#compare session_data.staff_type '===' 'staff'}}
-	<a id="createstaff" onclick="getApp('createstaff')" href='#'><span>Create Accounts</span></a>
+		<a id="createstaff" href="registerstaff" href='#'><span>Create Accounts</span></a>
+		<a id="updatestaffaccount" href="updatestaffaccount" href='#'><span>My Account Settings</span></a>
+	{{else}}
+		<a id="updateaccount" href="/updateaccount" href='#'><span>My Account Settings</span></a>
 	{{/compare}}
-	<a id="createstaff" href="/updateaccount" href='#'><span>My Account Settings</span></a>
+	
 </div>
 <div id='content'>
 

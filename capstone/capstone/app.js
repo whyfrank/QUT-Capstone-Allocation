@@ -82,6 +82,7 @@ hbs.registerHelper('studentProfilePictureUploaded', function(student_id, context
 // A helper used to ge the URL for the profile picture of a particular student.
 hbs.registerHelper('studentProfilePicture', function(student_id, context) {
 	return new hbs.SafeString(capstoneConfiguration.PROFILEPICTURE_PUBLIC_DIR + student_id + '.jpg');
+});
 
 hbs.registerHelper('ifCond', function (v1, operator, v2, options) {
 

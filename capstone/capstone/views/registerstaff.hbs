@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Register an IT Capstone staff member</title>
+		<link rel='stylesheet' href='/stylesheets/style.css' />
+		<script src="javascripts/alertify.js"></script>
+		<link rel="stylesheet" href="stylesheets/alertify.core.css" />
+		<link rel="stylesheet" href="stylesheets/alertify.default.css" />
+		<link rel='stylesheet' href='/stylesheets/normalize.css' />
+		<script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+	</head>
+	<body>
+		<div class="registration-section">
+
+			<form id="registrationForm" method="POST">
+				<h3>Register an IT Capstone staff member</h3>
+				<div class="email-editor-title"><b>Account Details</b> <i class="fa fa-edit"></i></div>
+				<div class="email-editor">
+					<input type="email" placeholder="Email Address" id="useremail" name="useremail" required value="{{staff.qut_email}}">
+					<input type="text" placeholder="First Name" id="firstname" name="firstname" required value="{{staff.first_name}}">
+					<input type="text" placeholder="Last Name" id="lastname" name="lastname" required value="{{staff.last_name}}"><br><br>
+					<input type="password" placeholder="Password" id="password" name="password" required>
+					<input type="password" placeholder="Confirm Password" id="confirmpassword" name="confirmpassword" required><br>
+					<p class="info-paragraph">Password Requirements:</p>
+					<p class="info-paragraph">Password length must be 8 characters or above, and below 65 characters. It must include at least one upper case letter, lowercase letter, number and special character.</p>
+					{{#if update}}
+					{{else}}
+					<br><p class="info-paragraph">Staff Account Type:</p>
+						<select id="stafftype" name="stafftype" required>
+							<option value="Coordinator">Unit Coordinator</option>
+							<option value="Tutor">Tutor</option>
+							<option value="Industry Liasion">Industry Liasion Officer</option>
+						</select>
+					{{/if}}
+				</div>
+				<div class="action-buttons">
+					{{#if update}}
+						<button type="button" class="login-button" onclick="validateForm()" id="acc-btn">Update</button>
+					{{else}}
+						<button type="button" class="login-button" onclick="validateForm()" id="acc-btn">Register</button>
+					{{/if}}
+					<button type="button" class="login-button" onclick="location.href='/';" id="back-btn">Return to Home</button>
+				</div>
+			</form>
+		</div>
+
+		<script>
+		
+		function selectBack() {
+			document.getElementById('login-form').style.top = '400px';
+			document.getElementById('login-selection').style.left = '0px';
+		}
+
+		function validateForm(){
+
+			var firstname = document.getElementById("firstname").value;
+			var lastname = document.getElementById("lastname").value;
+			var useremail = document.getElementById("useremail").value;
+			var password = document.getElementById("password").value;
+      var confirmpassword = document.getElementById("confirmpassword").value;
+
+			// Check that first name does not contain any numbers
+			var reg = new RegExp('^[a-zA-Z]+$');
+			if (!reg.test(firstname)){
+				alertify.error("Please ensure first name only contains letters");
+				return false;
+			}
+			// Check that last name does not contain any numbers
+			var reg = new RegExp('^[a-zA-Z]+$');
+			if (!reg.test(lastname)){
+				alertify.error("Please ensure last name only contains letters");
+				return false;
+			}
+			// Check that email ends in "@qut.edu.au" or "@student.qut.edu.au", or is 'n'studentID@qut.edu.au
+			var reg1 = new RegExp('^[a-zA-Z0-9._%+-]+@\.qut\.edu\.au$')
+			var reg2 = new RegExp('^[a-zA-Z0-9._%+-]+@\hdr\.qut\.edu\.au$')
+			if (!reg1.test(useremail) && !reg2.test(useremail)){
+				alertify.error("Please enter a valid QUT Staff email address");
+				return false;
+			}
+			// Check that passwords match - WORKS
+			if (password != confirmpassword){
+				alertify.error("Passwords do not match");
+				return false;
+			}
+			
+			// Check that passwords meet standards - PENDING
+			var reg = new RegExp('^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[d$@$!%*?&#])[A-Za-z\\dd$@$!%*?&#]{8,}')
+			if (!reg.test(confirmpassword)){
+				alertify.error("Please ensure that the password meets the required standards");
+				return false;
+			}
+
+			document.getElementById("registrationForm").submit();
+		}
+
+		</script>
+
+		{{#if registerFailure}}
+			<script>
+				alertify.error("An account already exists with this email.");
+			</script>
+		{{/if}}
+
+	</body>
+</html>

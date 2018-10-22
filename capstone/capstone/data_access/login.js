@@ -24,9 +24,9 @@ function Login() {
 					// Check if a user account has been matched with the QUT email.
 					if (results.length > 0){
 						var userDetails = results[0];
-
+						var saltedPassword = security.sha512(userpw, userDetails.password_salt);
 						// Return the user account details if the entered password equals to the account password.
-						if (userpw == userDetails.password) {
+						if (saltedPassword.passwordHash == userDetails.password) {
 							resolve(userDetails);
 						} else {
 							resolve(false);
@@ -56,9 +56,9 @@ function Login() {
           // Check if a user account has been matched with the QUT email.
           if (results.length > 0){
             var userDetails = results[0];
-
+			var saltedPassword = security.sha512(userpw, userDetails.password_salt);
+			if (saltedPassword.passwordHash == userDetails.password) {
             // Return the user account details if the entered password equals to the account password.
-            if (userpw == userDetails.password) {
               resolve(userDetails);
             } else {
               resolve(false);

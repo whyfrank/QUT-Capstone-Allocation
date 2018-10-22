@@ -603,7 +603,7 @@ router.post('/login', async function(req, res, next) {
 			res.render('login', {layout: false, loginFailure: true, accountType: req.body.account_type, email: req.body.useremail});
 		} else {
 			session_data.qut_email = login.qut_email;
-			session_data.first_name = login.First_name;
+			session_data.first_name = login.first_name;
 			session_data.last_name = login.last_name;
 
 			if (login.staff_type == "Industry Liason"){
@@ -684,7 +684,8 @@ router.post('/register', upload.single('profilepicture'), async function(req, re
 
 /* POST updateaccount. */
 router.post('/updateaccount', upload.single('profilepicture'), async function(req, res, next) {
-	register_data.registrationProcess(req, res, true);
+	var session_data = req.session;
+	register_data.registrationProcess(req, res, true, session_data);
 });
 
 /* GET Update Account. */
@@ -710,6 +711,28 @@ router.get('/updateaccount', async function(req, res, next) {
 		res.render('register', {layout: false, dropdownVals: this.options, config: capstone_config, 
 			skills: this.skills, skillCategories: this.skillCategories, update: true, student: this.student});
 	}
+});
+
+/* GET Register staff. */
+router.get('/registerstaff', async function(req, res, next) {
+
+  res.render('registerstaff', {layout: false, config: capstone_config});
+});
+
+/* POST Register staff. */
+router.post('/registerstaff', async function(req, res, next) {
+	register_data.registrationStaffProcess(req, res, false);
+});
+
+/* GET update staff. */
+router.get('/updatestaffaccount', async function(req, res, next) {
+	var session_data = req.session;
+  res.render('registerstaff', {layout: false, config: capstone_config, update: true, staff: session_data});
+});
+
+/* POST update staff. */
+router.post('/updatestaffaccount', async function(req, res, next) {
+	register_data.registrationStaffProcess(req, res, true);
 });
 
 
