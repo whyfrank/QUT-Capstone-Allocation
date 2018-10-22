@@ -84,6 +84,16 @@ hbs.registerHelper('studentProfilePicture', function(student_id, context) {
 	return new hbs.SafeString(capstoneConfiguration.PROFILEPICTURE_PUBLIC_DIR + student_id + '.jpg');
 });
 
+// A helper used to deserialize a JSON string
+hbs.registerHelper('deserialize', function(input, context) {
+	var results = '';
+	var data = JSON.parse(input);
+	data.forEach((item) => {
+		results += context.fn(item);
+	});
+	return results;
+});
+
 hbs.registerHelper('ifCond', function (v1, operator, v2, options) {
 
     switch (operator) {

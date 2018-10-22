@@ -100,6 +100,7 @@ router.get('/teamcv', async function(req, res, next) {
 		this.team = team[0];
 		console.log(team);
 	})
+
     res.render('teamcv', {layout: false, team: this.team});
 });
 
@@ -504,6 +505,7 @@ router.get('/viewmyteam', async function(req, res, next) {
 router.get('/editteam', async function(req, res, next) {
 	var session_data = req.session;
 	var isNewTeam = false;
+	var inATeam = null;
 	await teams_data.getTeam(session_data.in_team, true).then(function (team) {
 		this.team = team[0];
 		if (this.team == undefined) {
@@ -513,12 +515,12 @@ router.get('/editteam', async function(req, res, next) {
 	})
 	if (!isNewTeam) {
 		await teams_data.getStudentTeam(session_data.student_id, true).then(function (inTeam) {
-			this.inTeam = inTeam;
-			console.log(this.inTeam);
+			inATeam = inTeam;
+			console.log(inATeam);
 		})
 	}
 
-	if (inTeam != undefined) {
+	if (inATeam != null) {
 		if (inTeam.is_approved == -1) {
 			await students_data.removeStudentFromTeam(session_data.student_id, session_data.in_team);
 			session_data.in_team = false;
@@ -535,6 +537,45 @@ router.get('/editteam', async function(req, res, next) {
 	}
 });
 
+router.post('/editteam', async function(req, res, next) {
+	var session_data = req.session;
+	var teamData = {
+		team_name: req.body.team_name,
+		team_summary: req.body.team_summary,
+		preferred_industry: req.body.preferred_industry,
+		team_ready: req.body.team_ready,
+		team_id: session_data.in_team,
+	}
+	
+	
+	await teams_data.registerTeam(teamData, true).then(function (team) {
+		this.team = team;
+		console.log(this.team);
+	})
+	res.redirect('/');
+});
+
+router.post('/createteam', async function(req, res, next) {
+	var session_data = req.session;
+	var teamData = {
+		team_name: req.body.team_name,
+		team_summary: req.body.team_summary,
+		preferred_industry: req.body.preferred_industry,
+		team_ready: 'false',
+	}
+	
+	await teams_data.registerTeam(teamData, false).then(function (team) {
+		this.team = team;
+		console.log(this.team);
+	})
+	
+	console.log(this.team.team_id + " " + session_data.student_id);
+	await students_data.addMasterToTeam(session_data.student_id, this.team.team_id );
+	
+	session_data.in_team = this.team.team_id;
+	session_data.team_approved = 1;
+	res.redirect('/');
+});
 
 /* GET view team-list. */
 router.get('/team-list', async function(req, res, next) {
@@ -782,28 +823,3 @@ router.post('/industryproposal', async function(req, res, next) {
 
 
 module.exports = router;
-
-
-/* Generate random string of characters to be used as salt */
-var generateSalt = function(length){
-  return crypto.randomBytes(Math.ceil(length/2))
-    .toString('hex') /*convert to hexadecimal */
-    .slice(0,length); /* return correct amount of characters */
-};
-
-/* Hash the password with sha256 */
-var sha256 = function(password, salt){
-  var hash =  crypto.createHmac('sha256', salt); /* Hashing algorithm sha256 */
-  hash.update(password);
-  var value = hash.digest('hex');
-  return {
-    salt: salt,
-    passwordHash: value
-  };
-};
-
-/* Generates hashed password to be stored in DB */
-function saltHashPassword(userpassword){
-  var salt = generateSalt(16);
-  var passwordData = sha256(userpassword, salt);
-};

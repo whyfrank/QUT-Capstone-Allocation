@@ -13,19 +13,10 @@
 			<h1>{{team.team_name}}</h1>
 			<div class="email-editor-title"><b>About the team</b></div>
 			<div class="email-editor">
-				<p class="info-paragraph">Our Members</p>
-				<table class="info-paragraph">
-					<tr>
-						<th>Student Name</th> 
-						<th>Main role in the team</th>
-					</tr>
-					{{#team.students_in_teams}}
-						<tr>
-							<td>{{this.students.first_name}} {{this.students.last_name}}</td>
-							<td>{{this.role}}</td>
-						</tr>
-					{{/team.students_in_teams}}
-				</table>
+				<p class="info-paragraph"><b>Our Members</b></p>
+				{{#team.students_in_teams}}
+					<span>{{this.students.first_name}} {{this.students.last_name}}</span><br>
+				{{/team.students_in_teams}}
 				<p class="info-paragraph">{{team.team_summary}}</p>
 			</div>
 			<div class="email-editor-title"><b>Our Members</b></div>
@@ -34,10 +25,23 @@
 				{{#studentProfilePictureUploaded this.student_id}}
 					<img src="{{studentProfilePicture this.student_id}}" class="profile-picture"></img>
 				{{/studentProfilePictureUploaded}}
-				<div class="email-editor-title"><b>Contact Details</b></i></div>
+				<div class="email-editor-title"><b>Personal Details</b></i></div>
 				<div class="email-editor">
+					<p class="info-paragraph"><b>Contact</b></p>
 					<p class="info-paragraph">Email: <a href="mailto:{{this.students.qut_email}}">{{this.students.qut_email}}</a></p>
 					<p class="info-paragraph">Phone: <a href="tel:{{this.students.phone}}">{{this.students.phone}}</a></p>
+					<br><p class="info-paragraph"><b>Web Presence</b></p>
+					{{#deserialize this.students.urls}}
+						<a target="_blank" href="{{this}}">{{this}}</a><br>
+					{{/deserialize}}
+					<br><p class="info-paragraph"><b>Interests</b></p>
+					{{#deserialize this.students.other_skills}}
+						<p class="info-paragraph">{{this}}</p>
+					{{/deserialize}}
+				</div>
+				<div class="email-editor-title"><b>Goals</b></i></div>
+				<div class="email-editor">
+					<p class="info-paragraph">{{this.students.goals}}</a></p>
 				</div>
 			{{/team.students_in_teams}}
 		</div>

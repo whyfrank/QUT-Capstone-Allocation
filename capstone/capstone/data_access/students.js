@@ -92,6 +92,20 @@ function Students() {
         });
       });
     }
+	
+	    // Will add a student to a team, but set their approval state as false.
+    this.addMasterToTeam = function(student_id, team_id){
+      return new Promise(function(resolve, reject) {
+        connection.init();
+        connection.acquire(function (err, con) {
+          var options = { sql: 'INSERT INTO students_in_teams (student_id, team_id, master, is_approved) VALUES (?, ?, 1, 1)' };
+          con.query(options, [student_id, team_id], function (err, results, fields) {
+			  resolve(results[0]);
+			  con.release();
+          });
+        });
+      });
+    }
 
 	// Will remove a student from a team. The team ID is there to check if the student who is being removed, is
 	// actually a part of their team, to avoid any malicious attempts to remove a student from another team.

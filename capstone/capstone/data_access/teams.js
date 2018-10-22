@@ -128,7 +128,56 @@ var skillsSql = "student_skills ON students_in_teams.student_id = student_skills
 		});
     };
 
+  this.registerTeam = async function (teamData, isUpdate) {
+	  //CHECK IF EMAIL ALREADY EXISTS
+	  return new Promise(function(resolve, reject) {
+		  
+		// Correct team_ready data
+		if (teamData.team_ready == 'true') {
+			teamData.team_ready = 1;
+		} else {
+			teamData.team_ready = 0;
+		}
+		// initialize database connection
+		connection.init();
+		// calling acquire methods and passing callback method that will be execute query
+		// return response to server
+		connection.acquire(function (err, con) {
+		  var options = { sql: 'SELECT * FROM team WHERE team_name = ?' };
+		  con.query(options, [teamData.team_name], function (err, results, fields) {
+			// Check if a team has been matched with the team name and is registering, not updating.
+			if (results.length > 0 && !isUpdate){
+			  resolve(false);
+			} else {
+			  // ADD TEAM INTO DATABASE
+			  if (!isUpdate) {
+				  options = { sql: 'INSERT INTO team (team_name, team_ready, team_summary, preferred_industry) VALUES (?, ?, ?, ?)' };
+				  var data = [teamData.team_name, teamData.team_ready, teamData.team_summary, teamData.preferred_industry];
+				  
+			// If the team has been updated, ensure that this team is of the same ID.
+			  } else if (teamData.team_id == results[0].team_id){
+				  options = { sql: 'UPDATE staff SET team_name = ?, team_ready = ?, team_summary = ?, preferred_industry = ? WHERE team_name = ?' };
+				  var data = [teamData.team_name, teamData.team_ready, teamData.team_summary, teamData.preferred_industry, teamData.team_name];
+			  } else {
+				  resolve(false);
+			  }
+			  console.log(options.sql);
+			  con.query(options, data, function (error, results) {
+				if (error) {resolve(false); console.log(error)};
+				var options = { sql: 'SELECT * FROM team WHERE team_name = ?' };
+				con.query(options, [teamData.team_name], function (err, res) {
+					resolve(res[0]);
+					console.log(res[0]);
+				});
 
+
+				con.release();
+			  });
+			}
+		});
+	  });
+	});
+  }
 }
 
 module.exports = new Teams();

@@ -36,7 +36,7 @@
 					<input type="text" placeholder="Last Name" id="lastname" name="lastname" required value="{{student.last_name}}">
 					<input type="number" placeholder="Student ID" id="studentid" name="studentid" {{#if update}}disabled{{else}}required{{/if}} value="{{student.student_id}}">
 					<input type="number" step="0.01" max="7.00" min="0.00" placeholder="GPA" id="gpa" name="gpa" required value="{{student.gpa}}">
-					<input type="text" placeholder="Phone Number" id="phone" name="phone">
+					<input type="text" placeholder="Phone Number" id="phone" name="phone" value="{{student.phone}}">
 					<span class="if-applicable-span quiet-p">(optional)</span>
 					<h4 class="light-header">Course Details</h4>
 					<input type="text" placeholder="Course Code e.g. IN01" id="coursecode" name="coursecode" required value="{{student.course_code}}">

@@ -4,33 +4,19 @@
 <div id='app'>
 	<div class="allocation-finalize">
 		<div id="teamNameEdit" class="email-editor-title"><b>Team Name</b> <i class="fa fa-edit"></i></div>
-		<div id="teamNameEdit" class="email-editor" contenteditable="true">{{{team.team_name}}}</div><br>
+		<div id="team_name_edit" class="email-editor" contenteditable="true">{{{team.team_name}}}</div><br>
 		<div class="email-editor-title"><b>Team Summary</b> <i class="fa fa-edit"></i></div>
-		<div class="email-editor" contenteditable="true">{{{team.team_summary}}}</div><br>
+		<div class="email-editor" id="team_summary_edit" contenteditable="true">{{{team.team_summary}}}</div><br>
 		<div class="email-editor-title"><b>Preferred Industry</b> <i class="fa fa-edit"></i></div>
-		<div class="email-editor" contenteditable="true">{{{team.preferred_industry}}}</div><br>
-		<div class="email-editor-title"><b>Team Roles</b></div>
-		<div class="email-editor">
-			{{#team.students_in_teams}}
-				<p>{{this.students.first_name}} {{this.students.last_name}}</p>
-				<input type="text" id="role_{{@index}}" {{#compare this.role '==' null}}placeholder="Enter a role"{{else}}value="{{this.role}}"{{/compare}}>
-			{{/team.students_in_teams}}
-		</div><br>
-		<form id="emailSendForm" method="POST" action="/allocation-finalize">
-			<div id="teamSettingsEdit" class="email-editor-title"><b>Team Member Join Requests</b></div>
-			<div id="teamSettingsEdit" class="email-editor">
-				<input type="checkbox" id="allMembersRequiredApprove" name="allMembersRequiredApprove"> <span>Require all team members to approve join requests? If this option is unchecked, the team owner will be able to solely approve members.</span>
-			</div><br>
-			<input type="hidden" id="teamSubject" name="teamSubject" value="">
-			<input type="hidden" id="teamBody" name="teamBody" value="">
-			<input type="hidden" id="teamImportance" name="teamImportance" value="Low">
-			<input type="hidden" id="teamId" name="teamId" value={{team.team_id}}>
-			<input type="hidden" id="projectId" name="projectId" value={{project.project_id}}>
-			<input type="hidden" id="userEmail" name="userEmail" value="{{outlookUser.EmailAddress}}">
+		<div class="email-editor" contenteditable="true" id="preferred_industry_edit">{{{team.preferred_industry}}}</div><br>
+		<form id="teamUpdateForm" method="POST" action="/{{#isNewTeam}}createteam{{else}}editteam{{/isNewTeam}}">
+			<input type="hidden" id="team_name" name="team_name" value="">
+			<input type="hidden" id="team_summary" name="team_summary" value="">
+			<input type="hidden" id="preferred_industry" name="preferred_industry" value="">
 			{{#unless isNewTeam}}
 				<div id="teamReadyEdit" class="email-editor-title"><b>Team Ready</b></div>
 				<div id="teamReadyEdit" class="email-editor">
-					<input type="checkbox" onchange="teamReadyCheckToggle();" id="teamReady" name="teamReady"> <span>Check this box if your team is ready to be entered into the pool of teams that can be allocated to projects.</span>
+					<input type="checkbox" onchange="teamReadyCheckToggle();" id="team_ready" name="team_ready"> <span>Check this box if your team is ready to be entered into the pool of teams that can be allocated to projects.</span>
 					<div id="teamReadyInfoContent">
 						<p><b>Warning: </b>This setting will immediately take effect after applying changes. Please ensure that the team information you have provided is your final version.</p>
 						<p><b>Important Notice: </b>As part of the Capstone project allocation process it is necessary for QUT staff to provide potential industry partners with information about the members of the student team that they have been allocated.  By submitting the student team information you consent to QUT providing the information present in this Team CV document to the industry partner. In particular, this information may include personal information such as your contact details (e.g. name, email address and phone number). QUT undertakes to provide this information only to the specific industry partner involved in an active project allocation, and all industry partners are required to treat this information confidentially. 
@@ -40,10 +26,10 @@
 				</div><br>
 			{{/unless}}
 			{{#isNewTeam}}
-			<button type="button" onclick="" id='login-sendemail' class='project-block-btn'>Create Team</button>
+			<button type="button" onclick="updateTeam()" id='updateTeamBtn' class='project-block-btn'>Create Team</button>
 			<p>&nbspPlease note that you will be able to make changes to the information provided, after creating the team.</p>
 			{{else}}
-			<button type="button" onclick="" id='login-sendemail' class='project-block-btn'>Apply Changes</button>
+			<button type="button" onclick="updateTeam()" id='updateTeamBtn' class='project-block-btn'>Apply Changes</button>
 			{{/isNewTeam}}
 		</form>
 	</div>

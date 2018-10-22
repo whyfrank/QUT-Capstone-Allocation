@@ -60,3 +60,10 @@ function closeTeamProject() {
 function actionJoinRequest(isApproved, studentId) {
 	getContent(null, 'content', 'action-joinrequest?is_accept=' + isApproved + "&student=" + studentId, false);
 }
+
+function updateTeam() {
+	document.getElementById("team_name").value = document.getElementById("team_name_edit").textContent;
+	document.getElementById("team_summary").value = document.getElementById("team_summary_edit").textContent;
+	document.getElementById("preferred_industry").value = document.getElementById("preferred_industry_edit").textContent;
+	document.getElementById("teamUpdateForm").submit();
+}
