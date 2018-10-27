@@ -4,6 +4,7 @@ var router = express.Router();
 var crypto = require('crypto');
 const HtmlEmail = require('html-email');
 var multer = require('multer');
+var csv_export=require('csv-export');
 
 //custom route for fetching data
 var projects_data = require('../data_access/projects');
@@ -128,7 +129,7 @@ router.get('/allocation-list', async function(req, res, next) {
 /* GET view project-allocation. */
 router.get('/project-allocation', async function(req, res, next) {
 	// Set default settings for allocation
-	var settings = {count: 5, sort: "gpa_skills", strictCourseCombo: false};
+	var settings = {count: 5, sort: "skills", strictCourseCombo: false};
 	if (req.query.id != undefined) {
 		// Set any allocation settings configured by user
 		if (req.query.no_of_matches != undefined) {
@@ -355,7 +356,6 @@ router.get('/proposal', async function(req, res, next) {
 	} else if (session_data.staff_type == "staff"){
 		res.render('staffUpdateProposal', {layout: false, proposal: this.proposal, difficulty: this.difficulty, priority: this.priority, coursecombo: this.coursecombo});
 	}
-//bool: this.bool
 });
 
 /* GET approve_proposal. */
@@ -604,7 +604,20 @@ router.get('/team-list', async function(req, res, next) {
 		this.teams = teams;
 		console.log(teams);
 	})
-  res.render('team-list', {layout: false, teams: this.teams, session_data: session_data, joinTeamEnabled: this.joinTeamEnabled, inTeam: this.inTeam, team: this.team});
+	
+	// If export has been specified, send a .zip file with the CSV export of team data.
+	if (req.query.export != undefined) {
+		csv_export.export(this.teams,function(buffer){
+			res.header("Content-Type", "application/zip");
+			res.send(buffer);
+		});
+	} else {
+		if (session_data.staff_type == 'student') {
+			res.render('team-list', {layout: false, teams: this.teams, session_data: session_data, joinTeamEnabled: this.joinTeamEnabled, inTeam: this.inTeam, team: this.team});
+		} else {
+			res.render('team-list', {layout: false, teams: this.teams, session_data: session_data});
+		}
+	}  
 });
 
 /* GET view students. */
@@ -618,7 +631,26 @@ router.get('/student-list', async function(req, res, next) {
 		this.student = student;
 		console.log(student);
 	})
-  res.render('student-list', {layout: false, students: this.student});
+	
+	// If export has been specified, send a .zip file with the CSV export of student data.
+	if (req.query.export != undefined) {
+		// Strip unnecessary data
+		for (var i = 0; i < this.student.length; i++) {
+			delete this.student[i].students.urls;
+			delete this.student[i].students.other_skills;
+			delete this.student[i].students.password;
+			delete this.student[i].students.password_salt;
+			delete this.student[i].students.goals;
+			delete this.student[i].team.team_summary;
+			delete this.student[i].team.preferred_industry;
+		}
+		csv_export.export(this.student,function(buffer){
+			res.header("Content-Type", "application/zip");
+			res.send(buffer);
+		});
+	} else {
+		res.render('student-list', {layout: false, students: this.student});
+	}
 });
 
 /* GET login. */
@@ -779,23 +811,9 @@ router.post('/updatestaffaccount', async function(req, res, next) {
 
 /* GET Industry Project Proposal Form. */
 router.get('/industryproposal', async function(req, res, next) {
-	// await proposal_data.getDifficulty().then(function (difficulty) {
-	// 	this.difficulty = difficulty;
-	// 	console.log(difficulty);
-	// })
-	//
-	// await proposal_data.getPriority().then(function (priority) {
-	// 	this.priority = priority;
-	// 	console.log(priority);
-	// })
-	//
-	// await proposal_data.getPreferredCourseCombination().then(function (preferredcombination) {
-	// 	this.preferredcombination = preferredcombination;
-	// 	console.log(preferredcombination);
-	// })
+
 	res.render('industryproposal', {layout: false});
 
-  // res.render('industryproposal', {layout: false, difficulty: this.difficulty, priority: this.priority, preferredcombination: this.preferredcombination});
 });
 
 /* POST Industry Project Proposal Form. */

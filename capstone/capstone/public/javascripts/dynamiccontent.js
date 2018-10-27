@@ -117,6 +117,11 @@ function searchStudents(){
   getContent(null, 'students-view', 'student-list?query=' + searchQuery, false);
 }
 
+function exportStudents() {
+	var searchQuery = document.getElementById("student-sch-bar").value;
+	window.open('student-list?export=true&query=' + searchQuery, '_blank');
+}
+
 function getStudentsOnTeams() {
   var radio = document.getElementById("in-team");
   if (radio.checked == true){
@@ -146,6 +151,11 @@ function grabTeamList() {
 function searchTeams(){
   var searchQuery = document.getElementById("team-sch-bar").value;
   getContent(null, 'teams-view', 'team-list?query=' + searchQuery, false);
+}
+
+function exportTeams(){
+  var searchQuery = document.getElementById("team-sch-bar").value;
+  window.open('team-list?export=true&query=' + searchQuery, '_blank');
 }
 
 function getTeamsReady() {

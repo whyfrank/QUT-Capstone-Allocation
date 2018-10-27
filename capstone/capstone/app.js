@@ -62,9 +62,16 @@ hbs.registerHelper('test', function(variable,context){
 // A helper used to determine if a team should be visible within a team-list, in regards to teams
 // that students should NOT be able to register into.
 hbs.registerHelper('teamVisible', function(team, staff_type, context){
-	// If the user is a student, and this team has more than 3 members, then do not display the team.
-	if (team.students_in_teams.length >= capstoneConfiguration.MAX_STUDENTS_PER_TEAM && staff_type == "student") {
-		return context.inverse(this);
+	if (staff_type == "staff") {
+		return context.fn(this);
+	}
+	if (team.students_in_teams != undefined) {
+		// If the user is a student, and this team has more than 3 members, then do not display the team.
+		if (team.students_in_teams.length >= capstoneConfiguration.MAX_STUDENTS_PER_TEAM && staff_type == "student") {
+			return context.inverse(this);
+		} else {
+			return context.fn(this);
+		}
 	} else {
 		return context.fn(this);
 	}
@@ -92,6 +99,18 @@ hbs.registerHelper('deserialize', function(input, context) {
 		results += context.fn(item);
 	});
 	return results;
+});
+
+// A helper used to deserialize a JSON string
+hbs.registerHelper('courseCombination', function(students_in_teams, context) {
+	var course_combination = '';
+	if (students_in_teams != undefined) {
+		students_in_teams.forEach((student) => {
+			// Adds first letter of IT study area to course combination
+			course_combination += student.students.study_area_a.charAt(0);
+		});
+	}
+	return course_combination;
 });
 
 hbs.registerHelper('ifCond', function (v1, operator, v2, options) {
@@ -143,11 +162,11 @@ hbs.registerHelper('project_milestone', function(project,context){
 	}
 	// Awaiting industry partner acceptance
 	else if (project.partner_accepted == 'Pending') {
-		return new hbs.SafeString('AP');
+		return new hbs.SafeString('AA');
 	}
 	// Awaiting team acceptance
 	else if (project.team_accepted == 'Pending') {
-		return new hbs.SafeString('AT');
+		return new hbs.SafeString('AA');
 	}
 	// If none of the above conditions have been met, display an 'E' for error.
 	return new hbs.SafeString('E');

@@ -50,15 +50,19 @@ var studentsSql = "students ON students_in_teams.student_id = students.student_i
 						];
 						var nestedResults = mysql_nest.convertToNested(results, nestingOptions);
 						if (hasQuery) {
+							// If a particular milestone has been unchecked, delete it from the list of projects to show.
 							for (var i = 0; i < nestedResults.length; i++) {
 								console.log(query.not_yet_assigned);
+								if (query.assigned == 'false' && nestedResults[i].allocation_finalized == 1) {
+									delete nestedResults[i];
+								}
 								if (query.declined == 'false' && (nestedResults[i].partner_accepted == 'Declined' || nestedResults[i].team_accepted == 'Declined')) {
 									delete nestedResults[i];
 								}
-								else if (query.assigned == 'false' && (nestedResults[i].partner_accepted == 'Approved' && nestedResults[i].team_accepted == 'Approved')) {
+								else if (query.preliminary_assignment == 'false' && (nestedResults[i].partner_accepted == 'Approved' && nestedResults[i].team_accepted == 'Approved')) {
 									delete nestedResults[i];
 								}
-								else if (query.preliminary_assignment == 'false' && ((nestedResults[i].partner_accepted == 'Pending' || nestedResults[i].team_accepted == 'Pending') && nestedResults[i].allocated_team != null)) {
+								else if (query.awaiting_approval == 'false' && ((nestedResults[i].partner_accepted == 'Pending' || nestedResults[i].team_accepted == 'Pending') && nestedResults[i].allocated_team != null)) {
 									delete nestedResults[i];
 								}
 								else if (query.not_yet_assigned == 'false' && nestedResults[i].allocated_team == null) {
@@ -72,23 +76,6 @@ var studentsSql = "students ON students_in_teams.student_id = students.student_i
 			});
 		});
     };
-
-	// // get all proposals data
-  //   this.getAllProposals = function () {
-	// 	return new Promise(function(resolve, reject) {
-	// 		// initialize database connection
-	// 		connection.init();
-	// 		// calling acquire methods and passing callback method that will be execute query
-	// 		// return response to server
-	// 		connection.acquire(function (err, con) {
-	// 			var options = { sql: projectBareSql + " WHERE liaison_accepted = 'Approved' AND academic_accepted = 'Pending'", nestTables: true };
-	// 			con.query(options, function (err, results, fields) {
-	// 				con.release();
-	// 				resolve(results);
-	// 			});
-	// 		});
-	// 	});
-  //   };
 
   // get all proposals data
     this.getAllProposals = function (staff_type) {
@@ -136,6 +123,23 @@ var studentsSql = "students ON students_in_teams.student_id = students.student_i
 			connection.acquire(function (err, con) {
 				var options = { sql: "UPDATE project SET " + userAccepted + " = ? WHERE project_id = ?", nestTables: true };
 				con.query(options, [state, id], function (err, results, fields) {
+					con.release();
+					resolve(true);
+				});
+			});
+		});
+    };
+	
+	// Finalize an allocation
+    this.finalizeAllocation = function (id) {
+		return new Promise(function(resolve, reject) {
+			// initialize database connection
+			connection.init();
+			// calling acquire methods and passing callback method that will be execute query
+			// return response to server
+			connection.acquire(function (err, con) {
+				var options = { sql: "UPDATE project SET allocation_finalized = 1 WHERE project_id = ?", nestTables: true };
+				con.query(options, [id], function (err, results, fields) {
 					con.release();
 					resolve(true);
 				});
@@ -239,7 +243,7 @@ var studentsSql = "students ON students_in_teams.student_id = students.student_i
 		});
     };
 
-		// Remove a team from a project.
+	// Remove a team from a project.
     this.deallocateProject = function (projectId) {
 		return new Promise(function(resolve, reject) {
 			// initialize database connection

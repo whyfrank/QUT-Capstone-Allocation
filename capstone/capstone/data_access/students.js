@@ -10,9 +10,10 @@ var mysql_nest = require('../connection/mysql_nest');
 function Students() {
 
     // get all users data
-    this.getAllStudents = function (query) {
+    this.getAllStudents = function (query, isExport) {
 
 			var appendedFilters = " ";
+			var selectWildcard = "*";
 			var statusFilter = " ";
 			if (query.query != null) {
 				appendedFilters = appendedFilters + "WHERE students.first_name LIKE '%" + query.query + "%'";
@@ -25,6 +26,12 @@ function Students() {
 			if(query.notJoinedStatus ==1){
 				statusFilter = "WHERE students_in_teams.student_id IS NULL";
 			}
+			
+			if (isExport != undefined) {
+				if (isExport) {
+					selectWildcard = "student_id, first_name, last_name, qut_email, gpa, course_code, course_title, study_area_a, study_area_b, phone";
+				}
+			}
 
 		return new Promise(function(resolve, reject) {
 			// initialize database connection
@@ -32,14 +39,15 @@ function Students() {
 			// calling acquire methods and passing callback method that will be execute query
 			// return response to server
 			connection.acquire(function (err, con) {
-        var options = { sql: 'SELECT * FROM students LEFT JOIN students_in_teams ON students_in_teams.student_id = students.student_id LEFT JOIN team ON students_in_teams.team_id = team.team_id' + appendedFilters + statusFilter, nestTables: true };
+        var options = { sql: 'SELECT ' + selectWildcard + ' FROM students LEFT JOIN students_in_teams ON students_in_teams.student_id = students.student_id LEFT JOIN team ON students_in_teams.team_id = team.team_id' + appendedFilters + statusFilter, nestTables: true };
 				con.query(options, function (err, results, fields) {
-					    var nestingOptions = [
-							{ tableName : 'students', pkey: 'student_id'},
-							{ tableName : 'students_in_teams', pkey: 'student_id', fkeys:[{table:'team',col:'team_id'},{table:'student',col:'student_id'}]},
-							{ tableName : 'team', pkey: 'team_id'}
-						];
-						var nestedResults = mysql_nest.convertToNested(results, nestingOptions);
+					var nestingOptions = [
+						{ tableName : 'students', pkey: 'student_id'},
+						{ tableName : 'students_in_teams', pkey: 'student_id', fkeys:[{table:'team',col:'team_id'},{table:'student',col:'student_id'}]},
+						{ tableName : 'team', pkey: 'team_id'}
+					];
+					var nestedResults = mysql_nest.convertToNested(results, nestingOptions);
+					if (err) { console.log(err) }
 					con.release();
 					resolve(results);
 				});

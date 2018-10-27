@@ -38,15 +38,12 @@
 			<a id="viewteams" onclick="getApp('viewteams')" href='#'><span>Join Team</span></a>
 			<script>var initialPage = 'jointeam'</script>
 		{{/session_data.in_team}}
+	{{/compare}}
 
-
-		{{#compare session_data.staff_type '===' 'staff'}}
+	{{#compare session_data.staff_type '===' 'staff'}}
 		<span class='menu-head'>Teams</span>
 
 		<a id="viewteams" onclick="getApp('viewteams')" href='#'><span>View Teams</span></a>
-
-		{{/compare}}
-
 
 	{{/compare}}
 

@@ -1,19 +1,15 @@
-{{#unless joinTeamEnabled}}
-	{{#compare team '!=' false}}
-		<div class="pending-request-msg">
-			<span>You have a current team join request for {{team.team_name}}. By requesting to join another team, you will cancel your current request.</span>
-		</div>
-		<div class="send-request-confirm" id="send-request-confirm">
-			<h2 id="request-confirm-name"></h2>
-			<p>Are you sure you want to cancel your current request for {{team.team_name}}?</p>
-			<button class="prop-action-btn-ctr" onclick="confirmCancel()" id="cancel-btn">No</button>
-			<button class="prop-action-btn-ctr" onclick="proposalConfirm({{proposal.project_id}})" id="confirm-btn">Yes</button>
-		</div>
-	{{/compare}}
-{{/unless}}
+{{#compare session_data.staff_type '===' 'student'}}
+	{{#unless joinTeamEnabled}}
+		{{#compare team '!=' false}}
+			<div class="pending-request-msg">
+				<span>You have a current team join request for {{team.team_name}}. You must cancel your current request to request to join another team.</span>
+			</div>
+		{{/compare}}
+	{{/unless}}
+{{/compare}}
 
 {{#teams}}
-	{{#compare team_id '!=' ../team.team_id}}
+	<!--{{#compare team_id '!=' ../team.team_id}}-->
 		{{#teamVisible this ../session_data.staff_type}}
 			<div class='project'>
 				<h3>{{team_name}}</h3>
@@ -35,7 +31,7 @@
 					</div>
 					<div class="detail-header">Course Combination:</div>
 					<div class="detail-information">
-						CCII
+						{{courseCombination students_in_teams}}
 					</div>
 					<div class="acceptance-states">
 					</div>
@@ -43,16 +39,14 @@
 
 
 				{{#compare ../session_data.staff_type '===' 'staff'}}
-					<a class='right-link' href='#'>Open Team</a>
+					<a class='right-link' target="_blank" href='teamcv?id={{team_id}}'>Open Team</a>
 				{{/compare}}
 				{{#compare ../session_data.staff_type '===' 'student'}}
 					{{#compare ../team '==' false}}
 						<button class='project-block-btn' onclick='joinTeam({{team_id}})'>Request to join</button>
-					{{else}}
-						<button class='project-block-btn' onclick='confirmJoinTeam("{{team_name}}")'>Cancel Current Request & Request to join</button>
 					{{/compare}}
 				{{/compare}}
 			</div>
 		{{/teamVisible}}
-	{{/compare}}
+	<!--{{/compare}}-->
 {{/teams}}

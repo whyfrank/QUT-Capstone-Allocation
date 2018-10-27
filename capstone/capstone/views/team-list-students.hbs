@@ -1,0 +1,53 @@
+
+{{#unless joinTeamEnabled}}
+	{{#compare team '!=' false}}
+		<div class="pending-request-msg">
+			<span>You have a current team join request for {{team.team_name}}. By requesting to join another team, you will cancel your current request.</span>
+		</div>
+		<div class="send-request-confirm" id="send-request-confirm">
+			<h2 id="request-confirm-name"></h2>
+			<p>Are you sure you want to cancel your current request for {{team.team_name}}?</p>
+			<button class="prop-action-btn-ctr" onclick="confirmCancel()" id="cancel-btn">No</button>
+			<button class="prop-action-btn-ctr" onclick="proposalConfirm({{proposal.project_id}})" id="confirm-btn">Yes</button>
+		</div>
+	{{/compare}}
+{{/unless}}
+
+{{#teams}}
+	{{#compare team_id '!=' ../team.team_id}}
+		{{#teamVisible this ../session_data.staff_type}}
+			<div class='project'>
+				<h3>{{team_name}}</h3>
+				<div class="project-details">
+					<div class="detail-header">Team members:</div>
+					<div class="detail-information">
+						{{#students_in_teams}}
+							{{#if @first}}{{else}},{{/if}}
+							{{#students}}
+								{{first_name}} {{last_name}}
+							{{/students}}
+						{{/students_in_teams}}
+					</div>
+					<br><br>
+					<div class="detail-header">Total members:</div>
+					<div class="detail-information">
+						<!--{{students_in_teams}}-->
+						&nbsp&nbsp&nbsp
+					</div>
+					<div class="detail-header">Course Combination:</div>
+					<div class="detail-information">
+						CCII
+					</div>
+					<div class="acceptance-states">
+					</div>
+				</div>
+
+				{{#compare ../team '==' false}}
+					<button class='project-block-btn' onclick='joinTeam({{team_id}})'>Request to join</button>
+				{{else}}
+					<button class='project-block-btn' onclick='confirmJoinTeam("{{team_name}}")'>Cancel Current Request & Request to join</button>
+				{{/compare}}
+			</div>
+		{{/teamVisible}}
+	{{/compare}}
+{{/teams}}
