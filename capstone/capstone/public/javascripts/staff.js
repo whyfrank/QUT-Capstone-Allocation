@@ -17,6 +17,12 @@ function searchProjects() {
 	grabProjectList();
 }
 
+// Set the project as finalized after team and industry partner has met. Redirect
+// the user to the project list again.
+function finalizeProject(project_id) {
+	getContent(null, 'projects-view', 'finalize-project?id=' + project_id, false);
+}
+
 function searchProjectByMilestone() {
 	var milestones = document.getElementsByName("milestone");
 	var queries = "?";

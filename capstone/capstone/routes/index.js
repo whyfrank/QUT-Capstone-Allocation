@@ -268,6 +268,18 @@ router.get('/project-list', async function(req, res, next) {
   res.render('project-list', {layout: false, projects: this.projects});
 });
 
+/* GET request finalize project. */
+router.get('/finalize-project', async function(req, res, next) {
+	var session_data = req.session;
+	var id = req.query.id;
+
+	await projects_data.finalizeAllocation(id).then(function (result) {
+		this.result = result;
+		console.log(result);
+	})
+  res.redirect('/project-list');
+});
+
 /* GET view project. */
 router.get('/project', async function(req, res, next) {
 	var session_data = req.session;

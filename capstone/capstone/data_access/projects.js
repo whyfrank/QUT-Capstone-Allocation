@@ -53,19 +53,18 @@ var studentsSql = "students ON students_in_teams.student_id = students.student_i
 							// If a particular milestone has been unchecked, delete it from the list of projects to show.
 							for (var i = 0; i < nestedResults.length; i++) {
 								console.log(query.not_yet_assigned);
-								if (query.assigned == 'false' && nestedResults[i].allocation_finalized == 1) {
-									delete nestedResults[i];
-								}
 								if (query.declined == 'false' && (nestedResults[i].partner_accepted == 'Declined' || nestedResults[i].team_accepted == 'Declined')) {
 									delete nestedResults[i];
 								}
-								else if (query.preliminary_assignment == 'false' && (nestedResults[i].partner_accepted == 'Approved' && nestedResults[i].team_accepted == 'Approved')) {
+								else if (query.preliminary_assignment == 'false' && (nestedResults[i].partner_accepted == 'Approved' && nestedResults[i].team_accepted == 'Approved') && nestedResults[i].allocation_finalized != 1) {
 									delete nestedResults[i];
 								}
 								else if (query.awaiting_approval == 'false' && ((nestedResults[i].partner_accepted == 'Pending' || nestedResults[i].team_accepted == 'Pending') && nestedResults[i].allocated_team != null)) {
 									delete nestedResults[i];
 								}
 								else if (query.not_yet_assigned == 'false' && nestedResults[i].allocated_team == null) {
+									delete nestedResults[i];
+								} else if (query.assigned == 'false' && nestedResults[i].allocation_finalized == 1) {
 									delete nestedResults[i];
 								}
 							}

@@ -149,7 +149,7 @@ hbs.registerHelper('project_milestone', function(project,context){
 		return new hbs.SafeString('NA');
 	}
 	// Assigned
-	else if(project.final_allocation == 1) {
+	else if(project.allocation_finalized == 1) {
 		return new hbs.SafeString('A');
 	}
 	// Declined Assignment
