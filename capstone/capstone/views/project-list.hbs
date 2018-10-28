@@ -32,8 +32,8 @@
 			{{/is}}
 			{{#is (project_milestone this) "AA"}}
 				<p>Industry Partner Accepted?
-				<a href='#' onclick="industryAcceptProject({{project_id}}, true)">Yes</a>	
-				<a href='#' onclick="industryAcceptProject({{project_id}}, false)">No</a></p>
+				<a href='#' onclick="industryAccept({{project_id}})">Yes</a>	
+				<a href='#' onclick="industryDecline({{project_id}})">No</a></p>
 			{{/is}}
 		</div>
 		<a class='right-link' href='#' onclick="openProject({{project_id}}, '{{project_name}}')">Open Project</a>

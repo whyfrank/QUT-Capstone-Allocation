@@ -107,8 +107,11 @@ var studentsSql = "students ON students_in_teams.student_id = students.student_i
 		} else if (staffType == "student") {
 			userAccepted = "team_accepted"
 		} else if (staffType == "industry"){
-      userAccepted = "liaison_accepted"
-    }
+			userAccepted = "liaison_accepted"
+		} else if (staffType == "partner") {
+			userAccepted = "partner_accepted"
+		}
+    
 
 		var state = 'Declined';
 		if (isApproved == 'true') {

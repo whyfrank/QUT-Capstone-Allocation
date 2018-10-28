@@ -280,6 +280,31 @@ router.get('/finalize-project', async function(req, res, next) {
   res.redirect('/project-list');
 });
 
+/* GET request industry decline. */
+router.get('/industry-decline', async function(req, res, next) {
+	var session_data = req.session;
+	var id = req.query.id;
+
+	await projects_data.actionProject(id, "false", "partner").then(function (result) {
+		this.result = result;
+		console.log(result);
+	})
+  res.redirect('/project-list');
+});
+
+/* GET request industry decline. */
+router.get('/industry-accept', async function(req, res, next) {
+	var session_data = req.session;
+	var id = req.query.id;
+
+	await projects_data.actionProject(id, "true", "partner").then(function (result) {
+		this.result = result;
+		console.log(result);
+	})
+  res.redirect('/project-list');
+});
+
+
 /* GET view project. */
 router.get('/project', async function(req, res, next) {
 	var session_data = req.session;

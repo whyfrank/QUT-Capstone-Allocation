@@ -23,6 +23,18 @@ function finalizeProject(project_id) {
 	getContent(null, 'projects-view', 'finalize-project?id=' + project_id, false);
 }
 
+// When an industry partner declines a project, the staff can set the project to
+// declined by industry.
+function industryDecline(project_id) {
+	getContent(null, 'projects-view', 'industry-decline?id=' + project_id, false);
+}
+
+// When an industry partner declines a project, the staff can set the project to
+// declined by industry.
+function industryAccept(project_id) {
+	getContent(null, 'projects-view', 'industry-accept?id=' + project_id, false);
+}
+
 function searchProjectByMilestone() {
 	var milestones = document.getElementsByName("milestone");
 	var queries = "?";
