@@ -122,103 +122,83 @@ async function grabAllocatableTeams() {
 	
 	// Push projects that hasn't been allocated into the allocatable projects array.
 	for (var i = 0; i < teams.length; i++) {
+		
 		var team = teams[i];
 		// Only pull teams that are ready
 		if (team.team_ready == 1) {
-			// Combine all unique skill sets
-			var team_skills = [];
-			var team_gpa = 0;
-			var team_min_gpa;
-			var team_max_gpa;
-			var student_names = [];
-			var course_combination = "";
-			
-			var team_students = team.students_in_teams;
-			console.log("Team students - " + team.students_in_teams);
-			
-			// Get information from each student
-			for (var stud_i = 0; stud_i < team_students.length; stud_i++) {
-				var student = team_students[stud_i].students;
-				// Add GPA to total team GPA
-				team_gpa += student.gpa
-				
-				student_names.push(student.first_name + " " + student.last_name);
-				
-				// Adds first letter of IT study area to course combination
-				course_combination += student.study_area_a.charAt(0);
-				
-				// Check if min or max GPA
-				if (student.gpa < team_min_gpa | team_min_gpa == null) {
-					team_min_gpa = student.gpa;
-				} else if (student.gpa > team_max_gpa | team_max_gpa == null) {
-					team_max_gpa = student.gpa;
-				}
-				
-				// Only add skills if the student has skills
-				if (student.student_skills != undefined) {
-					var stud_skills = student.student_skills;
+			// The team must have no project assigned.
+			await projects_data.getTeamProject(team.team_id).then(function (teamProject) {
+				if (teamProject.length < 1) {
+					// Combine all unique skill sets
+					var team_skills = [];
+					var team_gpa = 0;
+					var team_min_gpa;
+					var team_max_gpa;
+					var student_names = [];
+					var course_combination = "";
 					
-					// For each student skill, check if it already exists as a team skill.
-					for (var skill_i = 0; skill_i < stud_skills.length; skill_i++) {
-						var addSkill = true;
-						for (var t_skill_i = 0; t_skill_i < team_skills.length; t_skill_i++) {
-							
-							// Do not add the skill if there is already the same skill in the team skills array.
-							if (team_skills[t_skill_i] == stud_skills[skill_i].skill) {
-								addSkill = false;
-							}
+					var team_students = team.students_in_teams;
+					console.log("Team students - " + team.students_in_teams);
+					
+					// Get information from each student
+					for (var stud_i = 0; stud_i < team_students.length; stud_i++) {
+						var student = team_students[stud_i].students;
+						// Add GPA to total team GPA
+						team_gpa += student.gpa
+						
+						student_names.push(student.first_name + " " + student.last_name);
+						
+						// Adds first letter of IT study area to course combination
+						course_combination += student.study_area_a.charAt(0);
+						
+						// Check if min or max GPA
+						if (student.gpa < team_min_gpa | team_min_gpa == null) {
+							team_min_gpa = student.gpa;
+						} else if (student.gpa > team_max_gpa | team_max_gpa == null) {
+							team_max_gpa = student.gpa;
 						}
 						
-						// Add the skill if the pre-rerequisites were achieved.
-						if (addSkill) {
-							team_skills.push(stud_skills[skill_i].skill);
+						// Only add skills if the student has skills
+						if (student.student_skills != undefined) {
+							var stud_skills = student.student_skills;
+							
+							// For each student skill, check if it already exists as a team skill.
+							for (var skill_i = 0; skill_i < stud_skills.length; skill_i++) {
+								var addSkill = true;
+								for (var t_skill_i = 0; t_skill_i < team_skills.length; t_skill_i++) {
+									
+									// Do not add the skill if there is already the same skill in the team skills array.
+									if (team_skills[t_skill_i] == stud_skills[skill_i].skill) {
+										addSkill = false;
+									}
+								}
+								
+								// Add the skill if the pre-rerequisites were achieved.
+								if (addSkill) {
+									team_skills.push(stud_skills[skill_i].skill);
+								}
+							}
 						}
 					}
+					
+					// Calculate average GPA
+					team_gpa = team_gpa / team_students.length;
+					
+					// Order course acronyms by their first letter
+					course_combination = course_combination.split('');
+					course_combination = course_combination.sort();
+					course_combination = course_combination.join('');
+					
+					allocatableTeams.push({team_id: team.team_id, team_name: team.team_name, team_skills: team_skills, 
+						team_gpa: team_gpa, team_min_gpa: team_min_gpa, team_max_gpa: team_max_gpa, student_names: student_names, 
+						course_combination: course_combination, preferred_industry: team.preferred_industry});
 				}
+				})
 			}
-			
-			// Calculate average GPA
-			team_gpa = team_gpa / team_students.length;
-			
-			// Order course acronyms by their first letter
-			course_combination = course_combination.split('');
-			course_combination = course_combination.sort();
-			course_combination = course_combination.join('');
-			
-			allocatableTeams.push({team_id: team.team_id, team_name: team.team_name, team_skills: team_skills, 
-				team_gpa: team_gpa, team_min_gpa: team_min_gpa, team_max_gpa: team_max_gpa, student_names: student_names, 
-				course_combination: course_combination, preferred_industry: team.preferred_industry});
 		}
-	}
 	
 	return allocatableTeams;
-}
-
-// Export the allocation results into a JSON file.
-// TODO: Can't figure out how to make this not asynchronous. Seems like this generates the JSON file, but somehow stops everything else after with the request.
-async function exportAllocation(allocatableProjects, allocatableTeams) {
-	var allocation = { name: "Team to Project Allocation", timestamp: new Date().getTime(), projects: allocatableProjects, teams: allocatableTeams };
-	
-	var content = JSON.stringify(allocation, null, 4);
-	
-	await fs.writeFile(filePath, content, 'utf8', function (err) {
-		if (err) {
-			return console.log(err);
-		}
-
-		console.log("The allocation JSON file was saved!");
-	}); 
-}
-
-// Import the allocation results from a JSON file.
-async function importAllocation() {
-	if(fs.existsSync(filePath)) {
-	    var allocation = JSON.parse(await fs.readFileSync(filePath, 'utf8'));
-		return allocation;
-	} else {
-		console.log("Local allocation results not found.");
-		return false;
 	}
-}
+
 
 module.exports = new ProjectAssign();

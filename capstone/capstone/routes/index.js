@@ -396,25 +396,47 @@ router.get('/proposal', async function(req, res, next) {
 });
 
 /* GET approve_proposal. */
-router.get('/action_proposal', async function(req, res, next) {
+router.post('/action_proposal', async function(req, res, next) {
 	var session_data = req.session;
-	var id = req.query.id;
-	var state = req.query.state;
+	var id = req.body.id;
+	var state = req.body.state;
 
-	// var proposal={
-  //       // company_name:req.body.companyname,
-	//
-  //   }
+	if (session_data.staff_type != "industry") {
+		var proposal={
+			difficulty:req.body.difficulty,
+			priority:req.body.priority,
+			preferred_course_combination:req.body.preferred_course_combination,
+			repeat_partner:req.body.repeat_partner,
+			academic_needed:req.body.academic_needed,
+			ip_contract_requirement:req.body.ip_contract_requirement,
+			potential_support_level:req.body.potential_support_level,
+			company_type:req.body.company_type,
+			scope_deliverables:req.body.scope_deliverables,
+			notes:req.body.notes,
+			project_output_type:req.body.project_output_type,
+		}
+		
+		
+		console.log(proposal);
 
-	// if staff type is staff
-	// then take the fields from the form and pass to new function
-	// called updateProjectDetails
+		// if staff type is staff
+		// then take the fields from the form and pass to new function
+		// called updateProjectDetails
+		await proposal_data.updateProjectDetails(id, proposal).then(function (outcome) {
+			this.updateOutcome = outcome;
+			console.log(this.updateOutcome);
+		})
+	}
 
 	await projects_data.actionProject(id, state, session_data.staff_type).then(function (outcome) {
 		this.outcome = outcome;
 		console.log(outcome);
 	})
-	res.send("<h3>The project proposal was successfully approved.</h3>");
+	if (state == "true") {
+		res.send("<h3>The project proposal was successfully approved.</h3>");
+	} else {
+		res.send("<h3>The project proposal was successfully declined.</h3>");
+	}
 });
 
 
@@ -716,11 +738,12 @@ router.post('/login', async function(req, res, next) {
 			session_data.first_name = login.first_name;
 			session_data.last_name = login.last_name;
 
-			if (login.staff_type == "Industry Liason"){
+			if (login.staff_type == "Industry Liasion"){
 				session_data.staff_type = "industry";
 			} else {
 				session_data.staff_type = "staff";
 			}
+			console.log(session_data);
 			res.redirect('/');
 		}
 
@@ -778,7 +801,6 @@ router.get('/register', async function(req, res, next) {
 		console.log(skillCategories);
 	})
 
-	// DEPRECATED
 	await register_data.getOptions().then(function (options) {
 		this.options = options;
 		console.log(options);
@@ -848,8 +870,17 @@ router.post('/updatestaffaccount', async function(req, res, next) {
 
 /* GET Industry Project Proposal Form. */
 router.get('/industryproposal', async function(req, res, next) {
+	await skills_data.getSkills().then(function (skills) {
+		this.skills = skills;
+		console.log(skills);
+	})
+	
+	await skills_data.getSkillCategories().then(function (skillCategories) {
+		this.skillCategories = skillCategories;
+		console.log(skillCategories);
+	})
 
-	res.render('industryproposal', {layout: false});
+	res.render('industryproposal', {layout: false, skills: this.skills, skillCategories: this.skillCategories});
 
 });
 
@@ -859,8 +890,10 @@ router.post('/industryproposal', async function(req, res, next) {
         company_name:req.body.companyname,
         project_name:req.body.projectname,
         industry:req.body.industry,
-        description:req.body.description
+        description:req.body.description,
     }
+	
+	proposal.skills = JSON.parse(req.body.skills);
 
   await proposal_data.submitProposal(proposal).then(function (submit) {
       this.submit = submit;
@@ -869,7 +902,7 @@ router.post('/industryproposal', async function(req, res, next) {
     if (submit == false) {
       res.render('industryproposal', {layout: false, submitFailure: true});
     } else {
-      res.redirect('/');
+      res.render('industrysubmitted', {layout: false});
     }
 });
 

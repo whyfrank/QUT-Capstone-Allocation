@@ -127,6 +127,7 @@ function Register() {
 					con.query(options, [studentId, skill], (function(skill){ return function (err, results, fields) {
 						console.log(results);
 						console.log(results.length);
+						// Only add the skill if it does not exist.
 						if (results.length == 0) {
 							console.log(skill);
 							var optionsInsert = { sql: "INSERT INTO student_skills (student_id, skill) VALUES (?, ?)" };

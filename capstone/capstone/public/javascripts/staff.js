@@ -104,8 +104,10 @@ function enableButton(){
 }
 
 // Requests to accept or decline when the user has either confirmed, or declined a proposal.
-function proposalConfirm(id) {
-	getContent(id, 'proposal-wrapper', 'action_proposal', false, '&state=' + isApproved);
+function proposalConfirm(proposal_id) {
+	document.getElementById("id").value = proposal_id;
+	document.getElementById("state").value = isApproved;
+	document.getElementById("proposalUpdateForm").submit();
 }
 
 // Returns the layout to normal if the user decides not to decline the proposal.

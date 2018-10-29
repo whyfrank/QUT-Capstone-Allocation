@@ -35,9 +35,10 @@
 		</div>
 		<div class="proposal-element">
 
-			<form id="testForm" onsubmit="return false;">
+			<form id="proposalUpdateForm" method="POST" action="/action_proposal">
 				<h3>Please Update Below Details</h3>
-
+				<input type="hidden" id="state" name="state" value="false">
+				<input type="hidden" id="id" name="id" value="false">
 				<label for="project_output_type">Project Output Type: </label>
 				<br>
 				<input class="form-field" type="text" placeholder="Project Output Type" id="project_output_type" name="project_output_type" required>
@@ -124,7 +125,7 @@
 				<br>
 				<br>
 
-				<button onclick="enableButton(); accbtn.disabled=false">Confirm</button>
+				<!-- <button onclick="enableButton(); accbtn.disabled=false">Confirm</button> -->
 			</form>
 		</div>
 
@@ -137,7 +138,7 @@
 <div id="prop-action-bar">
 	<!-- <button class="prop-action-btn" type="submit" onclick="proposalDisplayConfirm(true)" id="acc-btn">Accept</button> -->
 
-	<button class="prop-action-btn" type="submit" onclick="proposalDisplayConfirm(true)" disabled="true" id="accbtn">Accept</button>
+	<button class="prop-action-btn" type="submit" onclick="proposalDisplayConfirm(true)" id="accbtn">Accept</button>
 	<button class="prop-action-btn" onclick="proposaldeclineForm()" id="dec-btn">Decline</button>
 
 

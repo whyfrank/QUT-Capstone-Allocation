@@ -15,6 +15,7 @@
 				<!-- <button class="login-button" id="partner" onclick="accountTypeSelect('partner')">Industry Partners</button> -->
 				<button class="login-button" id="staff" onclick="accountTypeSelect('staff')">Staff</button>
 				<p id="register-note">Students can register <a href="/register">here</a></p>
+				<p id="register-note">Are you one of our industry partners? Submit your project proposal <a href="/industryproposal">here</a></p>
 			</div>
 			<form id="login-form" method="POST">
 				<h2 id="login-header">Login</h2>
@@ -26,7 +27,6 @@
 			</form>
 		</div>
 
-		<!-- TODO: Move to separate JS file. -->
 		<script>
 			function accountTypeSelect(accountType) {
 				document.getElementById('account_type').value = accountType;

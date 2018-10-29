@@ -213,7 +213,7 @@ select:invalid {
 	transition: 0.25s;
 }
 
-#submit.login-button {
+#submit.login-button, #submitBtn.login-button {
 	height: 35px;
 	background: #3e6d40;
 }

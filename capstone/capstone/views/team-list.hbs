@@ -12,6 +12,14 @@
 	<!--{{#compare team_id '!=' ../team.team_id}}-->
 		{{#teamVisible this ../session_data.staff_type}}
 			<div class='project'>
+				{{#compare ../session_data.staff_type '===' 'staff'}}
+					{{#compare team_ready '==' 1}}
+						<span class='tag-icon A'>F</span>
+					{{/compare}}
+					{{#compare team_ready '==' 0}}
+						<span class='tag-icon NA'>NF</span>
+					{{/compare}}
+				{{/compare}}
 				<h3>{{team_name}}</h3>
 				<div class="project-details">
 					<div class="detail-header">Team members:</div>

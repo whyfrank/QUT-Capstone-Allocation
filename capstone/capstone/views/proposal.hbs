@@ -7,7 +7,10 @@
 			<button class="prop-action-btn-ctr" onclick="proposalConfirm({{proposal.project_id}})" id="confirm-btn">Confirm</button>
 		</div>
 	</div>
-
+	<form id="proposalUpdateForm" method="POST" action="/action_proposal">
+		<input type="hidden" id="state" name="state" value="false">
+		<input type="hidden" id="id" name="id" value="false">
+	</form>
 	<div id="proposal-content">
 		<div class="proposal-element">
 			<span><b>Title of the proposed project: </b></span><p style="font-size: 20px">{{proposal.project_name}}</p>

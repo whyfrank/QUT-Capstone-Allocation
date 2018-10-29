@@ -1,60 +1,79 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<title>QUT Capstone</title>
+		<title>Propose a project for QUT IT Capstone</title>
 		<link rel='stylesheet' href='/stylesheets/style.css' />
 		<script src="javascripts/alertify.js"></script>
 		<link rel="stylesheet" href="stylesheets/alertify.core.css" />
 		<link rel="stylesheet" href="stylesheets/alertify.default.css" />
+		<link rel='stylesheet' href='/stylesheets/normalize.css' />
+		<script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
 	</head>
 	<body>
-		<div class="proposal-section">
+		<div class="registration-section">
 
 			<form id="proposalForm" action="/industryproposal" method="POST">
-				<h2>Industry Project Proposal Form</h2>
-
-				<label for="companyName">Company Name: </label>
-				<br>
-				<input class="login-field" type="text" placeholder="Enter Company Name" id="companyname" name="companyname" required>
-				<br>
-				<label for="projectName">Project Name: </label>
-				<br>
-				<input class="login-field" type="text" placeholder="Enter Project Name" id="projectname" name="projectname" required>
-				<br>
-				<label for="industry">Industry: </label>
-				<br>
-				<input class="login-field" type="text" placeholder="Enter Industry" id="industry" name="industry" required>
-				<br>
-				<label for="description">Description: </label>
-				<br>
-				<input class="login-field" type="text" placeholder="Enter a Description" id="description" name="description" required>
-				<br>
-
-				<!-- <br>
-				<label for="difficulty">Difficulty: </label>
-				<br>
-				<select name="difficulty" placeholder="Select Difficulty" id="difficulty" required>
-						{{#difficulty}}
-								<option>{{item}}</option>
-						{{/difficulty}}
-				</select>
-				<br> -->
-
-
-
-				<button type="submit" class="login-button" id="submit">Submit Proposal</button>
+				<input type="hidden" name="skills" id="skills">
+				<div class="email-editor-title">Propose a project for QUT IT Capstone</div>
+				<div class="email-editor">
+					<p class="info-paragraph">Company Name</p>
+					<input type="text" placeholder="Enter Company Name" id="companyname" name="companyname" required>
+					<br>
+					<p class="info-paragraph">Project Name</p>
+					<input type="text" placeholder="Enter Project Name" id="projectname" name="projectname" required>
+					<br>
+					<p class="info-paragraph">Industry</p>
+					<input type="text" placeholder="Enter Industry" id="industry" name="industry" required>
+					<br>
+					<p class="info-paragraph">Description</p>
+					<textarea class="registration-freetext-area" rows="10" name="description" required></textarea>
+					<br>
+				</div>
+				<div class="email-editor-title">IT Skillset Requirements</div>
+				<div class="email-editor">
+					<p class="info-paragraph">Select any IT skills which you feel are necessary for students to fulfill the project's requirements:</p>
+					{{#skillCategories}}
+						<h4 class="light-header">{{this.skill_type}}</h4>
+						{{#../skills}}
+							{{#compare ../this.skill_type '==' this.skill_type}}
+								<div class="skill-selector">
+									<p class="skill-name"><b>{{this.skill_name}}</b><br><br>Mandatory&nbsp&nbsp<input id="skill_req_{{@index}}" type="checkbox" value={{this.skill_id}}></p>
+									<input class="skill-checkbox" id="skill_{{@index}}" type="checkbox" value={{this.skill_id}}>
+								</div>
+							{{/compare}}
+						{{/../skills}}
+						<br style="clear: left;">
+					{{/skillCategories}}
+				</div>
+				<button type="button" onclick="submitForm()" class="login-button" id="submitBtn">Submit Proposal</button>
 			</form>
 		</div>
 
+		<script>
+			var noOfSkills = {{skills.length}};
+			
+			function submitForm() {
+				var skills = [];
+				for (var i = 0; i < noOfSkills; i++) {
+					var currentSkill = document.getElementById("skill_" + i);
+					var currentSkillReq = document.getElementById("skill_req_" + i);
+					// Adds a skill to the list of skills if it has been selected
+					if (currentSkill.checked == true) {
+						thisSkill = {skill: currentSkill.value, req: currentSkillReq.checked};
+						skills.push(thisSkill);
+					}
+				}
+				document.getElementById("skills").value = JSON.stringify(skills);
+				document.getElementById("proposalForm").submit();
+			}
 
+		</script>
 
-
-
-			{{#if submitFailure}}
-				<script>
-					alertify.error("Please fill in all fields.");
-				</script>
-			{{/if}}
+		{{#if submitFailure}}
+			<script>
+				alertify.error("Please fill in all fields.");
+			</script>
+		{{/if}}
 
 	</body>
 </html>
