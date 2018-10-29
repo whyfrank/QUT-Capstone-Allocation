@@ -75,6 +75,25 @@ var studentsSql = "students ON students_in_teams.student_id = students.student_i
 			});
 		});
     };
+	
+	// get all projects requiring industry email
+    this.getIndustryEmailActionProjects = function () {
+    return new Promise(function(resolve, reject) {
+      // initialize database connection
+      connection.init();
+      // calling acquire methods and passing callback method that will be execute query
+      // return response to server
+      var sqlquery = "SELECT * FROM project WHERE liaison_accepted = 'Approved' AND academic_accepted = 'Approved' AND partner_accepted = 'Pending' AND allocated_team IS NOT NULL";
+      connection.acquire(function (err, con) {
+        var options = { sql: sqlquery, nestTables: true };
+        con.query(options, function (err, results, fields) {
+          con.release();
+		  console.log(results);
+          resolve(results);
+        });
+      });
+    });
+    };
 
   // get all proposals data
     this.getAllProposals = function (staff_type) {

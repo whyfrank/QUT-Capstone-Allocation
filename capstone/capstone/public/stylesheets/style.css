@@ -240,6 +240,10 @@ select:invalid {
 	transform: scale(1.03);
 }
 
+#sentBtn {
+	display: none;
+}
+
 
 /* Industry Proposal Menu */
 .proposal-section {

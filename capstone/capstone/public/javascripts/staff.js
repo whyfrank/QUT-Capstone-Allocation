@@ -137,10 +137,20 @@ function grabAllocation(projectId) {
 	getContent(null, 'project-information', 'project-allocation' + queries, false);
 }
 
-function allocateTeam(teamId, projectId) {
+function allocateTeam(teamId, projectId, override) {
 	document.getElementById('alloc-finalize').style.display = 'block';
 	var queries = '?teamId=' + teamId + '&projectId=' + projectId;
+	if (override) {
+		queries = queries + "&override=true";
+	}
 	getContent(null, 'alloc-finalize', 'allocation-finalize' + queries, false);
+}
+
+// Sends a manual email to students
+function sendManualEmail(emailRecipients) {
+	window.location.href = "mailto:" + emailRecipients;
+	document.getElementById("sentBtn").style.display = 'block';
+	document.getElementById("overrideBtn").style.display = 'none';
 }
 
 // Displays team deallocation confirmation screen

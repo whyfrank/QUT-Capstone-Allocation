@@ -1,0 +1,39 @@
+<h1 id="app-name">View Projects Involving Industry Emails</h1>
+
+<!-- This is where the main 'app' on the page resides. Will make this update contents by AJAX, rather than reloading entire site. -->
+<div id='app'>
+	<div id='project-information'></div>
+	<div id='projects-section'>
+		{{#projects}}
+			{{#project}}
+				<div class='project'>
+					<span class='tag-icon {{project_milestone this}}'>{{project_milestone this}}</span>
+					<h3>{{company_name}} - {{project_name}}</h3>
+					<div class="project-details">
+						{{#is (project_milestone this) "AA"}}
+							<div class="acceptance-states">
+								<i class="fa fa-square {{team_accepted}}"></i>&nbspTeam Acceptance: {{team_accepted}}&nbsp&nbsp&nbsp
+								<i class="fa fa-square {{partner_accepted}}"></i> Industry Acceptance: {{partner_accepted}}
+							</div>
+						{{/is}}
+						{{#is (project_milestone this) "DA"}}
+							<div class="acceptance-states">
+								<i class="fa fa-square {{team_accepted}}"></i>&nbspTeam Acceptance: {{team_accepted}}&nbsp&nbsp&nbsp
+								<i class="fa fa-square {{partner_accepted}}"></i> Industry Acceptance: {{partner_accepted}}
+							</div>
+						{{/is}}
+						{{#is (project_milestone this) "AA"}}
+							<p>Industry Partner Accepted?
+							<a href='#' onclick="industryAccept({{project_id}})">Yes</a>	
+							<a href='#' onclick="industryDecline({{project_id}})">No</a></p>
+						{{/is}}
+					</div>
+					<a class='right-link' href='#' onclick="openProject({{project_id}}, '{{project_name}}')">Open Project</a>
+					{{#is (project_milestone this) "PA"}}
+						<a class='right-link' href='#' onclick="finalizeProject({{project_id}})">Allocation Finalized?</a>	
+					{{/is}}
+				</div>
+			{{/project}}
+		{{/projects}}
+	</div>
+</div>

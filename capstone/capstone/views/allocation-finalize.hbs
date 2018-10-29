@@ -8,25 +8,13 @@
 		<div id="teamBodyEdit" class="email-editor" contenteditable="true">{{{teamEmail.emailSubject}}}</div><br>
 		<div class="email-editor-title"><b>Body</b> <i class="fa fa-edit"></i></div>
 		<div class="email-editor" contenteditable="true">{{{teamEmail.emailBody}}}</div><br>
-<!-- 		<h2>Email to the industry partner</h2>
-		<div class="email-editor-title"><b>Subject</b> <i class="fa fa-edit"></i></div>
-		<div class="email-editor" contenteditable="true">{{{partnerEmail.emailSubject}}}</div><br>
-		<div class="email-editor-title"><b>Body</b> <i class="fa fa-edit"></i></div>
-		<div class="email-editor" contenteditable="true">{{{partnerEmail.emailBody}}}</div><br>
-		<div></div>
-		<form id="emailSendForm" method="POST" action="/allocation-finalize">
-			<input type="hidden" id="teamSubject" name="teamSubject" value="">
-			<input type="hidden" id="teamBody" name="teamBody" value="">
-			<input type="hidden" id="teamImportance" name="teamImportance" value="Low">
-			<input type="hidden" id="teamId" name="teamId" value={{team.team_id}}>
-			<input type="hidden" id="projectId" name="projectId" value={{project.project_id}}>
-			<input type="hidden" id="userEmail" name="userEmail" value="{{outlookUser.EmailAddress}}">
-			<button type="button" onclick="sendEmails()" id='login-sendemail' class='project-block-btn'>Send Emails</button>
-		</form> -->
 	{{else}}
 		<p>You need to be signed into a Microsoft account to proceed to the next step.</p>
 		<p id='continue-message' style="display: none">Once you have successfully signed in on the pop-up window, please click Continue.</p>
 		<button id='login-msft' class='project-block-btn' onclick='microsoftAuthenticateAlloc("{{outlook_authenticate}}")'>Login here</button>
-		<button id='login-next' class='project-block-btn' onclick='allocateTeam({{team.team_id}}, {{project.project_id}})'>Continue</button>
+		<button id='login-next' class='project-block-btn' onclick='allocateTeam({{team.team_id}}, {{project.project_id}}, false)'>Continue</button>
 	{{/if}}
+	<p>You can also override this step by sending a manual email through your preferred email client.</p>
+	<button id='overrideBtn' class='project-block-btn' onclick='sendManualEmail("{{#team.students_in_teams}}{{students.qut_email}},{{/team.students_in_teams}}")'>Send Manual Email</button>
+	<button id='sentBtn' class='project-block-btn' onclick='allocateTeam({{team.team_id}}, {{project.project_id}}, true)'>Sent?</button>
 </div>

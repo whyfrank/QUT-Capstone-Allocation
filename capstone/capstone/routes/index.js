@@ -155,34 +155,39 @@ router.get('/project-allocation', async function(req, res, next) {
 /* GET allocation finalize */
 router.get('/allocation-finalize', async function(req, res, next) {
 	var session_data = req.session;
-	var isAuthorized = false;
-	var isError = true;
-	if (req.session.token != undefined) {
-		isAuthorized = true;
-		await outlook_actions.getUser(req.session.token).then(function (user) {
-			this.outlookUser = user;
-			console.log(outlookUser);
-		})
-		console.log(outlookUser);
-	}
-	var outlook_authenticate = await outlook_auth.getAuthUrl();
-	if (req.query.projectId != undefined) {
-		await projects_data.getProject(req.query.projectId).then(function (project) {
-			this.project = project[0];
-		})
-		if (req.query.teamId != undefined) {
-			await teams_data.getTeam(req.query.teamId, false).then(function (team) {
-				this.team = team[0];
-				console.log(team);
+	if (req.query.override == undefined) {
+		var isAuthorized = false;
+		var isError = true;
+		if (req.session.token != undefined) {
+			isAuthorized = true;
+			await outlook_actions.getUser(req.session.token).then(function (user) {
+				this.outlookUser = user;
+				console.log(outlookUser);
 			})
-
-			this.teamEmail = await emails.generateTeamEmail(project.project_name + " - " + project.company_name, team.team_name);
-			this.partnerEmail = await emails.generatePartnerEmail();
+			console.log(outlookUser);
 		}
-	}
+		var outlook_authenticate = await outlook_auth.getAuthUrl();
+		if (req.query.projectId != undefined) {
+			await projects_data.getProject(req.query.projectId).then(function (project) {
+				this.project = project[0];
+			})
+			if (req.query.teamId != undefined) {
+				await teams_data.getTeam(req.query.teamId, false).then(function (team) {
+					this.team = team[0];
+					console.log(team);
+				})
 
-	res.render('allocation-finalize', {layout: false, isAuthorized: isAuthorized, outlook_authenticate: outlook_authenticate,
-				project: project, team: team, outlookUser: this.outlookUser, teamEmail: this.teamEmail, partnerEmail: this.partnerEmail});
+				this.teamEmail = await emails.generateTeamEmail(project.project_name + " - " + project.company_name, team.team_name);
+				this.partnerEmail = await emails.generatePartnerEmail();
+			}
+		}
+
+		res.render('allocation-finalize', {layout: false, isAuthorized: isAuthorized, outlook_authenticate: outlook_authenticate,
+					project: project, team: team, outlookUser: this.outlookUser, teamEmail: this.teamEmail, partnerEmail: this.partnerEmail});
+	} else {
+		projects_data.allocateProject(req.query.teamId, req.query.projectId);
+		res.render('allocation-finalized', {layout: false, project: project, team: team, isSuccessful: true});
+	}
 });
 
 /* GET preview student email. */
@@ -193,7 +198,7 @@ router.post('/allocation-finalize', async function(req, res, next) {
 	this.teamSubject = req.body.teamSubject;
 	this.teamImportance = req.body.teamImportance;
 	this.userEmail = req.body.userEmail;
-	this.isSuccessful = true; //TODO: Check with actual values
+	this.isSuccessful = true;
 
 	await teams_data.getTeam(req.body.teamId, false).then(function (team) {
 		this.team = team[0];
@@ -212,7 +217,7 @@ router.post('/allocation-finalize', async function(req, res, next) {
 	var result = await outlook_actions.sendMail(token, teamSubject, teamImportance, teamBody, teamEmails, userEmail);
 
 	projects_data.allocateProject(team.team_id, project.project_id);
-	res.render('allocation-finalized', {layout: false, project: project, team: team, isSuccessful, isSuccessful});
+	res.render('allocation-finalized', {layout: false, project: project, team: team, isSuccessful: isSuccessful});
 });
 
 /* GET preview student email. */
@@ -308,7 +313,7 @@ router.get('/industry-accept', async function(req, res, next) {
 /* GET view project. */
 router.get('/project', async function(req, res, next) {
 	var session_data = req.session;
-	if (req.session.staff_type == "staff") {
+	if (req.session.staff_type != "student") {
 		this.id = req.query.id;
 
 		await projects_data.getProject(this.id).then(function (project) {
@@ -437,6 +442,16 @@ router.post('/action_proposal', async function(req, res, next) {
 	} else {
 		res.send("<h3>The project proposal was successfully declined.</h3>");
 	}
+});
+
+/* GET Industry Email Projects */
+router.get('/industryemails', async function(req, res, next) {
+	await projects_data.getIndustryEmailActionProjects().then(function (projects) {
+		this.projects = projects;
+		console.log(projects);
+	})
+  res.render('industryemails', {layout: false, projects: this.projects});
+
 });
 
 

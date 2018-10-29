@@ -3,9 +3,11 @@
 		{{#compare session_data.staff_type '===' 'staff'}}
 			<span>{{project.company_name}} - {{project.project_name}}</span>
 		{{else}}
-			<span>{{project.company_name}} - {{project.project_name}}</span>
-			<button onclick="actionAllocation(false)" class='project-block-btn delete'>Decline Allocation</button>
-			<button onclick="actionAllocation(true)" class='project-block-btn edit'>Accept Allocation</button>
+			{{#compare session_data.staff_type '===' 'student'}}
+				<span>{{project.company_name}} - {{project.project_name}}</span>
+				<button onclick="actionAllocation(false)" class='project-block-btn delete'>Decline Allocation</button>
+				<button onclick="actionAllocation(true)" class='project-block-btn edit'>Accept Allocation</button>
+			{{/compare}}
 		{{/compare}}
 	</div>
 	{{#compare session_data.staff_type '===' 'staff'}}
